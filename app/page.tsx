@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { db } from '@/lib/db';
 import { BookOpen, Sparkles, Music, UserCheck, Play, ArrowRight, Search, HeartHandshake, Mic } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function getHomeData() {
   try {
     const [bhajans, dhuns, authors, settings] = await Promise.all([

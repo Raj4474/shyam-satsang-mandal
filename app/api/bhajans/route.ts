@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 export async function GET(request: Request) {
   try {
@@ -60,6 +61,10 @@ export async function POST(request: Request) {
       },
       include: { author: true },
     });
+
+    revalidatePath('/', 'layout');
+    revalidatePath('/bhajans');
+    revalidatePath('/authors');
 
     return NextResponse.json(bhajan, { status: 201 });
   } catch (error: any) {

@@ -3,6 +3,9 @@ import { db } from '@/lib/db';
 import Link from 'next/link';
 import { UserCheck, Sparkles, Music, ArrowRight } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function getAuthorsData() {
   try {
     const authors = await db.author.findMany({

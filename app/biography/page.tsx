@@ -2,6 +2,9 @@ import React from 'react';
 import { db } from '@/lib/db';
 import { BookOpen, Calendar, Quote } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function getBiographyData() {
   try {
     const sections = await db.biographySection.findMany({

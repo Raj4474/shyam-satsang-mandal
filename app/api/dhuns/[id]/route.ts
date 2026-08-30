@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -44,6 +45,11 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
       include: { author: true },
     });
 
+    revalidatePath('/', 'layout');
+    revalidatePath('/dhuns');
+    revalidatePath(`/dhuns/${dhun.slug}`);
+    revalidatePath('/authors');
+
     return NextResponse.json(dhun);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -54,6 +60,11 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   try {
     const { id } = await params;
     await db.dhun.delete({ where: { id } });
+
+    revalidatePath('/', 'layout');
+    revalidatePath('/dhuns');
+    revalidatePath('/authors');
+
     return NextResponse.json({ success: true });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

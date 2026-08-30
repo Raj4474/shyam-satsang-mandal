@@ -4,6 +4,9 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Sparkles, Music, BookOpen, ArrowRight } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function getAuthorDetail(slug: string) {
   try {
     const author = await db.author.findFirst({

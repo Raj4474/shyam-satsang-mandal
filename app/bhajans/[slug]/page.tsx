@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { BhajanReader } from '@/components/bhajan/BhajanReader';
 import { ArrowLeft, Sparkles, ArrowRight } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function getBhajan(slug: string) {
   try {
     const bhajan = await db.bhajan.findFirst({
