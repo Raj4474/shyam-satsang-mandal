@@ -174,7 +174,7 @@ export default function ManageAuthorsPage() {
                     value={form.gujaratiName}
                     onChange={(e) => setForm({ ...form, gujaratiName: e.target.value })}
                     className="w-full p-3 rounded-xl border border-saffron-500/30 bg-white"
-                    placeholder="દા.ત. ગંગાસતી"
+                    placeholder="દા.ત. કવિ રમેશ / સંત કબીર"
                   />
                 </div>
 

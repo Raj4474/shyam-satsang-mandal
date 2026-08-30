@@ -35,7 +35,7 @@ export default async function BhajansPage() {
         </div>
         <h1 className="text-3xl sm:text-5xl font-extrabold text-maroon-950">ગુજરાતી ભજનો</h1>
         <p className="text-maroon-800/80 text-base max-w-2xl mx-auto leading-relaxed">
-          ગંગાસતી, પાનબાઈ, અમેશ કાંકદ, શામજીબાપા અને અન્ય સંતોના ભજનો વાંચો અને સાંભળો.
+          શામજીબાપા, સંત કબીર, મહાત્મા રવિરામ અને પવિત્ર સંતોના ભજનો.
         </p>
       </div>
 

@@ -126,7 +126,7 @@ export default async function HomePage() {
             <div>
               <h3 className="text-2xl font-bold text-maroon-950 mb-3">ભજન</h3>
               <p className="text-maroon-800/80 text-sm leading-relaxed mb-6">
-                ગંગાસતી, પાનબાઈ અને અન્ય સંતોના ભજનોનો સંગ્રહ તથા શબ્દો.
+                સંતવાણી પદો અને સદ્ગુરુ વાણીનો પવિત્ર સંગ્રહ.
               </p>
             </div>
             <Link

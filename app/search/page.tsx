@@ -53,7 +53,7 @@ export default function SearchPage() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="દા.ત. ગંગાસતી, મેરુ તો ડગે, શ્રી કૃષ્ણ..."
+            placeholder="દા.ત. શામજીબાપા, સંત કબીર, સંતો સત્તશબ્દ..."
             className="w-full pl-12 pr-10 py-3.5 rounded-2xl bg-cream-50 border-2 border-saffron-500/30 focus:border-saffron-600 focus:outline-none text-base text-maroon-950 shadow-sm font-medium"
           />
           {loading && <Loader2 className="absolute right-4 top-4 w-5 h-5 text-saffron-600 animate-spin" />}

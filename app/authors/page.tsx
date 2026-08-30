@@ -6,6 +6,13 @@ import { UserCheck, Sparkles, Music, ArrowRight } from 'lucide-react';
 async function getAuthorsData() {
   try {
     const authors = await db.author.findMany({
+      where: {
+        OR: [
+          { bhajans: { some: {} } },
+          { dhuns: { some: {} } },
+          { slug: 'shyamjibapa' },
+        ],
+      },
       include: {
         _count: { select: { bhajans: true, dhuns: true } },
       },
@@ -31,7 +38,7 @@ export default async function AuthorsPage() {
         </div>
         <h1 className="text-3xl sm:text-5xl font-extrabold text-maroon-950">સંતો અને કવિયીત્રીઓ</h1>
         <p className="text-maroon-800/80 text-base max-w-2xl mx-auto leading-relaxed">
-          ગંગાસતી, પાનબાઈ, અમેશ કાંકદ, શામજીબાપા અને અન્યોની આધ્યાત્મિક જીવન કથા અને રચનાઓ.
+          શામજીબાપા, સંત કબીર, મહાત્મા રવિરામ, બાપુ ઘસુારામ અને પવિત્ર સંતોની સંતવાણી રચનાઓ.
         </p>
       </div>
 
