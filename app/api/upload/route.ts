@@ -1,9 +1,15 @@
 import { NextResponse } from 'next/server';
 import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
+import { verifyAdminRequest } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {
+    const isAdmin = await verifyAdminRequest(request);
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'માત્ર એડમિન જ ઈમેજ અપલોડ કરી શકે છે (Unauthorized: Admin approval required)' }, { status: 401 });
+    }
+
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
 

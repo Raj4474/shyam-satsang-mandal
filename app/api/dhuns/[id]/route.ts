@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
+import { verifyAdminRequest } from '@/lib/auth';
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -24,6 +25,11 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const isAdmin = await verifyAdminRequest(request);
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'માત્ર એડમિન જ ફેરફાર કરી શકે છે (Unauthorized: Admin approval required)' }, { status: 401 });
+    }
+
     const { id } = await params;
     const body = await request.json();
 
@@ -58,6 +64,11 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const isAdmin = await verifyAdminRequest(request);
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'માત્ર એડમિન જ ડીલીટ કરી શકે છે (Unauthorized: Admin approval required)' }, { status: 401 });
+    }
+
     const { id } = await params;
     await db.dhun.delete({ where: { id } });
 
