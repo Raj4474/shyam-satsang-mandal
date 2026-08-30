@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Author {
+  id           String    @id @default(cuid())
+  name         String
+  gujaratiName String
+  slug         String    @unique
+  profileImage String?
+  shortBio     String?
+  fullBio      String?
+  birthInfo    String?
+  tags         String?
+  featured     Boolean   @default(false)
+  bhajans      Bhajan[]
+  dhuns        Dhun[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Bhajan {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  authorId    String?
+  author      Author?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  category    String?   @default("સંતવાણી")
+  description String?
+  lyrics      String
+  audioUrl    String?
+  pdfUrl      String?
+  coverImage  String?
+  featured    Boolean   @default(false)
+  status      String    @default("PUBLISHED")
+  publishedAt DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Dhun {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  authorId    String?
+  author      Author?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  description String?
+  lyrics      String?
+  audioUrl    String?
+  videoUrl    String?
+  pdfUrl      String?
+  coverImage  String?
+  featured    Boolean   @default(false)
+  status      String    @default("PUBLISHED")
+  publishedAt DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model BiographySection {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  content   String
+  type      String   @default("TEXT") // TEXT, IMAGE, GALLERY, TIMELINE, QUOTE, VIDEO, AUDIO
+  mediaUrl  String?
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MediaItem {
+  id        String   @id @default(cuid())
+  filename  String
+  url       String
+  type      String   @default("IMAGE") // IMAGE, AUDIO, PDF, VIDEO
+  size      Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model SiteSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
