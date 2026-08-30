@@ -102,7 +102,7 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="એડમિન પાસવર્ડ દાખલ કરો (Default: 123456)"
+                  placeholder="એડમિન પાસવર્ડ દાખલ કરો"
                   className="w-full pl-11 pr-4 py-3 rounded-xl border border-saffron-500/30 focus:border-saffron-600 focus:outline-none text-sm text-maroon-950 font-bold bg-white"
                   required
                 />
