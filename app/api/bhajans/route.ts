@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { verifyAdminRequest } from '@/lib/auth';
+import { generateSlug } from '@/lib/slug';
 
 export async function GET(request: Request) {
   try {
@@ -10,13 +11,18 @@ export async function GET(request: Request) {
     const authorId = searchParams.get('authorId');
     const category = searchParams.get('category');
     const featured = searchParams.get('featured');
+    const limitParam = searchParams.get('limit');
+    const skipParam = searchParams.get('skip');
+
+    const limit = limitParam ? parseInt(limitParam) : undefined;
+    const skip = skipParam ? parseInt(skipParam) : undefined;
 
     const where: any = {};
     if (query) {
       where.OR = [
-        { title: { contains: query } },
-        { lyrics: { contains: query } },
-        { description: { contains: query } },
+        { title: { contains: query, mode: 'insensitive' } },
+        { lyrics: { contains: query, mode: 'insensitive' } },
+        { description: { contains: query, mode: 'insensitive' } },
       ];
     }
     if (authorId) where.authorId = authorId;
@@ -26,11 +32,14 @@ export async function GET(request: Request) {
     const bhajans = await db.bhajan.findMany({
       where,
       include: { author: true },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { sortOrder: 'asc' },
+      ...(limit ? { take: limit } : {}),
+      ...(skip ? { skip } : {}),
     });
 
     return NextResponse.json(bhajans);
   } catch (error: any) {
+    console.error('Bhajans GET error:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
@@ -39,22 +48,22 @@ export async function POST(request: Request) {
   try {
     const isAdmin = await verifyAdminRequest(request);
     if (!isAdmin) {
-      return NextResponse.json({ error: 'માત્ર એડમિન જ નવું ભજન ઉમેરી શકે છે (Unauthorized: Admin approval required)' }, { status: 401 });
+      return NextResponse.json({ error: 'માત્ર એડમિન જ નવું ભજન ઉમેરી શકે છે' }, { status: 401 });
     }
 
     const body = await request.json();
-    const { title, slug, authorId, category, description, lyrics, audioUrl, pdfUrl, coverImage, featured, status } = body;
+    const { title, slug, authorId, category, description, lyrics, audioUrl, pdfUrl, coverImage, featured, status, sortOrder } = body;
 
     if (!title || !lyrics) {
       return NextResponse.json({ error: 'Title and lyrics are required' }, { status: 400 });
     }
 
-    const generatedSlug = slug || title.toLowerCase().replace(/[^a-z0-9\u0A80-\u0AFF]+/g, '-').replace(/^-|-$/g, '') || `bhajan-${Date.now()}`;
+    const finalSlug = slug && slug.trim() !== '' ? slug.trim() : generateSlug(title, 'bhajan');
 
     const bhajan = await db.bhajan.create({
       data: {
         title,
-        slug: generatedSlug,
+        slug: finalSlug,
         authorId: authorId || null,
         category: category || 'સંતવાણી',
         description,
@@ -63,6 +72,7 @@ export async function POST(request: Request) {
         pdfUrl,
         coverImage,
         featured: Boolean(featured),
+        sortOrder: sortOrder !== undefined ? parseInt(sortOrder) : 0,
         status: status || 'PUBLISHED',
       },
       include: { author: true },
@@ -74,6 +84,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(bhajan, { status: 201 });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error('Bhajans POST error:', error);
+    return NextResponse.json({ error: error.message || 'ભજન સેવ કરવામાં ભૂલ થઈ' }, { status: 500 });
   }
 }

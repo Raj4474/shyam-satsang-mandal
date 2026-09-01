@@ -22,6 +22,9 @@ model Author {
   dhuns        Dhun[]
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([featured])
 }
 
 model Bhajan {
@@ -42,6 +45,12 @@ model Bhajan {
   publishedAt DateTime  @default(now())
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([authorId])
+  @@index([status])
+  @@index([sortOrder])
+  @@index([featured])
 }
 
 model Dhun {
@@ -61,6 +70,11 @@ model Dhun {
   publishedAt DateTime  @default(now())
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([authorId])
+  @@index([status])
+  @@index([featured])
 }
 
 model BiographySection {
@@ -74,6 +88,10 @@ model BiographySection {
   published Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([published])
+  @@index([sortOrder])
 }
 
 model MediaItem {

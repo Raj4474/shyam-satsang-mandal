@@ -30,6 +30,7 @@ export interface Bhajan {
   pdfUrl?: string | null;
   coverImage?: string | null;
   featured: boolean;
+  sortOrder?: number;
   status: 'DRAFT' | 'PUBLISHED' | string;
   publishedAt?: Date | string;
   createdAt?: Date | string;
@@ -49,6 +50,7 @@ export interface Dhun {
   pdfUrl?: string | null;
   coverImage?: string | null;
   featured: boolean;
+  sortOrder?: number;
   status: 'DRAFT' | 'PUBLISHED' | string;
   publishedAt?: Date | string;
   createdAt?: Date | string;
