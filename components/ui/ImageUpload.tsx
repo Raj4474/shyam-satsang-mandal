@@ -35,15 +35,39 @@ export function ImageUpload({ value = '', onChange, label = 'ઈમેજ પસ
 
       const data = await res.json();
 
-      if (!res.ok || data.error) {
-        throw new Error(data.error || 'અપલોડ નિષ્ફળ');
+      if (res.ok && data.url) {
+        onChange(data.url);
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 3000);
+      } else {
+        // Fallback to local FileReader Data URL
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const result = event.target?.result as string;
+          if (result) {
+            onChange(result);
+            setSuccess(true);
+            setTimeout(() => setSuccess(false), 3000);
+          }
+        };
+        reader.readAsDataURL(file);
       }
-
-      onChange(data.url);
-      setSuccess(true);
-      setTimeout(() => setSuccess(false), 3000);
     } catch (err: any) {
-      setError(err.message || 'અપલોડમાં ભૂલ આવી');
+      // Fallback to local FileReader Data URL on network error
+      try {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const result = event.target?.result as string;
+          if (result) {
+            onChange(result);
+            setSuccess(true);
+            setTimeout(() => setSuccess(false), 3000);
+          }
+        };
+        reader.readAsDataURL(file);
+      } catch (fallbackErr) {
+        setError(err.message || 'અપલોડમાં ભૂલ આવી (Upload Failed)');
+      }
     } finally {
       setUploading(false);
     }

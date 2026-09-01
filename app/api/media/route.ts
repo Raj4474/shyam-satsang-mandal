@@ -38,15 +38,22 @@ export async function POST(request: Request) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
+    const mimeType = file.type || 'image/jpeg';
+    const base64 = buffer.toString('base64');
+    let url = `data:${mimeType};base64,${base64}`;
 
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-    await mkdir(uploadsDir, { recursive: true });
+    try {
+      const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+      await mkdir(uploadsDir, { recursive: true });
 
-    const safeFilename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    const filePath = path.join(uploadsDir, safeFilename);
-    await writeFile(filePath, buffer);
+      const safeFilename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+      const filePath = path.join(uploadsDir, safeFilename);
+      await writeFile(filePath, buffer);
+      url = `/uploads/${safeFilename}`;
+    } catch (fsError) {
+      console.warn('Filesystem write failed for media, using Data URL fallback:', fsError);
+    }
 
-    const url = `/uploads/${safeFilename}`;
     let type = 'IMAGE';
     if (file.type.startsWith('audio/')) type = 'AUDIO';
     else if (file.type === 'application/pdf') type = 'PDF';

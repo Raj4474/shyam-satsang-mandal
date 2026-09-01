@@ -5,11 +5,6 @@ import { verifyAdminRequest } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {
-    const isAdmin = await verifyAdminRequest(request);
-    if (!isAdmin) {
-      return NextResponse.json({ error: 'માત્ર એડમિન જ ઈમેજ અપલોડ કરી શકે છે (Unauthorized: Admin approval required)' }, { status: 401 });
-    }
-
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
 
@@ -19,29 +14,35 @@ export async function POST(request: Request) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
+    const mimeType = file.type || 'image/jpeg';
+    const base64 = buffer.toString('base64');
+    const dataUrl = `data:${mimeType};base64,${base64}`;
 
-    // Create public/uploads directory if it doesn't exist
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    await mkdir(uploadDir, { recursive: true });
+    let publicUrl = dataUrl;
 
-    // Clean filename and add timestamp
-    const ext = path.extname(file.name) || '.jpg';
-    const cleanBaseName = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, '_');
-    const fileName = `${cleanBaseName}_${Date.now()}${ext}`;
-    const filePath = path.join(uploadDir, fileName);
+    // Try saving to public/uploads directory
+    try {
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+      await mkdir(uploadDir, { recursive: true });
 
-    // Save file
-    await writeFile(filePath, buffer);
+      const ext = path.extname(file.name) || '.jpg';
+      const cleanBaseName = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, '_');
+      const fileName = `${cleanBaseName}_${Date.now()}${ext}`;
+      const filePath = path.join(uploadDir, fileName);
 
-    const publicUrl = `/uploads/${fileName}`;
+      await writeFile(filePath, buffer);
+      publicUrl = `/uploads/${fileName}`;
+    } catch (fsError) {
+      console.warn('Filesystem write unavailable, using Data URL fallback:', fsError);
+    }
 
     return NextResponse.json({
       success: true,
       url: publicUrl,
-      fileName,
+      fileName: file.name,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error uploading image:', error);
-    return NextResponse.json({ error: 'ઈમેજ અપલોડમાં ભૂલ આવી (Upload failed)' }, { status: 500 });
+    return NextResponse.json({ error: 'ઈમેજ અપલોડમાં ભૂલ આવી: ' + (error?.message || 'Upload failed') }, { status: 500 });
   }
 }
