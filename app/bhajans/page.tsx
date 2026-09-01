@@ -12,7 +12,7 @@ async function getBhajansData() {
       db.bhajan.findMany({
         where: { status: 'PUBLISHED' },
         include: { author: true },
-        orderBy: { createdAt: 'desc' },
+        orderBy: { sortOrder: 'asc' },
       }),
       db.author.findMany({
         orderBy: { gujaratiName: 'asc' },

@@ -37,6 +37,7 @@ model Bhajan {
   pdfUrl      String?
   coverImage  String?
   featured    Boolean   @default(false)
+  sortOrder   Int       @default(0)
   status      String    @default("PUBLISHED")
   publishedAt DateTime  @default(now())
   createdAt   DateTime  @default(now())
