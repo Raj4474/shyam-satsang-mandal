@@ -39,7 +39,7 @@ export default async function AuthorsPage() {
           <UserCheck className="w-4 h-4 text-saffron-600" />
           <span>સંત પરિચય અને રચયિતાઓ</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-maroon-950">સંતો અને કવિયીત્રીઓ</h1>
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-maroon-950">મહાન સંતો</h1>
         <p className="text-maroon-800/80 text-base max-w-2xl mx-auto leading-relaxed">
           શામજીબાપા, સંત કબીર, મહાત્મા રવિરામ, બાપુ ઘસુારામ અને પવિત્ર સંતોની સંતવાણી રચનાઓ.
         </p>

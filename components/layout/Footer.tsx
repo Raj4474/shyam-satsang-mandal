@@ -44,7 +44,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/authors" className="hover:text-saffron-400 transition flex items-center gap-1.5">
-                  <span>•</span> સંતો અને કવિયીત્રીઓ
+                  <span>•</span> મહાન સંતો
                 </Link>
               </li>
               <li>

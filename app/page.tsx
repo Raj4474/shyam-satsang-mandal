@@ -234,7 +234,7 @@ export default async function HomePage() {
       <section className="bg-maroon-950 text-cream-100 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gold-400">મહાન સંતો અને કવિયીત્રીઓ</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gold-400">મહાન સંતો</h2>
             <p className="text-cream-300/70 text-sm mt-1">જેમના દિવ્ય પદોથી ગુજરાતી સાહિત્ય સમૃદ્ધ થયું છે</p>
           </div>
 
