@@ -123,11 +123,11 @@ export default function WebsiteSettingsPage() {
       </div>
 
       {/* Category Tabs */}
-      <div className="flex flex-wrap gap-2 border-b border-saffron-500/20 pb-2">
+      <div className="flex overflow-x-auto no-scrollbar gap-2 border-b border-saffron-500/20 pb-2.5">
         <button
           type="button"
           onClick={() => setActiveTab('home')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap flex-shrink-0 transition ${
             activeTab === 'home'
               ? 'bg-maroon-950 text-gold-400 shadow-sm'
               : 'bg-cream-100 text-maroon-950 hover:bg-gold-500/20'
@@ -140,7 +140,7 @@ export default function WebsiteSettingsPage() {
         <button
           type="button"
           onClick={() => setActiveTab('about')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap flex-shrink-0 transition ${
             activeTab === 'about'
               ? 'bg-maroon-950 text-gold-400 shadow-sm'
               : 'bg-cream-100 text-maroon-950 hover:bg-gold-500/20'
@@ -153,7 +153,7 @@ export default function WebsiteSettingsPage() {
         <button
           type="button"
           onClick={() => setActiveTab('pages')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap flex-shrink-0 transition ${
             activeTab === 'pages'
               ? 'bg-maroon-950 text-gold-400 shadow-sm'
               : 'bg-cream-100 text-maroon-950 hover:bg-gold-500/20'
@@ -166,7 +166,7 @@ export default function WebsiteSettingsPage() {
         <button
           type="button"
           onClick={() => setActiveTab('contact')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap flex-shrink-0 transition ${
             activeTab === 'contact'
               ? 'bg-maroon-950 text-gold-400 shadow-sm'
               : 'bg-cream-100 text-maroon-950 hover:bg-gold-500/20'
