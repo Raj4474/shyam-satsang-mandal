@@ -8,28 +8,38 @@ export const revalidate = 0;
 
 async function getAuthorsData() {
   try {
-    const authors = await db.author.findMany({
-      where: {
-        OR: [
-          { bhajans: { some: {} } },
-          { dhuns: { some: {} } },
-          { slug: 'shyamjibapa' },
-        ],
-      },
-      include: {
-        _count: { select: { bhajans: true, dhuns: true } },
-      },
-      orderBy: { gujaratiName: 'asc' },
-    });
-    return authors;
+    const [authors, settings] = await Promise.all([
+      db.author.findMany({
+        where: {
+          OR: [
+            { bhajans: { some: {} } },
+            { dhuns: { some: {} } },
+            { slug: 'shyamjibapa' },
+          ],
+        },
+        include: {
+          _count: { select: { bhajans: true, dhuns: true } },
+        },
+        orderBy: { gujaratiName: 'asc' },
+      }),
+      db.siteSetting.findMany(),
+    ]);
+
+    const settingsMap: Record<string, string> = {};
+    settings.forEach((s) => (settingsMap[s.key] = s.value));
+
+    return { authors, settingsMap };
   } catch (error) {
     console.error('Error fetching authors:', error);
-    return [];
+    return { authors: [], settingsMap: {} };
   }
 }
 
 export default async function AuthorsPage() {
-  const authors = await getAuthorsData();
+  const { authors, settingsMap } = await getAuthorsData();
+
+  const title = settingsMap['authorsTitle'] || 'મહાન સંતો';
+  const subtitle = settingsMap['authorsSubtitle'] || 'શામજીબાપા, સંત કબીર, મહાત્મા રવિરામ, બાપુ ઘસુારામ અને પવિત્ર સંતોની સંતવાણી રચનાઓ.';
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10 font-gujarati">
@@ -39,9 +49,9 @@ export default async function AuthorsPage() {
           <UserCheck className="w-4 h-4 text-saffron-600" />
           <span>સંત પરિચય અને રચયિતાઓ</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-maroon-950">મહાન સંતો</h1>
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-maroon-950">{title}</h1>
         <p className="text-maroon-800/80 text-base max-w-2xl mx-auto leading-relaxed">
-          શામજીબાપા, સંત કબીર, મહાત્મા રવિરામ, બાપુ ઘસુારામ અને પવિત્ર સંતોની સંતવાણી રચનાઓ.
+          {subtitle}
         </p>
       </div>
 

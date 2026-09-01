@@ -8,7 +8,7 @@ export const revalidate = 0;
 
 async function getBhajansData() {
   try {
-    const [bhajans, authors] = await Promise.all([
+    const [bhajans, authors, settings] = await Promise.all([
       db.bhajan.findMany({
         where: { status: 'PUBLISHED' },
         include: { author: true },
@@ -17,16 +17,24 @@ async function getBhajansData() {
       db.author.findMany({
         orderBy: { gujaratiName: 'asc' },
       }),
+      db.siteSetting.findMany(),
     ]);
-    return { bhajans, authors };
+
+    const settingsMap: Record<string, string> = {};
+    settings.forEach((s) => (settingsMap[s.key] = s.value));
+
+    return { bhajans, authors, settingsMap };
   } catch (error) {
     console.error('Error fetching bhajans:', error);
-    return { bhajans: [], authors: [] };
+    return { bhajans: [], authors: [], settingsMap: {} };
   }
 }
 
 export default async function BhajansPage() {
-  const { bhajans, authors } = await getBhajansData();
+  const { bhajans, authors, settingsMap } = await getBhajansData();
+
+  const title = settingsMap['bhajansTitle'] || 'ગુજરાતી ભજનો';
+  const subtitle = settingsMap['bhajansSubtitle'] || 'શામજીબાપા, સંત કબીર, મહાત્મા રવિરામ અને પવિત્ર સંતોના ભજનો.';
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10 font-gujarati">
@@ -36,32 +44,34 @@ export default async function BhajansPage() {
           <Sparkles className="w-4 h-4 text-saffron-600" />
           <span>ગુજરાતી સંતવાણી પદ સંગ્રહ</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-maroon-950">ગુજરાતી ભજનો</h1>
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-maroon-950">{title}</h1>
         <p className="text-maroon-800/80 text-base max-w-2xl mx-auto leading-relaxed">
-          શામજીબાપા, સંત કબીર, મહાત્મા રવિરામ અને પવિત્ર સંતોના ભજનો.
+          {subtitle}
         </p>
       </div>
 
       {/* Author Filter Pills */}
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        <Link
-          href="/bhajans"
-          className="px-4 py-2 rounded-xl bg-saffron-600 text-cream-50 text-xs font-bold shadow-sm"
-        >
-          તમામ ભજનો ({bhajans.length})
-        </Link>
-        {authors.map((author) => (
+      {authors.length > 0 && (
+        <div className="flex flex-wrap items-center justify-center gap-2">
           <Link
-            key={author.id}
-            href={`/authors/${author.slug}`}
-            className="px-4 py-2 rounded-xl bg-cream-100 hover:bg-saffron-500/20 text-maroon-950 text-xs font-semibold border border-saffron-500/20 transition"
+            href="/bhajans"
+            className="px-4 py-2 rounded-xl bg-saffron-600 text-cream-50 text-xs font-bold shadow-sm"
           >
-            {author.gujaratiName}
+            તમામ ભજન ({bhajans.length})
           </Link>
-        ))}
-      </div>
+          {authors.map((author) => (
+            <Link
+              key={author.id}
+              href={`/authors/${author.slug}`}
+              className="px-4 py-2 rounded-xl bg-cream-100 hover:bg-saffron-500/20 text-maroon-950 text-xs font-semibold border border-saffron-500/20 transition"
+            >
+              {author.gujaratiName}
+            </Link>
+          ))}
+        </div>
+      )}
 
-      {/* Bhajan Cards Grid / Empty State */}
+      {/* Bhajan Cards Grid or Clean Empty State */}
       {bhajans.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {bhajans.map((bhajan) => (
@@ -76,24 +86,16 @@ export default async function BhajansPage() {
                 </div>
                 <h2 className="text-2xl font-bold text-maroon-950 mb-2 leading-snug">{bhajan.title}</h2>
                 <p className="text-maroon-800/80 text-xs line-clamp-3 leading-relaxed whitespace-pre-line">
-                  {bhajan.lyrics.slice(0, 120)}...
+                  {bhajan.description || bhajan.lyrics?.slice(0, 120)}
                 </p>
               </div>
 
               <div className="pt-4 border-t border-cream-200 flex items-center justify-between">
-                {bhajan.audioUrl ? (
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-saffron-700 bg-saffron-500/10 px-2.5 py-0.5 rounded-full">
-                    <Music className="w-3 h-3" /> ઓડિયો ઉપલબ્ધ
-                  </span>
-                ) : (
-                  <span className="text-[11px] text-maroon-800/60">શબ્દો સંગ્રહ</span>
-                )}
-
                 <Link
                   href={`/bhajans/${bhajan.slug}`}
-                  className="inline-flex items-center gap-1 text-sm font-bold text-maroon-900 hover:text-saffron-600 transition"
+                  className="inline-flex items-center gap-1 text-sm font-bold text-saffron-700 hover:text-maroon-900 transition"
                 >
-                  <span>વાંચો</span>
+                  <span>પૂરું ભજન વાંચો</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -101,23 +103,18 @@ export default async function BhajansPage() {
           ))}
         </div>
       ) : (
-        <div className="bg-[#FAF5EC] dark:bg-maroon-950/80 rounded-3xl p-12 border border-saffron-500/30 text-center space-y-4 max-w-2xl mx-auto my-8 shadow-sm">
-          <div className="w-16 h-16 rounded-full bg-saffron-500/15 text-saffron-700 flex items-center justify-center mx-auto">
-            <Sparkles className="w-8 h-8" />
-          </div>
-          <h3 className="text-2xl font-bold text-maroon-950 dark:text-gold-300">
-            હાલમાં કોઈ ભજન ઉપલબ્ધ નથી
-          </h3>
-          <p className="text-maroon-800/75 dark:text-cream-200 text-sm leading-relaxed">
-            ભજન સેક્શનમાંથી ભજનો હટાવવામાં આવ્યા છે. નવું ભજન ઉમેરવા માટે એડમિન પેનલનો ઉપયોગ કરી શકો છો.
+        <div className="bg-cream-50 rounded-3xl p-12 text-center space-y-4 border border-saffron-500/20 shadow-sm max-w-xl mx-auto">
+          <Sparkles className="w-12 h-12 text-saffron-600 mx-auto" />
+          <h3 className="text-2xl font-bold text-maroon-950">હાલમાં કોઈ ભજન ઉપલબ્ધ નથી</h3>
+          <p className="text-maroon-800/80 text-sm leading-relaxed">
+            એડમિન પેનલમાંથી તમે નવા ભજનો ઉમેરી શકો છો.
           </p>
           <div className="pt-2">
             <Link
               href="/admin/bhajans"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-saffron-600 hover:bg-saffron-700 text-cream-50 font-bold text-sm shadow-md transition"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-saffron-600 text-cream-50 font-bold text-xs shadow-md hover:bg-saffron-700 transition"
             >
-              <Sparkles className="w-4 h-4" />
-              <span>એડમિન પેનલમાં નવું ભજન ઉમેરો</span>
+              <span>એડમિનમાં ભજન ઉમેરો</span>
             </Link>
           </div>
         </div>

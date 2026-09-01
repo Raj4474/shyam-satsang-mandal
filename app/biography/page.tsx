@@ -7,19 +7,29 @@ export const revalidate = 0;
 
 async function getBiographyData() {
   try {
-    const sections = await db.biographySection.findMany({
-      where: { published: true },
-      orderBy: { sortOrder: 'asc' },
-    });
-    return { sections };
+    const [sections, settings] = await Promise.all([
+      db.biographySection.findMany({
+        where: { published: true },
+        orderBy: { sortOrder: 'asc' },
+      }),
+      db.siteSetting.findMany(),
+    ]);
+
+    const settingsMap: Record<string, string> = {};
+    settings.forEach((s) => (settingsMap[s.key] = s.value));
+
+    return { sections, settingsMap };
   } catch (error) {
     console.error('Error loading biography:', error);
-    return { sections: [] };
+    return { sections: [], settingsMap: {} };
   }
 }
 
 export default async function BiographyPage() {
-  const { sections } = await getBiographyData();
+  const { sections, settingsMap } = await getBiographyData();
+
+  const title = settingsMap['biographyTitle'] || 'શામજીબાપા જીવન ચરિત્ર';
+  const subtitle = settingsMap['biographySubtitle'] || 'શામજીબાપાના દિવ્ય બાલ્યાવસ્થા, સાધના કાળ, ભક્તિ ઉપદેશ અને શ્યામ સત્સંગ મંડળના પવિત્ર વારસાની આત્મગાથા.';
 
   return (
     <div className="font-gujarati max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
@@ -37,11 +47,11 @@ export default async function BiographyPage() {
         </div>
 
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-maroon-950 dark:text-gold-300 leading-tight">
-          શામજીબાપા જીવન ચરિત્ર
+          {title}
         </h1>
 
         <p className="text-maroon-800/80 dark:text-cream-200 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-          શામજીબાપાના દિવ્ય બાલ્યાવસ્થા, સાધના કાળ, ભક્તિ ઉપદેશ અને શ્યામ સત્સંગ મંડળના પવિત્ર વારસાની આત્મગાથા.
+          {subtitle}
         </p>
 
         {/* Author / Metadata Row */}
@@ -111,7 +121,7 @@ export default async function BiographyPage() {
                 </div>
               )}
 
-              {/* Chapter Body Text (Paragraphs with rich spacing) */}
+              {/* Chapter Body Text */}
               <div className="text-maroon-950 dark:text-cream-100 text-base sm:text-lg leading-relaxed sm:leading-loose whitespace-pre-line font-medium space-y-4">
                 {section.content}
               </div>

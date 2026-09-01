@@ -1,8 +1,29 @@
 import React from 'react';
 import Link from 'next/link';
-import { Heart, Sparkles, Shield, Mail, Phone, MapPin } from 'lucide-react';
+import { db } from '@/lib/db';
+import { Heart, Shield } from 'lucide-react';
 
-export function Footer() {
+async function getFooterSettings() {
+  try {
+    const settings = await db.siteSetting.findMany();
+    const map: Record<string, string> = {};
+    settings.forEach((s) => {
+      map[s.key] = s.value;
+    });
+    return map;
+  } catch (error) {
+    return {};
+  }
+}
+
+export async function Footer() {
+  const s = await getFooterSettings();
+
+  const title = s.footerAboutTitle || 'શ્યામ સત્સંગ મંડળ';
+  const desc = s.footerAboutDesc || 'ગુજરાતી ભજન, ધૂન અને આધ્યાત્મિક વારસાને આગામી પેઢી સુધી સુરક્ષિત અને સહજ રીતે પહોંચાડવાનો એક નમ્ર ડિજિટલ સંગ્રહાલય પ્રયાસ.';
+  const quote = s.footerQuote || '"સંતવાણી અને હરિનામ સ્મરણ જીવનને પાવન બનાવે છે."';
+  const copyright = s.footerCopyright || `© ${new Date().getFullYear()} શ્યામ સત્સંગ મંડળ. સર્વાધિકાર સુરક્ષિત.`;
+
   return (
     <footer className="bg-maroon-950 text-cream-100 border-t border-gold-500/30 pt-12 pb-24 md:pb-12 font-gujarati">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,15 +32,15 @@ export function Footer() {
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full overflow-hidden border border-gold-500/40">
-                <img src="/logo.jpg" alt="શ્યામ સત્સંગ મંડળ" className="w-full h-full object-cover" />
+                <img src="/logo.jpg" alt={title} className="w-full h-full object-cover" />
               </div>
-              <h3 className="text-2xl font-bold text-gold-400">શ્યામ સત્સંગ મંડળ</h3>
+              <h3 className="text-2xl font-bold text-gold-400">{title}</h3>
             </div>
             <p className="text-cream-300/80 text-sm leading-relaxed max-w-md">
-              ગુજરાતી ભજન, ધૂન અને આધ્યાત્મિક વારસાને આગામી પેઢી સુધી સુરક્ષિત અને સહજ રીતે પહોંચાડવાનો એક નમ્ર ડિજિટલ સંગ્રહાલય પ્રયાસ.
+              {desc}
             </p>
             <div className="p-4 rounded-xl bg-maroon-900/60 border border-gold-500/20 text-gold-300 text-xs italic">
-              "સંતવાણી અને હરિનામ સ્મરણ જીવનને પાવન બનાવે છે."
+              {quote}
             </div>
           </div>
 
@@ -72,7 +93,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-maroon-900 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-cream-300/60 gap-4">
-          <p>© {new Date().getFullYear()} શ્યામ સત્સંગ મંડળ. સર્વાધિકાર સુરક્ષિત.</p>
+          <p>{copyright}</p>
           <p className="flex items-center gap-1">
             <span>ભક્તિ અને શ્રદ્ધા સાથે નિર્મિત</span>
             <Heart className="w-3.5 h-3.5 text-saffron-500 fill-saffron-500" />
