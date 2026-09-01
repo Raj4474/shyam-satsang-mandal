@@ -163,52 +163,72 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 3. Featured Bhajans Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-maroon-950">પ્રખ્યાત ભજનો</h2>
-            <p className="text-maroon-800/70 text-sm mt-1">લોકપ્રિય અને બોધદાયી સંતવાણી પદો</p>
-          </div>
-          <Link
-            href="/bhajans"
-            className="hidden sm:flex items-center gap-1.5 font-bold text-saffron-700 hover:text-maroon-900 text-sm"
-          >
-            <span>તમામ જુઓ</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {bhajans.map((bhajan) => (
-            <div
-              key={bhajan.id}
-              className="bg-cream-50 rounded-2xl border border-saffron-500/20 shadow-sm hover:shadow-md transition p-6 flex flex-col justify-between space-y-4"
-            >
-              <div>
-                <div className="flex items-center justify-between text-xs text-saffron-700 font-semibold mb-2">
-                  <span className="bg-saffron-500/10 px-2.5 py-1 rounded-full">{bhajan.category || 'સંતવાણી'}</span>
-                  <span>{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
-                </div>
-                <h3 className="text-xl font-bold text-maroon-950 mb-2 leading-snug">{bhajan.title}</h3>
-                <p className="text-maroon-800/75 text-xs line-clamp-2 leading-relaxed">
-                  {bhajan.description || bhajan.lyrics.slice(0, 100)}...
-                </p>
-              </div>
-
-              <div className="pt-2 border-t border-cream-200 flex items-center justify-between">
-                <Link
-                  href={`/bhajans/${bhajan.slug}`}
-                  className="text-xs font-bold text-maroon-900 hover:text-saffron-600 flex items-center gap-1"
-                >
-                  <span>વાંચો</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
+      {/* 3. Featured Bhajans Section (Rendered if Bhajans exist) */}
+      {bhajans.length > 0 ? (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-maroon-950">પ્રખ્યાત ભજનો</h2>
+              <p className="text-maroon-800/70 text-sm mt-1">લોકપ્રિય અને બોધદાયી સંતવાણી પદો</p>
             </div>
-          ))}
-        </div>
-      </section>
+            <Link
+              href="/bhajans"
+              className="hidden sm:flex items-center gap-1.5 font-bold text-saffron-700 hover:text-maroon-900 text-sm"
+            >
+              <span>તમામ જુઓ</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {bhajans.map((bhajan) => (
+              <div
+                key={bhajan.id}
+                className="bg-cream-50 rounded-2xl border border-saffron-500/20 shadow-sm hover:shadow-md transition p-6 flex flex-col justify-between space-y-4"
+              >
+                <div>
+                  <div className="flex items-center justify-between text-xs text-saffron-700 font-semibold mb-2">
+                    <span className="bg-saffron-500/10 px-2.5 py-1 rounded-full">{bhajan.category || 'સંતવાણી'}</span>
+                    <span>{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-maroon-950 mb-2 leading-snug">{bhajan.title}</h3>
+                  <p className="text-maroon-800/75 text-xs line-clamp-2 leading-relaxed">
+                    {bhajan.description || bhajan.lyrics.slice(0, 100)}...
+                  </p>
+                </div>
+
+                <div className="pt-2 border-t border-cream-200 flex items-center justify-between">
+                  <Link
+                    href={`/bhajans/${bhajan.slug}`}
+                    className="text-xs font-bold text-maroon-900 hover:text-saffron-600 flex items-center gap-1"
+                  >
+                    <span>વાંચો</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-br from-saffron-500/10 via-cream-100 to-cream-50 rounded-3xl p-8 border border-saffron-500/30 text-center space-y-4 shadow-sm">
+            <h2 className="text-2xl font-bold text-maroon-950">શામજીબાપા જીવન ચરિત્ર ગ્રંથ (PDF)</h2>
+            <p className="text-maroon-800/80 text-sm max-w-xl mx-auto leading-relaxed">
+              શામજીબાપા જીવન ચરિત્રનું સંપૂર્ણ પવિત્ર પુસ્તક પીડીએફ સ્વરૂપે ઉપલબ્ધ છે.
+            </p>
+            <div className="pt-2">
+              <Link
+                href="/biography"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-saffron-600 hover:bg-saffron-700 text-cream-50 font-bold text-sm shadow-md transition"
+              >
+                <BookOpen className="w-4 h-4" />
+                <span>જીવન ચરિત્ર PDF વાંચવા અહીં ક્લિક કરો</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 4. Featured Authors / Saints */}
       <section className="bg-maroon-950 text-cream-100 py-16">

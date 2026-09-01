@@ -61,44 +61,67 @@ export default async function BhajansPage() {
         ))}
       </div>
 
-      {/* Bhajan Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {bhajans.map((bhajan) => (
-          <div
-            key={bhajan.id}
-            className="bg-cream-50 rounded-3xl border border-saffron-500/20 p-6 shadow-card hover:shadow-spiritual transition flex flex-col justify-between space-y-4"
-          >
-            <div>
-              <div className="flex items-center justify-between text-xs text-saffron-700 font-semibold mb-3">
-                <span className="bg-saffron-500/10 px-3 py-1 rounded-full">{bhajan.category || 'સંતવાણી'}</span>
-                <span>{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
+      {/* Bhajan Cards Grid / Empty State */}
+      {bhajans.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {bhajans.map((bhajan) => (
+            <div
+              key={bhajan.id}
+              className="bg-cream-50 rounded-3xl border border-saffron-500/20 p-6 shadow-card hover:shadow-spiritual transition flex flex-col justify-between space-y-4"
+            >
+              <div>
+                <div className="flex items-center justify-between text-xs text-saffron-700 font-semibold mb-3">
+                  <span className="bg-saffron-500/10 px-3 py-1 rounded-full">{bhajan.category || 'સંતવાણી'}</span>
+                  <span>{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
+                </div>
+                <h2 className="text-2xl font-bold text-maroon-950 mb-2 leading-snug">{bhajan.title}</h2>
+                <p className="text-maroon-800/80 text-xs line-clamp-3 leading-relaxed whitespace-pre-line">
+                  {bhajan.lyrics.slice(0, 120)}...
+                </p>
               </div>
-              <h2 className="text-2xl font-bold text-maroon-950 mb-2 leading-snug">{bhajan.title}</h2>
-              <p className="text-maroon-800/80 text-xs line-clamp-3 leading-relaxed whitespace-pre-line">
-                {bhajan.lyrics.slice(0, 120)}...
-              </p>
-            </div>
 
-            <div className="pt-4 border-t border-cream-200 flex items-center justify-between">
-              {bhajan.audioUrl ? (
-                <span className="inline-flex items-center gap-1 text-[11px] font-bold text-saffron-700 bg-saffron-500/10 px-2.5 py-0.5 rounded-full">
-                  <Music className="w-3 h-3" /> ઓડિયો ઉપલબ્ધ
-                </span>
-              ) : (
-                <span className="text-[11px] text-maroon-800/60">શબ્દો સંગ્રહ</span>
-              )}
+              <div className="pt-4 border-t border-cream-200 flex items-center justify-between">
+                {bhajan.audioUrl ? (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-saffron-700 bg-saffron-500/10 px-2.5 py-0.5 rounded-full">
+                    <Music className="w-3 h-3" /> ઓડિયો ઉપલબ્ધ
+                  </span>
+                ) : (
+                  <span className="text-[11px] text-maroon-800/60">શબ્દો સંગ્રહ</span>
+                )}
 
-              <Link
-                href={`/bhajans/${bhajan.slug}`}
-                className="inline-flex items-center gap-1 text-sm font-bold text-maroon-900 hover:text-saffron-600 transition"
-              >
-                <span>વાંચો</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                <Link
+                  href={`/bhajans/${bhajan.slug}`}
+                  className="inline-flex items-center gap-1 text-sm font-bold text-maroon-900 hover:text-saffron-600 transition"
+                >
+                  <span>વાંચો</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
+          ))}
+        </div>
+      ) : (
+        <div className="bg-[#FAF5EC] dark:bg-maroon-950/80 rounded-3xl p-12 border border-saffron-500/30 text-center space-y-4 max-w-2xl mx-auto my-8 shadow-sm">
+          <div className="w-16 h-16 rounded-full bg-saffron-500/15 text-saffron-700 flex items-center justify-center mx-auto">
+            <Sparkles className="w-8 h-8" />
           </div>
-        ))}
-      </div>
+          <h3 className="text-2xl font-bold text-maroon-950 dark:text-gold-300">
+            હાલમાં કોઈ ભજન ઉપલબ્ધ નથી
+          </h3>
+          <p className="text-maroon-800/75 dark:text-cream-200 text-sm leading-relaxed">
+            ભજન સેક્શનમાંથી ભજનો હટાવવામાં આવ્યા છે. નવું ભજન ઉમેરવા માટે એડમિન પેનલનો ઉપયોગ કરી શકો છો.
+          </p>
+          <div className="pt-2">
+            <Link
+              href="/admin/bhajans"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-saffron-600 hover:bg-saffron-700 text-cream-50 font-bold text-sm shadow-md transition"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>એડમિન પેનલમાં નવું ભજન ઉમેરો</span>
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

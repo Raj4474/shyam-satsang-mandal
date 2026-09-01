@@ -30,3 +30,11 @@ next-env.d.ts
 
 # SQLite database (keep dev.db or exclude based on needs, standard is to exclude dev.db-journal)
 prisma/dev.db-journal
+
+# temporary scratch files
+*.json
+!package.json
+!tsconfig.json
+*.txt
+*.pdf
+

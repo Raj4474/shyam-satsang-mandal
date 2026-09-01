@@ -175,6 +175,7 @@ export default function ManageBiographyPage() {
                     className="w-full p-3 rounded-xl border border-saffron-500/30 bg-white"
                   >
                     <option value="TEXT">TEXT (સામાન્ય લખાણ)</option>
+                    <option value="PDF">PDF (પીડીએફ દસ્તાવેજ / ગ્રંથ)</option>
                     <option value="QUOTE">QUOTE (દિવ્ય ઉપદેશ)</option>
                     <option value="TIMELINE">TIMELINE (સમયરેખા)</option>
                     <option value="GALLERY">GALLERY (ગેલેરી)</option>
