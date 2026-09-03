@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { BiographySection } from '@/types';
 import { Plus, Edit, Trash2, BookOpen, X, Search, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { ImageUpload } from '@/components/ui/ImageUpload';
+import { ColorPickerPalette } from '@/components/admin/ColorPickerPalette';
 
 export default function ManageBiographyPage() {
   const [sections, setSections] = useState<BiographySection[]>([]);
@@ -20,6 +21,7 @@ export default function ManageBiographyPage() {
     content: '',
     type: 'TEXT',
     mediaUrl: '',
+    textColor: '',
     sortOrder: 1,
     published: true,
   });
@@ -52,6 +54,7 @@ export default function ManageBiographyPage() {
       content: '',
       type: 'TEXT',
       mediaUrl: '',
+      textColor: '',
       sortOrder: sections.length + 1,
       published: true,
     });
@@ -66,6 +69,7 @@ export default function ManageBiographyPage() {
       content: s.content,
       type: s.type,
       mediaUrl: s.mediaUrl || '',
+      textColor: s.textColor || '',
       sortOrder: s.sortOrder,
       published: Boolean(s.published),
     });
@@ -262,6 +266,13 @@ export default function ManageBiographyPage() {
                   placeholder="અહીં જીવન ચરિત્ર અથવા બ્લોગનું સંપૂર્ણ લખાણ નાખો..."
                 />
               </div>
+
+              <ColorPickerPalette
+                label="આ પ્રકરણના લખાણનો રંગ (Biography Section Text Color)"
+                value={form.textColor}
+                onChange={(col) => setForm({ ...form, textColor: col })}
+                sampleText={form.title ? form.title : 'શામજીબાપાનું જીવન ચરિત્ર લખાણ'}
+              />
 
               <ImageUpload
                 label="મીડિયા / ફોટો (Media Photo)"

@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Settings, Save, Check, Home, Info, Layout, Phone, Sparkles, RefreshCw } from 'lucide-react';
+import { Settings, Save, Check, Home, Info, Layout, Phone, Palette, RefreshCw } from 'lucide-react';
+import { ColorPickerPalette } from '@/components/admin/ColorPickerPalette';
 
 export default function WebsiteSettingsPage() {
-  const [activeTab, setActiveTab] = useState<'home' | 'about' | 'pages' | 'contact'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'about' | 'pages' | 'contact' | 'colors'>('home');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -44,6 +45,11 @@ export default function WebsiteSettingsPage() {
     dhunsSubtitle: 'ઈશ્વરના દિવ્ય નામની કીર્તન ધૂનનો સંગ્રહ અને પદ સાહિત્ય.',
     authorsTitle: 'મહાન સંતો',
     authorsSubtitle: 'શામજીબાપા, સંત કબીર, મહાત્મા રવિરામ, બાપુ ઘસુારામ અને પવિત્ર સંતોની સંતવાણી રચનાઓ.',
+
+    // Colors
+    defaultBhajanTextColor: '#7f1d1d',
+    defaultDhunTextColor: '#d97706',
+    defaultBiographyTextColor: '#1f2937',
   });
 
   useEffect(() => {
@@ -174,6 +180,19 @@ export default function WebsiteSettingsPage() {
         >
           <Phone className="w-4 h-4" />
           <span>૪. સંપર્ક અને બ્રાન્ડ શીર્ષક</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('colors')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap flex-shrink-0 transition ${
+            activeTab === 'colors'
+              ? 'bg-maroon-950 text-gold-400 shadow-sm'
+              : 'bg-cream-100 text-maroon-950 hover:bg-gold-500/20'
+          }`}
+        >
+          <Palette className="w-4 h-4 text-saffron-500" />
+          <span>૫. કલર પેલેટ અને ટેક્સ્ટ કલર</span>
         </button>
       </div>
 
@@ -509,6 +528,43 @@ export default function WebsiteSettingsPage() {
                   className="w-full p-3 rounded-xl border border-saffron-500/30 bg-white text-sm"
                 />
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 5: Color Palette & Text Colors */}
+        {activeTab === 'colors' && (
+          <div className="space-y-6">
+            <h2 className="text-xl font-bold text-maroon-950 border-b border-saffron-500/20 pb-3 flex items-center gap-2">
+              <Palette className="w-5 h-5 text-saffron-600" />
+              <span>વેબસાઈટ કલર પેલેટ અને ટેક્સ્ટ રંગ સેટિંગ્સ</span>
+            </h2>
+
+            <p className="text-sm text-maroon-800/80 leading-relaxed">
+              અહીંથી તમે સમગ્ર વેબસાઈટ માટે ડિફોલ્ટ લખાણનો રંગ (Default Text Colors) સેટ કરી શકો છો. એડમિન દ્વારા દરેક ભજન, ધૂન અને જીવન ચરિત્ર ઉમેરતી વખતે અલગ-અલગ કલર પસંદ કરી શકાશે.
+            </p>
+
+            <div className="space-y-6 pt-2">
+              <ColorPickerPalette
+                label="૧. ભજન લખાણનો ડિફોલ્ટ રંગ (Default Bhajan Text Color)"
+                value={settings.defaultBhajanTextColor}
+                onChange={(col) => handleChange('defaultBhajanTextColor', col)}
+                sampleText="મેરુ તો ડગે પણ જેના મન ન ડગે - ડિફોલ્ટ ભજન બોલ કલર"
+              />
+
+              <ColorPickerPalette
+                label="૨. ધૂન લખાણનો ડિફોલ્ટ રંગ (Default Dhun Text Color)"
+                value={settings.defaultDhunTextColor}
+                onChange={(col) => handleChange('defaultDhunTextColor', col)}
+                sampleText="હે શ્રી કૃષ્ણ ગોવિંદ હરે મુરારી - ડિફોલ્ટ ધૂન બોલ કલર"
+              />
+
+              <ColorPickerPalette
+                label="૩. જીવન ચરિત્ર લખાણનો ડિફોલ્ટ રંગ (Default Biography Text Color)"
+                value={settings.defaultBiographyTextColor}
+                onChange={(col) => handleChange('defaultBiographyTextColor', col)}
+                sampleText="શામજીબાપાનું દિવ્ય બાલ્યાવસ્થા અને પવિત્ર સાધના કાળ"
+              />
             </div>
           </div>
         )}

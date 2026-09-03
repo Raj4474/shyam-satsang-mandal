@@ -58,6 +58,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
         videoUrl: body.videoUrl !== undefined ? body.videoUrl : existing.videoUrl,
         pdfUrl: body.pdfUrl !== undefined ? body.pdfUrl : existing.pdfUrl,
         coverImage: body.coverImage !== undefined ? body.coverImage : existing.coverImage,
+        textColor: body.textColor !== undefined ? (body.textColor || null) : existing.textColor,
         featured: body.featured !== undefined ? Boolean(body.featured) : existing.featured,
         status: body.status !== undefined ? body.status : existing.status,
       },

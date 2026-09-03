@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, slug, content, type, mediaUrl, sortOrder, published } = body;
+    const { title, slug, content, type, mediaUrl, textColor, sortOrder, published } = body;
 
     if (!title || !content) {
       return NextResponse.json({ error: 'Title and content are required' }, { status: 400 });
@@ -52,6 +52,7 @@ export async function POST(request: Request) {
         content,
         type: type || 'TEXT',
         mediaUrl,
+        textColor: textColor || null,
         sortOrder: sortOrder !== undefined ? parseInt(sortOrder) : 0,
         published: published !== undefined ? Boolean(published) : true,
       },

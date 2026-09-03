@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, slug, authorId, description, lyrics, audioUrl, videoUrl, pdfUrl, coverImage, featured, status } = body;
+    const { title, slug, authorId, description, lyrics, audioUrl, videoUrl, pdfUrl, coverImage, textColor, featured, status } = body;
 
     if (!title) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
@@ -69,6 +69,7 @@ export async function POST(request: Request) {
         videoUrl,
         pdfUrl,
         coverImage,
+        textColor: textColor || null,
         featured: Boolean(featured),
         status: status || 'PUBLISHED',
       },

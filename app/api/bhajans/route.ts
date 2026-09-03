@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, slug, authorId, category, description, lyrics, audioUrl, pdfUrl, coverImage, featured, status, sortOrder } = body;
+    const { title, slug, authorId, category, description, lyrics, audioUrl, pdfUrl, coverImage, textColor, featured, status, sortOrder } = body;
 
     if (!title || !lyrics) {
       return NextResponse.json({ error: 'Title and lyrics are required' }, { status: 400 });
@@ -71,6 +71,7 @@ export async function POST(request: Request) {
         audioUrl,
         pdfUrl,
         coverImage,
+        textColor: textColor || null,
         featured: Boolean(featured),
         sortOrder: sortOrder !== undefined ? parseInt(sortOrder) : 0,
         status: status || 'PUBLISHED',

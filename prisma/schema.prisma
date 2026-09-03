@@ -39,6 +39,7 @@ model Bhajan {
   audioUrl    String?
   pdfUrl      String?
   coverImage  String?
+  textColor   String?
   featured    Boolean   @default(false)
   sortOrder   Int       @default(0)
   status      String    @default("PUBLISHED")
@@ -65,6 +66,7 @@ model Dhun {
   videoUrl    String?
   pdfUrl      String?
   coverImage  String?
+  textColor   String?
   featured    Boolean   @default(false)
   status      String    @default("PUBLISHED")
   publishedAt DateTime  @default(now())
@@ -84,6 +86,7 @@ model BiographySection {
   content   String
   type      String   @default("TEXT") // TEXT, IMAGE, GALLERY, TIMELINE, QUOTE, VIDEO, AUDIO
   mediaUrl  String?
+  textColor String?
   sortOrder Int      @default(0)
   published Boolean  @default(true)
   createdAt DateTime @default(now())

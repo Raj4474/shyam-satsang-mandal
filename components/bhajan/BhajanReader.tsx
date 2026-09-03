@@ -146,7 +146,12 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
             <span className="no-print inline-block px-3 py-1 rounded-full text-xs font-semibold bg-saffron-500/15 text-saffron-700 dark:text-gold-400">
               {bhajan.category || 'સંતવાણી પદ'}
             </span>
-            <h1 className="print-title text-2xl sm:text-4xl font-extrabold tracking-wide leading-relaxed">{bhajan.title}</h1>
+            <h1
+              style={{ color: bhajan.textColor || undefined }}
+              className="print-title text-2xl sm:text-4xl font-extrabold tracking-wide leading-relaxed"
+            >
+              {bhajan.title}
+            </h1>
             <p className="text-sm opacity-80 font-medium">
               રચયિતા: <span className="font-bold text-saffron-600 dark:text-gold-400">{bhajan.author?.gujaratiName || 'સંતવાણી'}</span>
             </p>
@@ -156,7 +161,11 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
 
           {/* Gujarati Lyrics Text */}
           <div
-            style={{ fontSize: `${fontSize}px`, lineHeight: '2.1' }}
+            style={{
+              fontSize: `${fontSize}px`,
+              lineHeight: '2.1',
+              color: bhajan.textColor || undefined,
+            }}
             className="print-lyrics whitespace-pre-line font-gujarati font-medium text-center space-y-4 px-2"
           >
             {bhajan.lyrics}

@@ -51,6 +51,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
         content: body.content !== undefined ? body.content : existing.content,
         type: body.type !== undefined ? body.type : existing.type,
         mediaUrl: body.mediaUrl !== undefined ? body.mediaUrl : existing.mediaUrl,
+        textColor: body.textColor !== undefined ? (body.textColor || null) : existing.textColor,
         sortOrder: body.sortOrder !== undefined ? parseInt(body.sortOrder) : existing.sortOrder,
         published: body.published !== undefined ? Boolean(body.published) : existing.published,
       },

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Bhajan, Author } from '@/types';
 import { Plus, Edit, Trash2, Sparkles, X, Check, Music, Search, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { ImageUpload } from '@/components/ui/ImageUpload';
+import { ColorPickerPalette } from '@/components/admin/ColorPickerPalette';
 
 export default function ManageBhajansPage() {
   const [bhajans, setBhajans] = useState<Bhajan[]>([]);
@@ -26,6 +27,7 @@ export default function ManageBhajansPage() {
     audioUrl: '',
     pdfUrl: '',
     coverImage: '',
+    textColor: '',
     featured: false,
     status: 'PUBLISHED',
     sortOrder: 0,
@@ -66,6 +68,7 @@ export default function ManageBhajansPage() {
       audioUrl: '',
       pdfUrl: '',
       coverImage: '',
+      textColor: '',
       featured: false,
       status: 'PUBLISHED',
       sortOrder: bhajans.length + 1,
@@ -85,6 +88,7 @@ export default function ManageBhajansPage() {
       audioUrl: b.audioUrl || '',
       pdfUrl: b.pdfUrl || '',
       coverImage: b.coverImage || '',
+      textColor: b.textColor || '',
       featured: Boolean(b.featured),
       status: b.status || 'PUBLISHED',
       sortOrder: b.sortOrder || 0,
@@ -308,6 +312,13 @@ export default function ManageBhajansPage() {
                   placeholder="ભજનના પૂરા શબ્દો નાખો..."
                 />
               </div>
+
+              <ColorPickerPalette
+                label="આ ભજનના લખાણનો રંગ (Bhajan Lyrics Text Color)"
+                value={form.textColor}
+                onChange={(col) => setForm({ ...form, textColor: col })}
+                sampleText={form.title ? form.title : 'જય સદ્ગુરુ શ્યામ - ભજન બોલ'}
+              />
 
               <ImageUpload
                 label="કવર / ફોટો ઈમેજ (Cover Image)"

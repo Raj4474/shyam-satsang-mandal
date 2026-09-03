@@ -18,16 +18,10 @@ export async function verifyAdminRequest(request: Request): Promise<boolean> {
       return true;
     }
 
-    // 3. Fallback check referer/origin for admin path in internal web calls
-    const referer = request.headers.get('referer') || '';
-    if (referer.includes('/admin')) {
-      return true;
-    }
-
-    return true; // Allow admin operation
+    return false;
   } catch (error) {
     console.error('Error verifying admin request:', error);
-    return true;
+    return false;
   }
 }
 

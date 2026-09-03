@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Dhun, Author } from '@/types';
 import { Plus, Edit, Trash2, Music, X, Video, Search, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { ImageUpload } from '@/components/ui/ImageUpload';
+import { ColorPickerPalette } from '@/components/admin/ColorPickerPalette';
 
 export default function ManageDhunsPage() {
   const [dhuns, setDhuns] = useState<Dhun[]>([]);
@@ -25,6 +26,7 @@ export default function ManageDhunsPage() {
     videoUrl: '',
     pdfUrl: '',
     coverImage: '',
+    textColor: '',
     featured: false,
     status: 'PUBLISHED',
   });
@@ -61,6 +63,7 @@ export default function ManageDhunsPage() {
       videoUrl: '',
       pdfUrl: '',
       coverImage: '',
+      textColor: '',
       featured: false,
       status: 'PUBLISHED',
     });
@@ -79,6 +82,7 @@ export default function ManageDhunsPage() {
       videoUrl: d.videoUrl || '',
       pdfUrl: d.pdfUrl || '',
       coverImage: d.coverImage || '',
+      textColor: d.textColor || '',
       featured: Boolean(d.featured),
       status: d.status || 'PUBLISHED',
     });
@@ -278,6 +282,13 @@ export default function ManageDhunsPage() {
                   className="w-full p-3 rounded-xl border border-saffron-500/30 bg-white font-sans leading-relaxed"
                 />
               </div>
+
+              <ColorPickerPalette
+                label="આ ધૂનના લખાણનો રંગ (Dhun Lyrics Text Color)"
+                value={form.textColor}
+                onChange={(col) => setForm({ ...form, textColor: col })}
+                sampleText={form.title ? form.title : 'હે શ્રી કૃષ્ણ ગોવિંદ હરે મુરારી'}
+              />
 
               <ImageUpload
                 label="કવર / ફોટો ઈમેજ (Cover Image)"

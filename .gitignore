@@ -37,4 +37,6 @@ prisma/dev.db-journal
 !tsconfig.json
 *.txt
 *.pdf
+scratch/
+
 

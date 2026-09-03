@@ -58,6 +58,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
         audioUrl: body.audioUrl !== undefined ? body.audioUrl : existing.audioUrl,
         pdfUrl: body.pdfUrl !== undefined ? body.pdfUrl : existing.pdfUrl,
         coverImage: body.coverImage !== undefined ? body.coverImage : existing.coverImage,
+        textColor: body.textColor !== undefined ? (body.textColor || null) : existing.textColor,
         featured: body.featured !== undefined ? Boolean(body.featured) : existing.featured,
         sortOrder: body.sortOrder !== undefined ? parseInt(body.sortOrder) : existing.sortOrder,
         status: body.status !== undefined ? body.status : existing.status,

@@ -102,7 +102,10 @@ export default async function BiographyPage() {
             >
               {/* Chapter Title */}
               <div className="border-b border-gold-500/20 pb-4 flex items-center justify-between">
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-maroon-950 dark:text-gold-300">
+                <h2
+                  style={{ color: section.textColor || undefined }}
+                  className="text-2xl sm:text-3xl font-extrabold text-maroon-950 dark:text-gold-300"
+                >
                   {section.title}
                 </h2>
                 <span className="text-xs font-bold px-3 py-1 rounded-full bg-saffron-500/15 text-saffron-800 dark:text-gold-400 border border-saffron-500/30">
@@ -122,7 +125,10 @@ export default async function BiographyPage() {
               )}
 
               {/* Chapter Body Text */}
-              <div className="text-maroon-950 dark:text-cream-100 text-base sm:text-lg leading-relaxed sm:leading-loose whitespace-pre-line font-medium space-y-4">
+              <div
+                style={{ color: section.textColor || undefined }}
+                className="text-maroon-950 dark:text-cream-100 text-base sm:text-lg leading-relaxed sm:leading-loose whitespace-pre-line font-medium space-y-4"
+              >
                 {section.content}
               </div>
             </section>

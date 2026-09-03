@@ -76,7 +76,10 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
             <h3 className="text-xl font-bold text-maroon-950 border-b border-saffron-500/20 pb-2">
               ધૂન સાહિત્ય / પદ બોલ
             </h3>
-            <div className="whitespace-pre-line text-lg text-center leading-relaxed text-maroon-900 font-medium bg-cream-100/40 p-8 rounded-2xl border border-saffron-500/10">
+            <div
+              style={{ color: dhun.textColor || undefined }}
+              className="whitespace-pre-line text-lg text-center leading-relaxed text-maroon-900 font-medium bg-cream-100/40 p-8 rounded-2xl border border-saffron-500/10"
+            >
               {dhun.lyrics}
             </div>
           </div>

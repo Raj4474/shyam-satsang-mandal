@@ -29,6 +29,7 @@ export interface Bhajan {
   audioUrl?: string | null;
   pdfUrl?: string | null;
   coverImage?: string | null;
+  textColor?: string | null;
   featured: boolean;
   sortOrder?: number;
   status: 'DRAFT' | 'PUBLISHED' | string;
@@ -49,6 +50,7 @@ export interface Dhun {
   videoUrl?: string | null;
   pdfUrl?: string | null;
   coverImage?: string | null;
+  textColor?: string | null;
   featured: boolean;
   sortOrder?: number;
   status: 'DRAFT' | 'PUBLISHED' | string;
@@ -64,6 +66,7 @@ export interface BiographySection {
   content: string;
   type: 'TEXT' | 'IMAGE' | 'GALLERY' | 'TIMELINE' | 'QUOTE' | 'VIDEO' | 'AUDIO' | string;
   mediaUrl?: string | null;
+  textColor?: string | null;
   sortOrder: number;
   published: boolean;
   createdAt?: Date | string;
