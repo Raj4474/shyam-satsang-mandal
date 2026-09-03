@@ -26,7 +26,7 @@ async function main() {
     { name: 'Narsinh Mehta', gujaratiName: 'નરસિંહ મહેતા', slug: 'narsinh-mehta', profileImage: '/narsinh-mehta.jpg', shortBio: 'આદિ કવિ, વૈષ્ણવ જન પદકાર અને હરિભક્ત પિરોમણિ.', tags: 'વૈષ્ણવ જન, પ્રભાતિયા, કૃષ્ણ ભક્તિ', featured: true },
     { name: 'Mirabai', gujaratiName: 'મીરાંબાઈ', slug: 'mirabai', profileImage: '/mirabai.jpg', shortBio: 'કૃષ્ણ ભક્તિની અમર ગોપી અને પ્રેમાસ્પદ સંત કવિયીત્રી.', tags: 'ગિરધર નાગર, પાયોજી મેને, રામ રતન', featured: true },
     { name: 'Lilan Bai', gujaratiName: 'લીલણ બાઈ', slug: 'lilan-bai', profileImage: '/lilan-bai.jpg', shortBio: 'પવિત્ર સંતવાણી કવિયત્રી અને સૂરતા પ્રેમ સાધિકા.', tags: 'સંતવાણી, અમર વેલડી, સંત ચરણ', featured: true },
-    { name: 'Sant Dasa Savo', gujaratiName: 'સંત દાસ સવો', slug: 'sant-dasa-savo', profileImage: '/shyamjibapa.jpg', shortBio: 'પ્રાચીન સંતવાણી કવિ અને આત્મ ચેતનાના સાધક.', tags: 'સંતવાણી, ચેતાવણી, નિજ નુર', featured: true }
+    { name: 'Sant Dasa Savo', gujaratiName: 'સંત દાસ સવો', slug: 'sant-dasa-savo', profileImage: '/sant-dasa-savo.jpg', shortBio: 'પ્રાચીન સંતવાણી કવિ અને આત્મ ચેતનાના સાધક.', tags: 'સંતવાણી, ચેતાવણી, નિજ નુર', featured: true }
   ];
 
   const authorMap: Record<string, string> = {};

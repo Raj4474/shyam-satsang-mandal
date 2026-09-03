@@ -10,13 +10,6 @@ async function getAuthorsData() {
   try {
     const [authors, settings] = await Promise.all([
       db.author.findMany({
-        where: {
-          OR: [
-            { bhajans: { some: {} } },
-            { dhuns: { some: {} } },
-            { slug: 'shyamjibapa' },
-          ],
-        },
         include: {
           _count: { select: { bhajans: true, dhuns: true } },
         },
