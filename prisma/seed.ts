@@ -28,7 +28,8 @@ async function main() {
     { name: 'Lilan Bai', gujaratiName: 'લીલણ બાઈ', slug: 'lilan-bai', profileImage: '/lilan-bai.jpg', shortBio: 'પવિત્ર સંતવાણી કવિયત્રી અને સૂરતા પ્રેમ સાધિકા.', tags: 'સંતવાણી, અમર વેલડી, સંત ચરણ', featured: true },
     { name: 'Sant Dasa Savo', gujaratiName: 'સંત દાસ સવો', slug: 'sant-dasa-savo', profileImage: '/sant-dasa-savo.jpg', shortBio: 'પ્રાચીન સંતવાણી કવિ અને આત્મ ચેતનાના સાધક.', tags: 'સંતવાણી, ચેતાવણી, નિજ નુર', featured: true },
     { name: 'Loyan Bai', gujaratiName: 'લોયણ બાઈ', slug: 'loyan-bai', profileImage: '/loyan-bai.jpg', shortBio: 'શ્રી સેલરશીજી મહારાજશ્રીના શિષ્યા અને લાખા ફુલાણીને બોધ આપનાર પરમ સિદ્ધ સતી કવિયત્રી.', tags: 'સતી લોયણ, સંતવાણી, લાખો ફુલાણી, નિજ બોધ', featured: true },
-    { name: 'Sati Rupade', gujaratiName: 'રૂપાદે', slug: 'rupade', profileImage: '/rupade.jpg', shortBio: 'રાણી રૂપાદે - માલદેવજીના સતી પત્ની અને ગુરુ નિજ ધર્મ વચનના સાધક સંત કવિયત્રી.', tags: 'સતી રૂપાદે, સંતવાણી, ગુરુ પ્રતાપ', featured: true }
+    { name: 'Sati Rupade', gujaratiName: 'રૂપાદે', slug: 'rupade', profileImage: '/rupade.jpg', shortBio: 'રાણી રૂપાદે - માલદેવજીના સતી પત્ની અને ગુરુ નિજ ધર્મ વચનના સાધક સંત કવિયત્રી.', tags: 'સતી રૂપાદે, સંતવાણી, ગુરુ પ્રતાપ', featured: true },
+    { name: 'Ganga Sati', gujaratiName: 'ગંગા સતી', slug: 'ganga-sati', profileImage: '/ganga-sati.jpg', shortBio: 'ગંગાસતી - સૌરાષ્ટ્રના પરમ યોગિની અને મહાન સંત કવિયત્રી જેમણે પાનબાઈને ૫૨ પદોમાં ઉપદેશ આપ્યો.', tags: 'ગંગાસતી, પાનબાઈ, સંતવાણી, મેરૂ તો ડગે', featured: true }
   ];
 
   const authorMap: Record<string, string> = {};
