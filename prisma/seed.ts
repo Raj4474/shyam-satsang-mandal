@@ -29,7 +29,8 @@ async function main() {
     { name: 'Sant Dasa Savo', gujaratiName: 'સંત દાસ સવો', slug: 'sant-dasa-savo', profileImage: '/sant-dasa-savo.jpg', shortBio: 'પ્રાચીન સંતવાણી કવિ અને આત્મ ચેતનાના સાધક.', tags: 'સંતવાણી, ચેતાવણી, નિજ નુર', featured: true },
     { name: 'Loyan Bai', gujaratiName: 'લોયણ બાઈ', slug: 'loyan-bai', profileImage: '/loyan-bai.jpg', shortBio: 'શ્રી સેલરશીજી મહારાજશ્રીના શિષ્યા અને લાખા ફુલાણીને બોધ આપનાર પરમ સિદ્ધ સતી કવિયત્રી.', tags: 'સતી લોયણ, સંતવાણી, લાખો ફુલાણી, નિજ બોધ', featured: true },
     { name: 'Sati Rupade', gujaratiName: 'રૂપાદે', slug: 'rupade', profileImage: '/rupade.jpg', shortBio: 'રાણી રૂપાદે - માલદેવજીના સતી પત્ની અને ગુરુ નિજ ધર્મ વચનના સાધક સંત કવિયત્રી.', tags: 'સતી રૂપાદે, સંતવાણી, ગુરુ પ્રતાપ', featured: true },
-    { name: 'Ganga Sati', gujaratiName: 'ગંગા સતી', slug: 'ganga-sati', profileImage: '/ganga-sati.jpg', shortBio: 'ગંગાસતી - સૌરાષ્ટ્રના પરમ યોગિની અને મહાન સંત કવિયત્રી જેમણે પાનબાઈને ૫૨ પદોમાં ઉપદેશ આપ્યો.', tags: 'ગંગાસતી, પાનબાઈ, સંતવાણી, મેરૂ તો ડગે', featured: true }
+    { name: 'Ganga Sati', gujaratiName: 'ગંગા સતી', slug: 'ganga-sati', profileImage: '/ganga-sati.jpg', shortBio: 'ગંગાસતી - સૌરાષ્ટ્રના પરમ યોગિની અને મહાન સંત કવિયત્રી જેમણે પાનબાઈને ૫૨ પદોમાં ઉપદેશ આપ્યો.', tags: 'ગંગાસતી, પાનબાઈ, સંતવાણી, મેરૂ તો ડગે', featured: true },
+    { name: 'Sati Toral', gujaratiName: 'તોરલ બાઈ', slug: 'toral-bai', profileImage: '/toral-bai.jpg', shortBio: 'સતી તોરલ બાઈ - કચ્છ-સૌરાષ્ટ્રના અમર સંત કવિયત્રી જેમણે જેસલ જાડેજાને અધર્મમાંથી તારીને ભક્તિમાર્ગે વાળ્યા.', tags: 'સતી તોરલ, જેસલ તોરલ, સંતવાણી, પાટ પૂજા', featured: true }
   ];
 
   const authorMap: Record<string, string> = {};
