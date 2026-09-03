@@ -5,6 +5,7 @@ import { Dhun, Author } from '@/types';
 import { Plus, Edit, Trash2, Music, X, Video, Search, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { ColorPickerPalette } from '@/components/admin/ColorPickerPalette';
+import { RichColorTextArea } from '@/components/admin/RichColorTextArea';
 
 export default function ManageDhunsPage() {
   const [dhuns, setDhuns] = useState<Dhun[]>([]);
@@ -273,15 +274,13 @@ export default function ManageDhunsPage() {
                 />
               </div>
 
-              <div>
-                <label className="block font-bold text-maroon-950 mb-1">ધૂન શબ્દો (Lyrics)</label>
-                <textarea
-                  rows={6}
-                  value={form.lyrics}
-                  onChange={(e) => setForm({ ...form, lyrics: e.target.value })}
-                  className="w-full p-3 rounded-xl border border-saffron-500/30 bg-white font-sans leading-relaxed"
-                />
-              </div>
+              <RichColorTextArea
+                label="ધૂન શબ્દો / પદ બોલ (Dhun Lyrics & Word Color Palette)"
+                value={form.lyrics}
+                onChange={(val) => setForm({ ...form, lyrics: val })}
+                rows={7}
+                placeholder="ધૂનના પૂરા શબ્દો લખો. શબ્દો પસંદ કરીને રંગ આપી શકો છો..."
+              />
 
               <ColorPickerPalette
                 label="આ ધૂનના લખાણનો રંગ (Dhun Lyrics Text Color)"

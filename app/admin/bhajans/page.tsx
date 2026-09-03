@@ -5,6 +5,7 @@ import { Bhajan, Author } from '@/types';
 import { Plus, Edit, Trash2, Sparkles, X, Check, Music, Search, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { ColorPickerPalette } from '@/components/admin/ColorPickerPalette';
+import { RichColorTextArea } from '@/components/admin/RichColorTextArea';
 
 export default function ManageBhajansPage() {
   const [bhajans, setBhajans] = useState<Bhajan[]>([]);
@@ -301,17 +302,13 @@ export default function ManageBhajansPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block font-bold text-maroon-950 mb-1">પદ બોલ / ગુજરાતી સાહિત્ય (Lyrics) *</label>
-                <textarea
-                  required
-                  rows={8}
-                  value={form.lyrics}
-                  onChange={(e) => setForm({ ...form, lyrics: e.target.value })}
-                  className="w-full p-3 rounded-xl border border-saffron-500/30 bg-white leading-relaxed font-sans"
-                  placeholder="ભજનના પૂરા શબ્દો નાખો..."
-                />
-              </div>
+              <RichColorTextArea
+                label="પદ બોલ / ગુજરાતી સાહિત્ય (Bhajan Lyrics & Word Color Palette)"
+                value={form.lyrics}
+                onChange={(val) => setForm({ ...form, lyrics: val })}
+                rows={9}
+                placeholder="ભજનના પૂરા શબ્દો નાખો. શબ્દો પસંદ કરીને રંગ આપી શકો છો..."
+              />
 
               <ColorPickerPalette
                 label="આ ભજનના લખાણનો રંગ (Bhajan Lyrics Text Color)"

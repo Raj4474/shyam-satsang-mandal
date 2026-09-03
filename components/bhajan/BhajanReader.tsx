@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Bhajan } from '@/types';
 import Link from 'next/link';
 import { ZoomIn, ZoomOut, Copy, Check, Share2, Sun, Moon, Edit, Printer } from 'lucide-react';
+import { formatHtmlContent } from '@/lib/renderFormattedText';
 
 export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
   const [fontSize, setFontSize] = useState(22); // pixels
@@ -167,9 +168,8 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
               color: bhajan.textColor || undefined,
             }}
             className="print-lyrics whitespace-pre-line font-gujarati font-medium text-center space-y-4 px-2"
-          >
-            {bhajan.lyrics}
-          </div>
+            dangerouslySetInnerHTML={{ __html: formatHtmlContent(bhajan.lyrics) }}
+          />
 
           <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto pt-6" />
         </div>

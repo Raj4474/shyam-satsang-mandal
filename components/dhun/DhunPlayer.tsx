@@ -3,6 +3,7 @@
 import React from 'react';
 import { Dhun } from '@/types';
 import { Video, Copy, Check } from 'lucide-react';
+import { formatHtmlContent } from '@/lib/renderFormattedText';
 
 export function DhunPlayer({ dhun }: { dhun: Dhun }) {
   const [copied, setCopied] = React.useState(false);
@@ -79,9 +80,8 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
             <div
               style={{ color: dhun.textColor || undefined }}
               className="whitespace-pre-line text-lg text-center leading-relaxed text-maroon-900 font-medium bg-cream-100/40 p-8 rounded-2xl border border-saffron-500/10"
-            >
-              {dhun.lyrics}
-            </div>
+              dangerouslySetInnerHTML={{ __html: formatHtmlContent(dhun.lyrics) }}
+            />
           </div>
         )}
       </div>

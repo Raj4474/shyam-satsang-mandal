@@ -1,6 +1,7 @@
 import React from 'react';
 import { db } from '@/lib/db';
 import { BookOpen, Clock, User, Sparkles, Feather, Bookmark, HeartHandshake } from 'lucide-react';
+import { formatHtmlContent } from '@/lib/renderFormattedText';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -128,9 +129,8 @@ export default async function BiographyPage() {
               <div
                 style={{ color: section.textColor || undefined }}
                 className="text-maroon-950 dark:text-cream-100 text-base sm:text-lg leading-relaxed sm:leading-loose whitespace-pre-line font-medium space-y-4"
-              >
-                {section.content}
-              </div>
+                dangerouslySetInnerHTML={{ __html: formatHtmlContent(section.content) }}
+              />
             </section>
           ))
         ) : (

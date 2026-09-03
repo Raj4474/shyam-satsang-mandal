@@ -5,6 +5,7 @@ import { BiographySection } from '@/types';
 import { Plus, Edit, Trash2, BookOpen, X, Search, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { ColorPickerPalette } from '@/components/admin/ColorPickerPalette';
+import { RichColorTextArea } from '@/components/admin/RichColorTextArea';
 
 export default function ManageBiographyPage() {
   const [sections, setSections] = useState<BiographySection[]>([]);
@@ -255,17 +256,13 @@ export default function ManageBiographyPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block font-bold text-maroon-950 mb-1">સામગ્રી / વિગતવાર લખાણ (Content) *</label>
-                <textarea
-                  rows={8}
-                  required
-                  value={form.content}
-                  onChange={(e) => setForm({ ...form, content: e.target.value })}
-                  className="w-full p-3 rounded-xl border border-saffron-500/30 bg-white leading-relaxed font-sans"
-                  placeholder="અહીં જીવન ચરિત્ર અથવા બ્લોગનું સંપૂર્ણ લખાણ નાખો..."
-                />
-              </div>
+              <RichColorTextArea
+                label="સામગ્રી / પ્રકરણનું વિગતવાર લખાણ (Content & Word Color Palette)"
+                value={form.content}
+                onChange={(val) => setForm({ ...form, content: val })}
+                rows={9}
+                placeholder="અહીં જીવન ચરિત્ર (દા.ત. પ્રકરણ ૧) ના પૂરા શબ્દો લખો. શબ્દ સિલેક્ટ કરીને ઈચ્છિત રંગ આપી શકો છો..."
+              />
 
               <ColorPickerPalette
                 label="આ પ્રકરણના લખાણનો રંગ (Biography Section Text Color)"
