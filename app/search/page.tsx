@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Sparkles, Music, UserCheck, ArrowRight, Loader2 } from 'lucide-react';
+import { Search, Sparkles, Music, UserCheck, ArrowRight, Loader2, Globe, Languages } from 'lucide-react';
 import { Bhajan, Dhun, Author } from '@/types';
 
 export default function SearchPage() {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
+  const [transliterations, setTransliterations] = useState<string[]>([]);
   const [results, setResults] = useState<{
     bhajans: Bhajan[];
     dhuns: Dhun[];
@@ -17,6 +18,7 @@ export default function SearchPage() {
   useEffect(() => {
     if (!query.trim()) {
       setResults({ bhajans: [], dhuns: [], authors: [] });
+      setTransliterations([]);
       return;
     }
 
@@ -25,7 +27,12 @@ export default function SearchPage() {
       try {
         const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
         const data = await res.json();
-        setResults(data);
+        setResults({
+          bhajans: data.bhajans || [],
+          dhuns: data.dhuns || [],
+          authors: data.authors || [],
+        });
+        setTransliterations(data.transliterations || []);
       } catch (err) {
         console.error('Search error:', err);
       } finally {
@@ -42,9 +49,17 @@ export default function SearchPage() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8 font-gujarati">
       {/* Header & Search Bar */}
       <div className="text-center space-y-4 max-w-2xl mx-auto">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-saffron-500/10 text-saffron-800 text-xs font-semibold">
+          <Languages className="w-4 h-4 text-saffron-600" />
+          <span>ગુજરાતી + English (WhatsApp Language) સર્ચ</span>
+        </div>
+
         <h1 className="text-3xl sm:text-4xl font-extrabold text-maroon-950">સંગ્રહાલય શોધો (Global Search)</h1>
-        <p className="text-maroon-800/80 text-sm">
-          ભજનનું શીર્ષક, પદના બોલ, ધૂન અથવા સંતનું નામ ટાઇપ કરીને શોધો.
+        <p className="text-maroon-800/80 text-sm leading-relaxed">
+          ભજનનું શીર્ષક, પદના બોલ, ધૂન અથવા સંતનું નામ ટાઇપ કરીને શોધો.{' '}
+          <span className="font-semibold text-saffron-700 block mt-1">
+            તમે English / WhatsApp Language માં પણ લખી શકો છો (દા.ત. satguru ➔ સદ્ ગુરુ, mohan ➔ મોહન).
+          </span>
         </p>
 
         <div className="relative">
@@ -53,19 +68,46 @@ export default function SearchPage() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="દા.ત. શામજીબાપા, સંત કબીર, સંતો સત્તશબ્દ..."
+            placeholder="દા.ત. satguru, mohan, shamjibapa, શામજીબાપા, સંત કબીર..."
             className="w-full pl-12 pr-10 py-3.5 rounded-2xl bg-cream-50 border-2 border-saffron-500/30 focus:border-saffron-600 focus:outline-none text-base text-maroon-950 shadow-sm font-medium"
           />
           {loading && <Loader2 className="absolute right-4 top-4 w-5 h-5 text-saffron-600 animate-spin" />}
         </div>
+
+        {/* Dynamic Transliteration Badges / Chips */}
+        {transliterations.length > 0 && (
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-1 animate-fadeIn">
+            <span className="text-xs text-maroon-800/70 font-medium flex items-center gap-1">
+              <Globe className="w-3.5 h-3.5 text-saffron-600" />
+              ગુજરાતી શબ્દ પરિણામો:
+            </span>
+            {transliterations.map((item, idx) => (
+              <button
+                key={idx}
+                onClick={() => setQuery(item)}
+                className="px-3 py-1 rounded-lg bg-saffron-500/15 hover:bg-saffron-500/30 text-saffron-900 text-xs font-bold transition border border-saffron-500/30"
+                title={`શોધો: ${item}`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Results View */}
       {query.trim() !== '' && (
         <div className="space-y-10 pt-4">
-          <p className="text-xs text-saffron-800 font-semibold text-center">
-            "{query}" માટે દર્શાવાયેલ {totalResults} પરિણામો
-          </p>
+          <div className="text-center space-y-1">
+            <p className="text-xs text-saffron-800 font-semibold">
+              "{query}" માટે દર્શાવાયેલ {totalResults} પરિણામો
+            </p>
+            {transliterations.length > 0 && (
+              <p className="text-[11px] text-maroon-800/70">
+                (ગુજરાતી અર્થ: {transliterations.join(' / ')})
+              </p>
+            )}
+          </div>
 
           {/* 1. Bhajans Results */}
           {results.bhajans.length > 0 && (
@@ -149,3 +191,4 @@ export default function SearchPage() {
     </div>
   );
 }
+
