@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BookOpen, Music, Search, UserCheck, Menu, X, Home, Shield, Sparkles } from 'lucide-react';
+import { BookOpen, Music, Search, UserCheck, Menu, X, Home, Shield, Sparkles, Flame } from 'lucide-react';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -14,10 +14,12 @@ export function Navbar() {
     { name: 'જીવન ચરિત્ર', href: '/biography', icon: BookOpen },
     { name: 'ભજન', href: '/bhajans', icon: Sparkles },
     { name: 'ધૂન', href: '/dhuns', icon: Music },
+    { name: 'આરતી', href: '/#aarti-section', icon: Flame },
     { name: 'સંત / લેખકો', href: '/authors', icon: UserCheck },
     { name: 'શોધો', href: '/search', icon: Search },
     { name: 'એડમિન (Admin)', href: '/admin', icon: Shield },
   ];
+
 
   const isActive = (path: string) => {
     if (path === '/' && pathname === '/') return true;

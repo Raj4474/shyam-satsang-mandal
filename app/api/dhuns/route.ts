@@ -30,12 +30,18 @@ export async function GET(request: Request) {
     const dhuns = await db.dhun.findMany({
       where,
       include: { author: true },
-      orderBy: { createdAt: 'desc' },
       ...(limit ? { take: limit } : {}),
       ...(skip ? { skip } : {}),
     });
 
-    return NextResponse.json(dhuns);
+    const sortedDhuns = dhuns.sort((a, b) => {
+      const numA = parseInt(a.title.match(/^\d+/)?.[0] || a.slug.split('-')[0], 10) || 0;
+      const numB = parseInt(b.title.match(/^\d+/)?.[0] || b.slug.split('-')[0], 10) || 0;
+      return numA - numB;
+    });
+
+    return NextResponse.json(sortedDhuns);
+
   } catch (error: any) {
     console.error('Dhuns GET error:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });

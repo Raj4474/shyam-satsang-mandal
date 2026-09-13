@@ -23,11 +23,6 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
           પવિત્ર ધૂન
         </span>
         <h1 className="text-3xl sm:text-4xl font-extrabold">{dhun.title}</h1>
-        {dhun.author && (
-          <p className="text-sm text-gold-300 font-medium">
-            રચયિતા / પ્રેરણાસ્રોત: <span className="font-bold">{dhun.author.gujaratiName}</span>
-          </p>
-        )}
 
         {/* Action Controls */}
         {dhun.lyrics && (

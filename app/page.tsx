@@ -1,14 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
 import { db } from '@/lib/db';
-import { BookOpen, Sparkles, Music, UserCheck, Play, ArrowRight, Search, HeartHandshake, Mic } from 'lucide-react';
+import { BookOpen, Sparkles, Music, UserCheck, Play, ArrowRight, Search, HeartHandshake, Mic, Flame } from 'lucide-react';
+import { AartiSection } from '@/components/aarti/AartiSection';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 async function getHomeData() {
   try {
-    const [bhajans, dhuns, authors, settings] = await Promise.all([
+    const today = new Date();
+    const startOfYear = new Date(today.getFullYear(), 0, 0);
+    const diff = today.getTime() - startOfYear.getTime();
+    const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    const totalBhajans = await db.bhajan.count({ where: { status: 'PUBLISHED' } });
+    const dailyIndex = totalBhajans > 0 ? dayOfYear % totalBhajans : 0;
+
+    const [bhajans, dhuns, authors, settings, dailyBhajan] = await Promise.all([
       db.bhajan.findMany({
         where: { status: 'PUBLISHED' },
         include: { author: true },
@@ -27,23 +36,31 @@ async function getHomeData() {
         orderBy: { featured: 'desc' },
       }),
       db.siteSetting.findMany(),
+      totalBhajans > 0
+        ? db.bhajan.findFirst({
+            where: { status: 'PUBLISHED' },
+            include: { author: true },
+            skip: dailyIndex,
+            orderBy: { id: 'asc' },
+          })
+        : null,
     ]);
 
     const settingsMap: Record<string, string> = {};
     settings.forEach((s) => (settingsMap[s.key] = s.value));
 
-    return { bhajans, dhuns, authors, settingsMap };
+    return { bhajans, dhuns, authors, settingsMap, dailyBhajan };
   } catch (error) {
     console.error('Error fetching home data:', error);
-    return { bhajans: [], dhuns: [], authors: [], settingsMap: {} };
+    return { bhajans: [], dhuns: [], authors: [], settingsMap: {}, dailyBhajan: null };
   }
 }
 
 export default async function HomePage() {
-  const { bhajans, dhuns, authors, settingsMap } = await getHomeData();
+  const { bhajans, dhuns, authors, settingsMap, dailyBhajan } = await getHomeData();
 
   const heroBadge = settingsMap['heroBadge'] || 'શ્યામ સત્સંગ મંડળ પવિત્ર સંગ્રહાલય';
-  const heroTitle = settingsMap['heroTitle'] || 'ભજન, ધૂન અને આધ્યાત્મિક વારસાનું ડિજિટલ સંગ્રહાલય';
+  const heroTitle = settingsMap['heroTitle'] || 'ભજન, ધૂન, આરતી અને આધ્યાત્મિક વારસાનું ડિજિટલ સંગ્રહાલય';
   const heroSubtitle = settingsMap['heroSubtitle'] || 'સંતવાણી, ભક્તિ અને જીવનમૂલ્યોને આગામી પેઢી સુધી પહોંચાડવાનો એક પ્રયાસ.';
 
   const card1Title = settingsMap['card1Title'] || 'શામજીબાપાનું જીવન ચરિત્ર';
@@ -59,7 +76,7 @@ export default async function HomePage() {
   return (
     <div className="space-y-16 font-gujarati pb-12">
       {/* 1. Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-saffron-500/10 via-cream-100 to-cream-50 pt-12 pb-20 border-b border-saffron-500/15">
+      <section className="relative overflow-hidden bg-gradient-to-b from-saffron-500/10 via-cream-100 to-cream-50 pt-12 pb-16 border-b border-saffron-500/15">
         <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#d97706_1px,transparent_1px)] [background-size:24px_24px]" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
@@ -76,7 +93,7 @@ export default async function HomePage() {
             {heroSubtitle}
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
+          <div className="flex flex-wrap justify-center items-stretch sm:items-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
             <Link
               href="/biography"
               className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-maroon-800 to-maroon-900 hover:from-maroon-900 hover:to-maroon-950 text-cream-50 font-bold text-base shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2"
@@ -100,81 +117,154 @@ export default async function HomePage() {
               <Music className="w-5 h-5 text-saffron-600" />
               <span>ધૂન જુઓ</span>
             </Link>
+
+            <Link
+              href="#aarti-section"
+              className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-gold-500 to-saffron-500 hover:from-gold-600 hover:to-saffron-600 text-maroon-950 font-bold text-base shadow-md hover:shadow-lg transition flex items-center justify-center gap-2"
+            >
+              <Flame className="w-5 h-5 text-maroon-900 animate-pulse" />
+              <span>પવિત્ર આરતી</span>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* 2. Main Category Cards */}
+      {/* 2. Daily Bhajan of the Day Banner (આજનો સંતવાણી વિચાર / આજે ગવાયેલું પદ) */}
+      {dailyBhajan && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden bg-gradient-to-r from-maroon-950 via-maroon-900 to-maroon-950 rounded-3xl p-6 sm:p-10 border border-gold-500/30 text-cream-50 shadow-2xl">
+            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-saffron-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div className="space-y-4 max-w-3xl">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold-500/20 border border-gold-500/40 text-gold-300 text-xs font-bold uppercase tracking-wider">
+                  <Sparkles className="w-4 h-4 text-gold-400 animate-pulse" />
+                  <span>આજનો સંતવાણી વિચાર / આજે ગવાયેલું પદ</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-gold-300 tracking-wide leading-snug">
+                  {dailyBhajan.title}
+                </h2>
+
+                <p className="text-sm text-gold-400/90 font-medium">
+                  રચયિતા: <span className="font-bold text-cream-100">{dailyBhajan.author?.gujaratiName || 'સંતવાણી'}</span>
+                </p>
+
+                <p className="text-sm sm:text-base text-cream-200/90 leading-relaxed italic border-l-2 border-gold-500/40 pl-4 py-1 line-clamp-3 whitespace-pre-line">
+                  {dailyBhajan.lyrics?.split('\n').slice(0, 4).join('\n')}
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row md:flex-col gap-3 w-full md:w-auto shrink-0 pt-2 md:pt-0">
+                <Link
+                  href={`/bhajans/${dailyBhajan.slug}`}
+                  className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-gold-500 to-gold-400 hover:from-gold-400 hover:to-gold-300 text-maroon-950 font-bold text-sm shadow-xl transition text-center flex items-center justify-center gap-2"
+                >
+                  <span>સંપૂર્ણ ભજન વાંચો</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 3. Main Category Cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-maroon-950">મુખ્ય વિભાગો</h2>
-          <p className="text-maroon-800/70 text-sm mt-1">અમારા પવિત્ર સંગ્રહના ત્રણ મુખ્ય આધારસ્તંભ</p>
+          <p className="text-maroon-800/70 text-sm mt-1">અમારા પવિત્ર સંગ્રહના મુખ્ય આધારસ્તંભ</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Card 1: જીવન ચરિત્ર */}
-          <div className="group relative bg-gradient-to-br from-cream-50 via-cream-100 to-saffron-50/40 rounded-3xl p-8 border border-saffron-500/20 shadow-card hover:shadow-spiritual transition duration-300 flex flex-col justify-between">
-            <div className="w-14 h-14 rounded-2xl bg-maroon-900 text-gold-400 flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition transform">
-              <BookOpen className="w-7 h-7" />
+          <div className="group relative bg-gradient-to-br from-cream-50 via-cream-100 to-saffron-50/40 rounded-3xl p-6 border border-saffron-500/20 shadow-card hover:shadow-spiritual transition duration-300 flex flex-col justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-maroon-900 text-gold-400 flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition transform">
+              <BookOpen className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-maroon-950 mb-3">{card1Title}</h3>
-              <p className="text-maroon-800/80 text-sm leading-relaxed mb-6">
+              <h3 className="text-xl font-bold text-maroon-950 mb-2">{card1Title}</h3>
+              <p className="text-maroon-800/80 text-xs leading-relaxed mb-4">
                 {card1Desc}
               </p>
             </div>
             <Link
               href="/biography"
-              className="inline-flex items-center gap-2 font-bold text-saffron-700 hover:text-maroon-900 text-sm group-hover:translate-x-1 transition"
+              className="inline-flex items-center gap-2 font-bold text-saffron-700 hover:text-maroon-900 text-xs group-hover:translate-x-1 transition"
             >
               <span>વિસ્તારથી વાંચો</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           {/* Card 2: ભજન */}
-          <div className="group relative bg-gradient-to-br from-cream-50 via-cream-100 to-saffron-50/40 rounded-3xl p-8 border border-saffron-500/20 shadow-card hover:shadow-spiritual transition duration-300 flex flex-col justify-between">
-            <div className="w-14 h-14 rounded-2xl bg-saffron-600 text-cream-50 flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition transform">
-              <Sparkles className="w-7 h-7" />
+          <div className="group relative bg-gradient-to-br from-cream-50 via-cream-100 to-saffron-50/40 rounded-3xl p-6 border border-saffron-500/20 shadow-card hover:shadow-spiritual transition duration-300 flex flex-col justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-saffron-600 text-cream-50 flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition transform">
+              <Sparkles className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-maroon-950 mb-3">{card2Title}</h3>
-              <p className="text-maroon-800/80 text-sm leading-relaxed mb-6">
+              <h3 className="text-xl font-bold text-maroon-950 mb-2">{card2Title}</h3>
+              <p className="text-maroon-800/80 text-xs leading-relaxed mb-4">
                 {card2Desc}
               </p>
             </div>
             <Link
               href="/bhajans"
-              className="inline-flex items-center gap-2 font-bold text-saffron-700 hover:text-maroon-900 text-sm group-hover:translate-x-1 transition"
+              className="inline-flex items-center gap-2 font-bold text-saffron-700 hover:text-maroon-900 text-xs group-hover:translate-x-1 transition"
             >
               <span>ભજન જુઓ</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           {/* Card 3: ધૂન */}
-          <div className="group relative bg-gradient-to-br from-cream-50 via-cream-100 to-saffron-50/40 rounded-3xl p-8 border border-saffron-500/20 shadow-card hover:shadow-spiritual transition duration-300 flex flex-col justify-between">
-            <div className="w-14 h-14 rounded-2xl bg-gold-600 text-maroon-950 flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition transform">
-              <Music className="w-7 h-7" />
+          <div className="group relative bg-gradient-to-br from-cream-50 via-cream-100 to-saffron-50/40 rounded-3xl p-6 border border-saffron-500/20 shadow-card hover:shadow-spiritual transition duration-300 flex flex-col justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-gold-600 text-maroon-950 flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition transform">
+              <Music className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-maroon-950 mb-3">{card3Title}</h3>
-              <p className="text-maroon-800/80 text-sm leading-relaxed mb-6">
+              <h3 className="text-xl font-bold text-maroon-950 mb-2">{card3Title}</h3>
+              <p className="text-maroon-800/80 text-xs leading-relaxed mb-4">
                 {card3Desc}
               </p>
             </div>
             <Link
               href="/dhuns"
-              className="inline-flex items-center gap-2 font-bold text-saffron-700 hover:text-maroon-900 text-sm group-hover:translate-x-1 transition"
+              className="inline-flex items-center gap-2 font-bold text-saffron-700 hover:text-maroon-900 text-xs group-hover:translate-x-1 transition"
             >
               <span>ધૂન શ્રવણ કરો</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {/* Card 4: પવિત્ર આરતી */}
+          <div className="group relative bg-gradient-to-br from-cream-50 via-cream-100 to-saffron-50/40 rounded-3xl p-6 border border-saffron-500/20 shadow-card hover:shadow-spiritual transition duration-300 flex flex-col justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-saffron-500 text-cream-50 flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition transform">
+              <Flame className="w-6 h-6 animate-pulse text-gold-300" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-maroon-950 mb-2">પવિત્ર આરતી</h3>
+              <p className="text-maroon-800/80 text-xs leading-relaxed mb-4">
+                સદ્ગુરુ શ્યામરામ તથા ધૂસારામ બાપાની નિત્ય દિવ્ય આરતી અને સ્તુતિ.
+              </p>
+            </div>
+            <Link
+              href="#aarti-section"
+              className="inline-flex items-center gap-2 font-bold text-saffron-700 hover:text-maroon-900 text-xs group-hover:translate-x-1 transition"
+            >
+              <span>આરતી સ્તુતિ વાંચો</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 3. Featured Dhuns / Bhajans Section */}
+      {/* 4. Aarti Section */}
+      <AartiSection />
+
+
+      {/* 4. Featured Dhuns / Bhajans Section */}
+
       {dhuns.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4 border-b border-saffron-500/20 pb-4">

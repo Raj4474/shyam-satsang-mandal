@@ -291,3 +291,98 @@ export function getGujaratiTransliterations(query: string): string[] {
   // Filter out English original query and keep unique Gujarati strings
   return all.filter((item) => !isEnglishOrMixed(item));
 }
+
+/**
+ * Converts Gujarati Unicode script text into readable Romanized English / Gujlish script.
+ */
+export function toGujlish(text: string): string {
+  if (!text) return '';
+
+  // Consonant map
+  const consonantMap: Record<string, string> = {
+    'ક': 'k', 'ખ': 'kh', 'ગ': 'g', 'ઘ': 'gh', 'ઙ': 'ng',
+    'ચ': 'ch', 'છ': 'chh', 'જ': 'j', 'ઝ': 'z', 'ઞ': 'ny',
+    'ટ': 't', 'ઠ': 'th', 'ડ': 'd', 'ઢ': 'dh', 'ણ': 'n',
+    'ત': 't', 'થ': 'th', 'દ': 'd', 'ધ': 'dh', 'ન': 'n',
+    'પ': 'p', 'ફ': 'ph', 'બ': 'b', 'ભ': 'bh', 'મ': 'm',
+    'ય': 'y', 'ર': 'r', 'લ': 'l', 'વ': 'v', 'શ': 'sh',
+    'ષ': 'sh', 'સ': 's', 'હ': 'h', 'ળ': 'l', 'ક્ષ': 'ksh', 'જ્ઞ': 'gny',
+  };
+
+  // Independent vowel map
+  const vowelMap: Record<string, string> = {
+    'અ': 'a', 'આ': 'aa', 'ઇ': 'i', 'ઈ': 'ee', 'ઉ': 'u',
+    'ઊ': 'oo', 'ઋ': 'ru', 'એ': 'e', 'ઐ': 'ai', 'ઓ': 'o',
+    'ઔ': 'au', 'અં': 'an', 'અઃ': 'ah',
+  };
+
+  // Dependent matra map
+  const matraMap: Record<string, string> = {
+    'ા': 'a', 'િ': 'i', 'ી': 'ee', 'ુ': 'u', 'ૂ': 'oo',
+    'ૃ': 'ru', 'ે': 'e', 'ૈ': 'ai', 'ો': 'o', 'ૌ': 'au',
+    'ં': 'n', 'ઃ': 'h',
+  };
+
+  const chars = Array.from(text);
+  let result = '';
+
+  for (let i = 0; i < chars.length; i++) {
+    const char = chars[i];
+    const nextChar = chars[i + 1] || '';
+
+    // Check independent vowel
+    if (vowelMap[char]) {
+      result += vowelMap[char];
+      continue;
+    }
+
+    // Check consonant
+    if (consonantMap[char]) {
+      let base = consonantMap[char];
+      
+      // Check if followed by virama (halant '્')
+      if (nextChar === '્') {
+        result += base;
+        i++; // skip halant
+        continue;
+      }
+
+      // Check if followed by dependent matra
+      if (matraMap[nextChar]) {
+        result += base + matraMap[nextChar];
+        i++; // skip matra
+        continue;
+      }
+
+      // If at end of word or followed by space/punctuation/newline, or next is vowel/space
+      // Standard Gujarati implicit 'a' handling: keep 'a' unless at end of word or before space
+      if (!nextChar || /\s|[.,!?;:()"'\-\n]/.test(nextChar)) {
+        // Word final consonant: often silent 'a' in Gujlish/Hindi transliteration or kept soft
+        // If word is short (1 letter consonant like 'પદ'), keep 'a', else omit final 'a'
+        result += base;
+      } else {
+        result += base + 'a';
+      }
+      continue;
+    }
+
+    // Check standalone matra (if any)
+    if (matraMap[char]) {
+      result += matraMap[char];
+      continue;
+    }
+
+    // Pass through punctuation, numbers, spaces, English characters
+    result += char;
+  }
+
+  // Capitalize first character of lines/sentences for better reading
+  return result
+    .split('\n')
+    .map((line) => {
+      if (!line.trim()) return line;
+      return line.charAt(0).toUpperCase() + line.slice(1);
+    })
+    .join('\n');
+}
+

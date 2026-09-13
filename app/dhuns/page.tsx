@@ -8,30 +8,32 @@ export const revalidate = 0;
 
 async function getDhunsData() {
   try {
-    const [dhuns, authors, settings] = await Promise.all([
+    const [dhuns, settings] = await Promise.all([
       db.dhun.findMany({
         where: { status: 'PUBLISHED' },
-        include: { author: true },
-        orderBy: { createdAt: 'desc' },
-      }),
-      db.author.findMany({
-        orderBy: { gujaratiName: 'asc' },
       }),
       db.siteSetting.findMany(),
     ]);
 
+    const sortedDhuns = dhuns.sort((a, b) => {
+      const numA = parseInt(a.title.match(/^\d+/)?.[0] || a.slug.split('-')[0], 10) || 0;
+      const numB = parseInt(b.title.match(/^\d+/)?.[0] || b.slug.split('-')[0], 10) || 0;
+      return numA - numB;
+    });
+
+
     const settingsMap: Record<string, string> = {};
     settings.forEach((s) => (settingsMap[s.key] = s.value));
 
-    return { dhuns, authors, settingsMap };
+    return { dhuns: sortedDhuns, settingsMap };
   } catch (error) {
     console.error('Error fetching dhuns:', error);
-    return { dhuns: [], authors: [], settingsMap: {} };
+    return { dhuns: [], settingsMap: {} };
   }
 }
 
 export default async function DhunsPage() {
-  const { dhuns, authors, settingsMap } = await getDhunsData();
+  const { dhuns, settingsMap } = await getDhunsData();
 
   const title = settingsMap['dhunsTitle'] || 'પવિત્ર ધૂન સંગ્રહ';
   const subtitle = settingsMap['dhunsSubtitle'] || 'ઈશ્વરના દિવ્ય નામની કીર્તન ધૂનનો સંગ્રહ અને પદ સાહિત્ય.';
@@ -50,27 +52,6 @@ export default async function DhunsPage() {
         </p>
       </div>
 
-      {/* Author Filter Pills */}
-      {authors.length > 0 && (
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          <Link
-            href="/dhuns"
-            className="px-4 py-2 rounded-xl bg-gold-600 text-maroon-950 text-xs font-bold shadow-sm"
-          >
-            તમામ ધૂન ({dhuns.length})
-          </Link>
-          {authors.map((author) => (
-            <Link
-              key={author.id}
-              href={`/authors/${author.slug}`}
-              className="px-4 py-2 rounded-xl bg-cream-100 hover:bg-gold-500/20 text-maroon-950 text-xs font-semibold border border-saffron-500/20 transition"
-            >
-              {author.gujaratiName}
-            </Link>
-          ))}
-        </div>
-      )}
-
       {/* Dhun Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {dhuns.map((dhun) => (
@@ -81,7 +62,6 @@ export default async function DhunsPage() {
             <div>
               <div className="flex items-center justify-between text-xs text-saffron-700 font-semibold mb-3">
                 <span className="bg-gold-500/15 px-3 py-1 rounded-full text-gold-800 font-bold">ધૂન</span>
-                <span>{dhun.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
               </div>
               <h2 className="text-2xl font-bold text-maroon-950 mb-2 leading-snug">{dhun.title}</h2>
               <p className="text-maroon-800/80 text-xs line-clamp-3 leading-relaxed whitespace-pre-line">
@@ -112,3 +92,4 @@ export default async function DhunsPage() {
     </div>
   );
 }
+
