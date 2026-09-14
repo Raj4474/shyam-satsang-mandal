@@ -222,7 +222,9 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
                   <span className="bg-saffron-500/10 px-3 py-1 rounded-full">{bhajan.category || 'સંતવાણી'}</span>
                   <span>{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
                 </div>
-                <h2 className="text-2xl font-bold text-maroon-950 mb-2 leading-snug">{bhajan.title}</h2>
+                <h2 className="text-2xl font-bold text-maroon-950 mb-2 leading-snug">
+                  {bhajans.findIndex(b => b.id === bhajan.id) + 1}. {bhajan.title}
+                </h2>
                 <p className="text-maroon-800/80 text-xs line-clamp-3 leading-relaxed whitespace-pre-line">
                   {bhajan.description || bhajan.lyrics?.slice(0, 120)}
                 </p>

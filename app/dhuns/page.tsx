@@ -54,7 +54,7 @@ export default async function DhunsPage() {
 
       {/* Dhun Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {dhuns.map((dhun) => (
+        {dhuns.map((dhun, index) => (
           <div
             key={dhun.id}
             className="bg-cream-50 rounded-3xl border border-saffron-500/20 p-6 shadow-card hover:shadow-spiritual transition flex flex-col justify-between space-y-4"
@@ -63,7 +63,9 @@ export default async function DhunsPage() {
               <div className="flex items-center justify-between text-xs text-saffron-700 font-semibold mb-3">
                 <span className="bg-gold-500/15 px-3 py-1 rounded-full text-gold-800 font-bold">ધૂન</span>
               </div>
-              <h2 className="text-2xl font-bold text-maroon-950 mb-2 leading-snug">{dhun.title}</h2>
+              <h2 className="text-2xl font-bold text-maroon-950 mb-2 leading-snug">
+                {index + 1}. {dhun.title}
+              </h2>
               <p className="text-maroon-800/80 text-xs line-clamp-3 leading-relaxed whitespace-pre-line">
                 {dhun.description || dhun.lyrics?.slice(0, 120)}
               </p>
