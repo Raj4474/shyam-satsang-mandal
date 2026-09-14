@@ -10,7 +10,7 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
 
   const handleCopy = () => {
     if (!dhun.lyrics) return;
-    navigator.clipboard.writeText(`${dhun.title}\n\n${dhun.lyrics}`);
+    navigator.clipboard.writeText(`${dhun.title.replace(/^[\d\.\s]+/, '')}\n\n${dhun.lyrics}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -22,7 +22,7 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
         <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-gold-500/20 text-gold-400">
           પવિત્ર ધૂન
         </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold">{dhun.title}</h1>
+        <h1 className="text-3xl sm:text-4xl font-extrabold">{dhun.title.replace(/^[\d\.\s]+/, '')}</h1>
 
         {/* Action Controls */}
         {dhun.lyrics && (

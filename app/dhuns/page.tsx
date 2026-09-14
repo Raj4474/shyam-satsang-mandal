@@ -64,7 +64,7 @@ export default async function DhunsPage() {
                 <span className="bg-gold-500/15 px-3 py-1 rounded-full text-gold-800 font-bold">ધૂન</span>
               </div>
               <h2 className="text-2xl font-bold text-maroon-950 mb-2 leading-snug">
-                {index + 1}. {dhun.title}
+                {index + 1}. {dhun.title.replace(/^[\d\.\s]+/, '')}
               </h2>
               <p className="text-maroon-800/80 text-xs line-clamp-3 leading-relaxed whitespace-pre-line">
                 {dhun.description || dhun.lyrics?.slice(0, 120)}

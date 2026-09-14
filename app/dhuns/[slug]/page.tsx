@@ -69,7 +69,7 @@ export default async function DhunDetailPage({ params }: { params: Promise<{ slu
                 className="bg-cream-50 rounded-2xl p-5 border border-saffron-500/20 hover:border-saffron-500/50 shadow-sm hover:shadow-md transition space-y-2"
               >
                 <span className="text-[11px] font-semibold text-saffron-700">ધૂન</span>
-                <h4 className="text-lg font-bold text-maroon-950 line-clamp-1">{item.title}</h4>
+                <h4 className="text-lg font-bold text-maroon-950 line-clamp-1">{item.title.replace(/^[\d\.\s]+/, '')}</h4>
                 <p className="text-xs text-maroon-800/70 line-clamp-2">{item.description || item.lyrics}</p>
               </Link>
             ))}

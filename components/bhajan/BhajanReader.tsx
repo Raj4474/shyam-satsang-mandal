@@ -16,7 +16,8 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
   const [script, setScript] = useState<ScriptMode>('gujarati');
   const [copied, setCopied] = useState(false);
 
-  const displayTitle = script === 'gujlish' ? toGujlish(bhajan.title) : bhajan.title;
+  const rawTitle = bhajan.title.replace(/^[\d\.\s]+/, '');
+  const displayTitle = script === 'gujlish' ? toGujlish(rawTitle) : rawTitle;
   const displayLyrics = script === 'gujlish' ? toGujlish(bhajan.lyrics) : bhajan.lyrics;
   const authorName = bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ મંડળ';
   const displayAuthor = script === 'gujlish' ? toGujlish(authorName) : authorName;
