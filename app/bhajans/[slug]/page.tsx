@@ -46,7 +46,7 @@ export default async function BhajanDetailPage({ params }: { params: Promise<{ s
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 font-gujarati">
       {/* Back Button */}
-      <div>
+      <div className="print:hidden">
         <Link
           href="/bhajans"
           className="inline-flex items-center gap-2 text-sm font-bold text-maroon-800 hover:text-saffron-600 transition"
@@ -61,7 +61,7 @@ export default async function BhajanDetailPage({ params }: { params: Promise<{ s
 
       {/* Related Bhajans */}
       {related.length > 0 && (
-        <div className="space-y-6 border-t border-saffron-500/20 pt-10">
+        <div className="print:hidden space-y-6 border-t border-saffron-500/20 pt-10">
           <h3 className="text-2xl font-bold text-maroon-950">અન્ય સંબંધિત ભજનો</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {related.map((item) => (

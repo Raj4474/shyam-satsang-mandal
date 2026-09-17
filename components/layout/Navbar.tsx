@@ -36,7 +36,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className={`sticky top-0 z-40 transition-all duration-500 ${scrolled ? 'bg-sand-50/80 backdrop-blur-xl border-b border-sand-200/50 shadow-sm' : 'bg-transparent border-b border-transparent py-2'}`}>
+      <header className={`print:hidden sticky top-0 z-40 transition-all duration-500 ${scrolled ? 'bg-sand-50/80 backdrop-blur-xl border-b border-sand-200/50 shadow-sm' : 'bg-transparent border-b border-transparent py-2'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo Brand */}
@@ -127,7 +127,7 @@ export function Navbar() {
       </header>
 
       {/* Mobile Bottom Fixed Bar for Instant Accessibility */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-sand-50/90 backdrop-blur-xl border-t border-sand-200/50 px-2 py-2 flex items-center justify-around font-gujarati shadow-[0_-4px_20px_rgba(0,0,0,0.03)] pb-safe">
+      <div className="print:hidden lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-sand-50/90 backdrop-blur-xl border-t border-sand-200/50 px-2 py-2 flex items-center justify-around font-gujarati shadow-[0_-4px_20px_rgba(0,0,0,0.03)] pb-safe">
         {navLinks.slice(0, 5).map((link) => {
           const Icon = link.icon;
           const active = isActive(link.href);
