@@ -61,7 +61,7 @@ export async function Footer() {
               ].map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="group hover:text-gold-400 transition-colors flex items-center gap-2">
-                    <span className="text-saffron-500 group-hover:translate-x-1 transition-transform">&rarr;</span> {link.name}
+                    <span className="group-hover:translate-x-1 transition-transform inline-block">{link.name}</span>
                   </Link>
                 </li>
               ))}
