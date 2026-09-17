@@ -49,24 +49,24 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
   const getThemeClasses = () => {
     switch (theme) {
       case 'dark':
-        return 'bg-maroon-950 text-cream-100 border-gold-500/30 shadow-2xl';
+        return 'bg-ink-900 text-sand-50 border-ink-800 shadow-soft';
       case 'sepia':
-        return 'bg-[#fbf0d9] text-[#432818] border-[#e0c9a6] shadow-spiritual';
+        return 'bg-[#fcf5e5] text-[#432818] border-[#e8dfc7] shadow-soft';
       case 'light':
       default:
-        return 'bg-cream-50 text-maroon-950 border-saffron-500/20 shadow-spiritual';
+        return 'bg-sand-50 text-ink-900 border-sand-200 shadow-soft';
     }
   };
 
   const getHeaderBgClasses = () => {
     switch (theme) {
       case 'dark':
-        return 'border-maroon-900 bg-maroon-900/60 text-cream-100';
+        return 'border-ink-800 bg-ink-800/50 text-sand-50';
       case 'sepia':
-        return 'border-[#e0c9a6] bg-[#f4e4c1] text-[#432818]';
+        return 'border-[#e8dfc7] bg-[#f8efd8] text-[#432818]';
       case 'light':
       default:
-        return 'border-cream-200 bg-cream-100/70 text-maroon-950';
+        return 'border-sand-200 bg-sand-100/70 text-ink-900';
     }
   };
 

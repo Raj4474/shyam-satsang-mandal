@@ -10,37 +10,40 @@
 
 body {
   font-family: var(--font-gujarati), 'Anek Gujarati', sans-serif;
-  background-color: #FDFBF7;
-  color: #450A0A;
+  background-color: #fcfcfc; /* sand-50 */
+  color: #1a1a1a; /* ink-900 */
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4 {
   line-height: 1.55 !important;
   padding-top: 0.1em;
   padding-bottom: 0.1em;
+  letter-spacing: -0.02em;
 }
 
 .dark body {
-  background-color: #450A0A;
-  color: #FDFBF7;
+  background-color: #1a1a1a;
+  color: #fcfcfc;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - Minimal */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F5F0E6;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D97706;
-  border-radius: 4px;
+  background: #d5d2c9; /* sand-400 */
+  border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B45309;
+  background: #b8b4a8; /* sand-500 */
 }

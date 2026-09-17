@@ -29,26 +29,23 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-cream-50/90 dark:bg-maroon-950/90 backdrop-blur-md border-b border-saffron-500/20 shadow-sm">
-        {/* Top Gold Accent Stripe */}
-        <div className="h-1 bg-gradient-to-r from-saffron-600 via-gold-500 to-maroon-700 w-full" />
-
+      <header className="sticky top-0 z-40 bg-sand-50/80 backdrop-blur-xl border-b border-sand-200/50 shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo Brand */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-saffron-500 to-gold-500 p-0.5 shadow-spiritual overflow-hidden group-hover:scale-105 transition transform">
+              <div className="w-11 h-11 rounded-full bg-sand-200 p-[1px] shadow-soft overflow-hidden group-hover:scale-105 transition-transform duration-300">
                 <img
                   src="/logo.jpg"
                   alt="શ્યામ સત્સંગ મંડળ લોગો"
-                  className="w-full h-full object-cover rounded-full border border-gold-500/40"
+                  className="w-full h-full object-cover rounded-full"
                 />
               </div>
               <div>
-                <span className="font-gujarati text-lg sm:text-2xl font-bold bg-gradient-to-r from-maroon-900 via-saffron-700 to-maroon-800 dark:from-gold-400 dark:to-saffron-400 bg-clip-text text-transparent block leading-tight">
+                <span className="font-gujarati text-lg sm:text-xl font-bold text-ink-900 tracking-tight block leading-tight group-hover:text-saffron-600 transition-colors">
                   શ્યામ સત્સંગ મંડળ
                 </span>
-                <span className="text-[10px] sm:text-xs text-saffron-700/80 dark:text-cream-300 font-gujarati tracking-wider block">
+                <span className="text-[10px] sm:text-xs text-ink-600 font-gujarati tracking-wider block">
                   ગુજરાતી ભજન અને ધૂન ડિજિટલ લાઈબ્રેરી
                 </span>
               </div>
@@ -63,13 +60,13 @@ export function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold transition font-gujarati ${
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 font-gujarati ${
                       active
-                        ? 'bg-saffron-500/15 text-saffron-700 dark:text-gold-400 border border-saffron-500/30'
-                        : 'text-maroon-900/80 dark:text-cream-200 hover:bg-saffron-500/10 hover:text-saffron-600'
+                        ? 'bg-ink-900 text-sand-50 shadow-soft'
+                        : 'text-ink-700 hover:bg-sand-200 hover:text-ink-900'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 ${active ? 'text-saffron-600 dark:text-gold-400' : 'opacity-70'}`} />
+                    <Icon className={`w-4 h-4 ${active ? 'text-sand-50' : 'opacity-70'}`} />
                     <span>{link.name}</span>
                   </Link>
                 );
@@ -79,15 +76,15 @@ export function Navbar() {
             {/* Mobile Hamburger Toggle */}
             <div className="lg:hidden flex items-center gap-2">
               <Link
-                href="/search"
-                className="p-2.5 text-maroon-800 dark:text-cream-200 rounded-lg hover:bg-saffron-500/10"
-                title="શોધો"
-              >
-                <Search className="w-5 h-5" />
-              </Link>
+                 href="/search"
+                 className="p-2.5 text-ink-800 rounded-full hover:bg-sand-200 transition-colors"
+                 title="શોધો"
+               >
+                 <Search className="w-5 h-5" />
+               </Link>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2.5 text-maroon-800 dark:text-cream-200 rounded-lg hover:bg-saffron-500/10"
+                className="p-2.5 text-ink-800 rounded-full hover:bg-sand-200 transition-colors"
                 aria-label="Toggle Navigation"
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -98,7 +95,7 @@ export function Navbar() {
 
         {/* Mobile Menu Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-cream-50 dark:bg-maroon-950 border-b border-saffron-500/20 px-4 pt-2 pb-6 space-y-2 font-gujarati animate-fadeIn">
+          <div className="lg:hidden bg-sand-50 border-b border-sand-200/50 px-4 pt-2 pb-6 space-y-1 font-gujarati shadow-soft">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const active = isActive(link.href);
@@ -107,13 +104,13 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-base font-medium transition-colors ${
                     active
-                      ? 'bg-saffron-500/20 text-saffron-700 dark:text-gold-400 font-bold'
-                      : 'text-maroon-900 dark:text-cream-200 hover:bg-saffron-500/10'
+                      ? 'bg-ink-900 text-sand-50'
+                      : 'text-ink-800 hover:bg-sand-200'
                   }`}
                 >
-                  <Icon className="w-5 h-5 text-saffron-600 dark:text-gold-400" />
+                  <Icon className={`w-5 h-5 ${active ? 'text-sand-50' : 'text-ink-600'}`} />
                   <span>{link.name}</span>
                 </Link>
               );
@@ -123,7 +120,7 @@ export function Navbar() {
       </header>
 
       {/* Mobile Bottom Fixed Bar for Instant Accessibility */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-cream-50/95 dark:bg-maroon-950/95 border-t border-saffron-500/20 px-2 py-2 flex items-center justify-around font-gujarati shadow-lg">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-sand-50/90 backdrop-blur-xl border-t border-sand-200/50 px-2 py-2 flex items-center justify-around font-gujarati shadow-[0_-4px_20px_rgba(0,0,0,0.03)] pb-safe">
         {navLinks.slice(0, 5).map((link) => {
           const Icon = link.icon;
           const active = isActive(link.href);
@@ -131,13 +128,13 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`flex flex-col items-center gap-1 text-[11px] font-medium transition py-1 px-2 rounded-lg ${
+              className={`flex flex-col items-center gap-1 text-[11px] font-medium transition py-1.5 px-3 rounded-xl ${
                 active
-                  ? 'text-saffron-600 dark:text-gold-400 font-bold'
-                  : 'text-maroon-800/70 dark:text-cream-300'
+                  ? 'text-ink-900 bg-sand-200/60'
+                  : 'text-ink-600 hover:text-ink-900'
               }`}
             >
-              <Icon className="w-5 h-5" />
+              <Icon className={`w-5 h-5 ${active ? 'text-ink-900' : ''}`} />
               <span>{link.name}</span>
             </Link>
           );

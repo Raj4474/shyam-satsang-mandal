@@ -54,6 +54,20 @@ const config: Config = {
           600: '#b89726',
           700: '#967819',
         }
+        sand: {
+          50: '#fcfcfc',
+          100: '#faf9f8',
+          200: '#f3f2f0',
+          300: '#e8e6e1',
+          400: '#d5d2c9',
+          500: '#b8b4a8',
+        },
+        ink: {
+          900: '#1a1a1a',
+          800: '#2d2d2d',
+          700: '#404040',
+          600: '#595959',
+        },
       },
       fontFamily: {
         gujarati: ['var(--font-gujarati)', 'Anek Gujarati', 'Noto Sans Gujarati', 'sans-serif'],
@@ -61,6 +75,8 @@ const config: Config = {
       boxShadow: {
         spiritual: '0 10px 30px -5px rgba(217, 119, 6, 0.15)',
         card: '0 4px 20px -2px rgba(120, 53, 15, 0.08)',
+        soft: '0 8px 30px rgba(0,0,0,0.04)',
+        glass: '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
       }
     },
   },
