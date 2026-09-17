@@ -53,7 +53,7 @@ const config: Config = {
           500: '#d4af37',
           600: '#b89726',
           700: '#967819',
-        }
+        },
         sand: {
           50: '#fcfcfc',
           100: '#faf9f8',
