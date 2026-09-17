@@ -30,7 +30,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
     const counts: Record<string, number> = { 'બધા': bhajans.length };
 
     bhajans.forEach((bhajan) => {
-      const cleanTitle = bhajan.title.replace(/^[\d\.\s]+/, '').trim();
+      const cleanTitle = bhajan.title.replace(/^[\d\.\s૦-૯]+/, '').trim();
       const firstChar = cleanTitle.charAt(0);
       if (firstChar) {
         counts[firstChar] = (counts[firstChar] || 0) + 1;
@@ -52,7 +52,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
     // 2. Alphabetical Letter Filter
     if (selectedLetter !== 'બધા') {
       result = result.filter((b) => {
-        const cleanTitle = b.title.replace(/^[\d\.\s]+/, '').trim();
+        const cleanTitle = b.title.replace(/^[\d\.\s૦-૯]+/, '').trim();
         const titleFirstChar = cleanTitle.charAt(0);
         return titleFirstChar === selectedLetter;
       });
@@ -223,7 +223,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
                   <span>{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
                 </div>
                 <h2 className="text-2xl font-bold text-maroon-950 mb-2 leading-snug">
-                  {bhajans.findIndex(b => b.id === bhajan.id) + 1}. {bhajan.title.replace(/^[\d\.\s]+/, '')}
+                  {bhajans.findIndex(b => b.id === bhajan.id) + 1}. {bhajan.title.replace(/^[\d\.\s૦-૯]+/, '')}
                 </h2>
                 <p className="text-maroon-800/80 text-xs line-clamp-3 leading-relaxed whitespace-pre-line">
                   {bhajan.description || bhajan.lyrics?.slice(0, 120)}
