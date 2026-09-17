@@ -25,78 +25,70 @@ export async function Footer() {
   const copyright = s.footerCopyright || `© ${new Date().getFullYear()} શ્યામ સત્સંગ મંડળ. સર્વાધિકાર સુરક્ષિત.`;
 
   return (
-    <footer className="bg-sand-100 text-ink-900 border-t border-sand-200 pt-12 pb-24 md:pb-12 font-gujarati">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+    <footer className="print:hidden relative overflow-hidden bg-maroon-950 text-sand-50 pt-16 pb-24 md:pb-12 font-gujarati border-t-4 border-saffron-600 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+      {/* Premium Background Layer */}
+      <div className="absolute inset-0 z-0 mandala-pattern opacity-10 mix-blend-screen pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-maroon-950/50 to-black/60 pointer-events-none" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Column 1: About */}
-          <div className="md:col-span-2 space-y-5">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden border border-sand-200 bg-sand-200">
+          <div className="md:col-span-2 space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gold-500/50 bg-sand-200 shadow-spiritual">
                 <img src="/logo.jpg" alt={title} className="w-full h-full object-cover" />
               </div>
-              <h3 className="text-2xl font-bold text-ink-900 tracking-tight">{title}</h3>
+              <h3 className="text-3xl font-extrabold text-sand-50 tracking-wide font-serif text-shadow-sm">{title}</h3>
             </div>
-            <p className="text-ink-600 text-sm leading-relaxed max-w-md font-medium">
+            <p className="text-sand-200/80 text-sm leading-relaxed max-w-md font-medium">
               {desc}
             </p>
-            <div className="pl-4 border-l-2 border-saffron-300 text-ink-700 text-sm italic">
+            <div className="pl-5 border-l-2 border-gold-500 text-gold-300 text-sm italic tracking-wide">
               {quote}
             </div>
           </div>
 
           {/* Column 2: Quick Links */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-bold text-ink-900 tracking-tight">મુખ્ય વિભાગો</h4>
-            <ul className="space-y-3 text-sm font-medium text-ink-600">
-              <li>
-                <Link href="/biography" className="hover:text-saffron-600 transition-colors flex items-center gap-2">
-                  <span>&rarr;</span> શામજીબાપાનું જીવન ચરિત્ર
-                </Link>
-              </li>
-              <li>
-                <Link href="/bhajans" className="hover:text-saffron-600 transition-colors flex items-center gap-2">
-                  <span>&rarr;</span> ગુજરાતી ભજનો
-                </Link>
-              </li>
-              <li>
-                <Link href="/dhuns" className="hover:text-saffron-600 transition-colors flex items-center gap-2">
-                  <span>&rarr;</span> ભક્તિમય ધૂન
-                </Link>
-              </li>
-              <li>
-                <Link href="/authors" className="hover:text-saffron-600 transition-colors flex items-center gap-2">
-                  <span>&rarr;</span> મહાન સંતો
-                </Link>
-              </li>
-              <li>
-                <Link href="/search" className="hover:text-saffron-600 transition-colors flex items-center gap-2">
-                  <span>&rarr;</span> શોધ અને સંગ્રહ
-                </Link>
-              </li>
+          <div className="space-y-6">
+            <h4 className="text-xl font-bold text-sand-50 tracking-wide font-serif">મુખ્ય વિભાગો</h4>
+            <ul className="space-y-4 text-sm font-medium text-sand-300">
+              {[
+                { name: 'શામજીબાપાનું જીવન ચરિત્ર', href: '/biography' },
+                { name: 'ગુજરાતી ભજનો', href: '/bhajans' },
+                { name: 'ભક્તિમય ધૂન', href: '/dhuns' },
+                { name: 'મહાન સંતો', href: '/authors' },
+                { name: 'શોધ અને સંગ્રહ', href: '/search' },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="group hover:text-gold-400 transition-colors flex items-center gap-2">
+                    <span className="text-saffron-500 group-hover:translate-x-1 transition-transform">&rarr;</span> {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Column 3: Admin & Contact */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-bold text-ink-900 tracking-tight">વ્યવસ્થાપન</h4>
-            <p className="text-xs text-ink-500 font-medium leading-relaxed">
+          <div className="space-y-6">
+            <h4 className="text-xl font-bold text-sand-50 tracking-wide font-serif">વ્યવસ્થાપન</h4>
+            <p className="text-xs text-sand-400 font-medium leading-relaxed">
               સંગ્રહાલયમાં નવા ભજન, ધૂન કે સુધારા-વધારા માટે એડમિન ડેશબોર્ડનો ઉપયોગ કરો.
             </p>
             <Link
               href="/admin"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-saffron-600 hover:bg-saffron-700 text-sand-50 font-semibold text-xs shadow-soft transition-all"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-saffron-600/90 hover:bg-saffron-500 text-sand-50 font-bold text-xs border border-saffron-400/50 shadow-spiritual hover:scale-105 transition-all duration-300"
             >
-              <Shield className="w-4 h-4" />
+              <Shield className="w-4 h-4 text-gold-200" />
               <span>એડમિન ડેશબોર્ડ (Admin)</span>
             </Link>
           </div>
         </div>
 
-        <div className="border-t border-sand-200 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs font-medium text-ink-500 gap-4">
+        <div className="border-t border-maroon-800/60 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs font-medium text-sand-400 gap-4">
           <p>{copyright}</p>
           <p className="flex items-center gap-1.5">
             <span>ભક્તિ અને શ્રદ્ધા સાથે નિર્મિત</span>
-            <Heart className="w-4 h-4 text-saffron-500 fill-saffron-500" />
+            <Heart className="w-4 h-4 text-saffron-500 fill-saffron-500 animate-pulse" />
           </p>
         </div>
       </div>
