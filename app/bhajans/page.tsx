@@ -3,8 +3,7 @@ import { db } from '@/lib/db';
 import { Sparkles } from 'lucide-react';
 import { BhajanListWithIndex } from '@/components/bhajan/BhajanListWithIndex';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 3600;
 
 async function getBhajansData() {
   try {

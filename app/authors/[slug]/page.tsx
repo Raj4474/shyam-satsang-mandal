@@ -2,10 +2,10 @@ import React from 'react';
 import { db } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Sparkles, Music, BookOpen, ArrowRight } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 3600;
 
 async function getAuthorDetail(slug: string) {
   try {
@@ -46,11 +46,14 @@ export default async function AuthorDetailPage({ params }: { params: Promise<{ s
 
       {/* Author Bio Header Card */}
       <div className="bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 sm:p-10 border border-white/60 shadow-soft flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-10">
-        <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-[1.5rem] overflow-hidden border border-white/60 shadow-sm flex-shrink-0">
-          <img
+        <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-[1.5rem] overflow-hidden border border-white/60 shadow-sm flex-shrink-0 relative">
+          <Image
             src={author.profileImage || '/shyamjibapa.jpg'}
             alt={author.gujaratiName}
-            className="w-full h-full object-cover"
+            fill
+            priority
+            sizes="(max-width: 640px) 128px, 160px"
+            className="object-cover"
           />
         </div>
         <div className="space-y-2 flex-grow text-center sm:text-left">

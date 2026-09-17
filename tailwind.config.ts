@@ -71,6 +71,7 @@ const config: Config = {
       },
       fontFamily: {
         gujarati: ['var(--font-gujarati)', 'Anek Gujarati', 'Noto Sans Gujarati', 'sans-serif'],
+        serif: ['var(--font-playfair)', 'Playfair Display', 'serif'],
       },
       boxShadow: {
         spiritual: '0 10px 30px -5px rgba(217, 119, 6, 0.15)',

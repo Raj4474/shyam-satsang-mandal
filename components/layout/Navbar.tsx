@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BookOpen, Music, Search, UserCheck, Menu, X, Home, Shield, Sparkles, Flame } from 'lucide-react';
@@ -8,6 +8,13 @@ import { BookOpen, Music, Search, UserCheck, Menu, X, Home, Shield, Sparkles, Fl
 export function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { name: 'મુખ્ય પૃષ્ઠ', href: '/', icon: Home },
@@ -29,7 +36,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-sand-50/80 backdrop-blur-xl border-b border-sand-200/50 shadow-sm transition-all duration-300">
+      <header className={`sticky top-0 z-40 transition-all duration-500 ${scrolled ? 'bg-sand-50/80 backdrop-blur-xl border-b border-sand-200/50 shadow-sm' : 'bg-transparent border-b border-transparent py-2'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo Brand */}

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Anek_Gujarati } from 'next/font/google';
+import { Anek_Gujarati, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -8,6 +8,13 @@ const anekGujarati = Anek_Gujarati({
   subsets: ['gujarati', 'latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-gujarati',
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-playfair',
   display: 'swap',
 });
 
@@ -30,12 +37,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="gu" className={`scroll-smooth ${anekGujarati.variable}`}>
+    <html lang="gu" className={`scroll-smooth ${anekGujarati.variable} ${playfair.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="antialiased flex flex-col min-h-screen text-ink-900 selection:bg-saffron-200 selection:text-ink-900">
+      <body className="antialiased flex flex-col min-h-screen text-ink-900 selection:bg-saffron-200 selection:text-ink-900 mesh-bg relative">
+        <div className="absolute inset-0 z-[-1] mandala-pattern pointer-events-none mix-blend-multiply opacity-50" />
         <Navbar />
         <main className="flex-grow pb-20 lg:pb-0">{children}</main>
         <Footer />

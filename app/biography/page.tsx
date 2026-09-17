@@ -1,10 +1,10 @@
 import React from 'react';
+import Image from 'next/image';
 import { db } from '@/lib/db';
 import { BookOpen, Clock, User, Sparkles, Feather, Bookmark, HeartHandshake } from 'lucide-react';
 import { formatHtmlContent } from '@/lib/renderFormattedText';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 3600;
 
 async function getBiographyData() {
   try {
@@ -116,11 +116,13 @@ export default async function BiographyPage() {
 
               {/* Optional Photo / Media */}
               {section.mediaUrl && (
-                <div className="my-6 rounded-2xl overflow-hidden border border-sand-200 shadow-soft max-h-[420px] bg-sand-100">
-                  <img
+                <div className="my-6 rounded-2xl overflow-hidden border border-sand-200 shadow-soft max-h-[420px] bg-sand-100 flex justify-center">
+                  <Image
                     src={section.mediaUrl}
                     alt={section.title}
-                    className="w-full h-full object-cover"
+                    width={1200}
+                    height={600}
+                    className="w-full h-auto max-h-[420px] object-cover"
                   />
                 </div>
               )}

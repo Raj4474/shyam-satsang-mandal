@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { DhunPlayer } from '@/components/dhun/DhunPlayer';
 import { ArrowLeft, Music, Sparkles } from 'lucide-react';
 
+export const revalidate = 3600;
+
 async function getDhun(slug: string) {
   try {
     const dhun = await db.dhun.findFirst({

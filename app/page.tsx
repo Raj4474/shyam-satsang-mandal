@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { db } from '@/lib/db';
 import { BookOpen, Sparkles, Music, UserCheck, Play, ArrowRight, Search, HeartHandshake, Mic, Flame } from 'lucide-react';
 import { AartiSection } from '@/components/aarti/AartiSection';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 3600;
 
 async function getHomeData() {
   try {
@@ -86,7 +86,7 @@ export default async function HomePage() {
             <span>{heroBadge}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-ink-900 tracking-tight max-w-4xl mx-auto leading-tight mb-6 px-2">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-ink-900 tracking-tight max-w-4xl mx-auto leading-tight mb-6 px-2 font-serif">
             {heroTitle}
           </h1>
 
@@ -125,7 +125,7 @@ export default async function HomePage() {
       {/* 2. Daily Bhajan of the Day Banner */}
       {dailyBhajan && (
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden bg-white/60 backdrop-blur-xl rounded-[2.5rem] p-8 sm:p-12 border border-white/60 text-ink-900 shadow-soft">
+          <div className="relative overflow-hidden glass-panel rounded-[2.5rem] p-8 sm:p-12 text-ink-900 shadow-soft hover:shadow-spiritual transition-shadow duration-500">
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
               <div className="space-y-5 max-w-2xl">
                 <div className="inline-flex items-center gap-2 text-saffron-600 text-sm font-bold tracking-wider">
@@ -133,7 +133,7 @@ export default async function HomePage() {
                   <span>આજનું પદ</span>
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight leading-snug">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight leading-snug font-serif">
                   {dailyBhajan.title}
                 </h2>
 
@@ -163,7 +163,7 @@ export default async function HomePage() {
       {/* 3. Main Category Cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
-          <h2 className="text-3xl font-extrabold text-ink-900 tracking-tight">મુખ્ય વિભાગો</h2>
+          <h2 className="text-3xl font-extrabold text-ink-900 tracking-tight font-serif">મુખ્ય વિભાગો</h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
@@ -197,7 +197,7 @@ export default async function HomePage() {
               linkText: 'આરતી સ્તુતિ વાંચો'
             }
           ].map((item, idx) => (
-            <div key={idx} className="group bg-white/60 backdrop-blur-md rounded-3xl p-8 border border-white/60 shadow-sm hover:shadow-soft transition-all duration-300 flex flex-col justify-between h-full">
+            <div key={idx} className="group glass-panel rounded-3xl p-8 hover:shadow-spiritual transition-all duration-300 flex flex-col justify-between h-full">
               <div>
                 <div className="w-12 h-12 rounded-full bg-white/60 shadow-sm text-ink-900 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-saffron-600 group-hover:text-sand-50 transition-all duration-300">
                   <item.icon className="w-5 h-5" />
@@ -228,7 +228,7 @@ export default async function HomePage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
             <div>
-              <h2 className="text-3xl font-extrabold text-ink-900 tracking-tight">મનોહર ધૂન સંગ્રહ</h2>
+              <h2 className="text-3xl font-extrabold text-ink-900 tracking-tight font-serif">મનોહર ધૂન સંગ્રહ</h2>
             </div>
             <Link
               href="/dhuns"
@@ -244,7 +244,7 @@ export default async function HomePage() {
               <Link
                 key={dhun.id}
                 href={`/dhuns/${dhun.slug}`}
-                className="group bg-white/60 backdrop-blur-md rounded-[2rem] p-7 border border-white/60 shadow-sm hover:shadow-soft transition-all duration-300 flex flex-col justify-between"
+                className="group glass-panel rounded-[2rem] p-7 hover:shadow-spiritual transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-xs font-semibold text-ink-500">
@@ -267,7 +267,7 @@ export default async function HomePage() {
         <section className="bg-saffron-600 text-sand-50 py-24 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-sand-50 tracking-tight mb-3">{saintsTitle}</h2>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-sand-50 tracking-tight mb-3 font-serif">{saintsTitle}</h2>
               <p className="text-sand-300 text-base">{saintsSubtitle}</p>
             </div>
 
@@ -278,11 +278,13 @@ export default async function HomePage() {
                   href={`/authors/${author.slug}`}
                   className="group flex flex-col items-center text-center"
                 >
-                  <div className="w-32 h-32 rounded-full overflow-hidden mb-6 bg-saffron-700 p-1 group-hover:scale-105 transition-transform duration-500">
-                    <img
+                  <div className="w-32 h-32 rounded-full overflow-hidden mb-6 bg-saffron-700 p-1 group-hover:scale-105 transition-transform duration-500 relative">
+                    <Image
                       src={author.profileImage || 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80'}
                       alt={author.gujaratiName}
-                      className="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0 transition-all duration-500"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover rounded-full grayscale group-hover:grayscale-0 transition-all duration-500"
                     />
                   </div>
                   <h3 className="font-bold text-xl text-sand-50 group-hover:text-saffron-400 transition-colors tracking-tight">
