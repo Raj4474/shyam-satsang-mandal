@@ -157,7 +157,7 @@ export function ImageUpload({ value = '', onChange, label = 'ઈમેજ પસ
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
-          className="px-3.5 py-2 rounded-xl bg-ink-900 hover:bg-ink-800 text-sand-50 font-bold text-xs shadow transition flex items-center gap-1.5 flex-shrink-0"
+          className="px-3.5 py-2 rounded-xl bg-saffron-600 hover:bg-saffron-700 text-sand-50 font-bold text-xs shadow transition flex items-center gap-1.5 flex-shrink-0"
         >
           <ImageIcon className="w-3.5 h-3.5" />
           <span>ફાઈલ પસંદ કરો</span>

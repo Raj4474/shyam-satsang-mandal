@@ -51,7 +51,7 @@ export function AudioPlayerDock() {
           <div className="flex items-center gap-4">
             <button
               onClick={togglePlay}
-              className="w-10 h-10 rounded-full bg-ink-900 hover:bg-ink-800 text-sand-50 flex items-center justify-center transition shadow-md font-bold"
+              className="w-10 h-10 rounded-full bg-saffron-600 hover:bg-saffron-700 text-sand-50 flex items-center justify-center transition shadow-md font-bold"
               title={isPlaying ? 'અટકાવો (Pause)' : 'ચાલુ કરો (Play)'}
             >
               {isPlaying ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-0.5" />}

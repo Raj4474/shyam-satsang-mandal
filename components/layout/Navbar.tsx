@@ -62,7 +62,7 @@ export function Navbar() {
                     href={link.href}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 font-gujarati ${
                       active
-                        ? 'bg-ink-900 text-sand-50 shadow-soft'
+                        ? 'bg-saffron-600 text-sand-50 shadow-soft'
                         : 'text-ink-700 hover:bg-sand-200 hover:text-ink-900'
                     }`}
                   >
@@ -106,7 +106,7 @@ export function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-base font-medium transition-colors ${
                     active
-                      ? 'bg-ink-900 text-sand-50'
+                      ? 'bg-saffron-600 text-sand-50'
                       : 'text-ink-800 hover:bg-sand-200'
                   }`}
                 >

@@ -91,7 +91,7 @@ export function AartiSection() {
                 onClick={() => setActiveTab(aarti.id)}
                 className={`flex-1 sm:flex-initial px-6 py-3 rounded-[1.25rem] font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 ${
                   active
-                    ? 'bg-ink-900 text-sand-50 shadow-soft'
+                    ? 'bg-saffron-600 text-sand-50 shadow-soft'
                     : 'text-ink-600 hover:text-ink-900 hover:bg-sand-200/50'
                 }`}
               >

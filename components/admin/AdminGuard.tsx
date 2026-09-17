@@ -112,7 +112,7 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 rounded-2xl bg-ink-900 hover:bg-ink-800 text-sand-50 font-bold text-base shadow-soft transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-4 rounded-2xl bg-saffron-600 hover:bg-saffron-700 text-sand-50 font-bold text-base shadow-soft transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />

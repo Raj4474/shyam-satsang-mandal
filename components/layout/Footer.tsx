@@ -84,7 +84,7 @@ export async function Footer() {
             </p>
             <Link
               href="/admin"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-ink-900 hover:bg-ink-800 text-sand-50 font-semibold text-xs shadow-soft transition-all"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-saffron-600 hover:bg-saffron-700 text-sand-50 font-semibold text-xs shadow-soft transition-all"
             >
               <Shield className="w-4 h-4" />
               <span>એડમિન ડેશબોર્ડ (Admin)</span>

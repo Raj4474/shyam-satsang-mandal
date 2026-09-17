@@ -29,7 +29,7 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
           <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
             <button
               onClick={handleCopy}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-ink-900 hover:bg-ink-800 text-sand-50 text-sm font-semibold shadow-sm transition"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-saffron-600 hover:bg-saffron-700 text-sand-50 text-sm font-semibold shadow-sm transition"
             >
               {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
               <span>શબ્દો કોપી કરો</span>

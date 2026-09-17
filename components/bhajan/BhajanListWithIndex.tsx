@@ -136,7 +136,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
                 disabled={!hasBhajans && letter !== 'બધા'}
                 className={`px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-1.5 ${
                   isSelected
-                    ? 'bg-ink-900 text-sand-50 shadow-soft scale-105'
+                    ? 'bg-saffron-600 text-sand-50 shadow-soft scale-105'
                     : hasBhajans
                     ? 'bg-sand-100 hover:bg-sand-200 text-ink-800'
                     : 'bg-sand-50 text-ink-300 border border-sand-200 cursor-not-allowed opacity-50'
@@ -162,7 +162,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
             onClick={() => setSelectedAuthorSlug('all')}
             className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all ${
               selectedAuthorSlug === 'all'
-                ? 'bg-ink-900 text-sand-50 shadow-soft'
+                ? 'bg-saffron-600 text-sand-50 shadow-soft'
                 : 'bg-sand-100 hover:bg-sand-200 text-ink-800'
             }`}
           >
@@ -174,7 +174,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
               onClick={() => setSelectedAuthorSlug(author.slug)}
               className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
                 selectedAuthorSlug === author.slug
-                  ? 'bg-ink-900 text-sand-50 shadow-soft'
+                  ? 'bg-saffron-600 text-sand-50 shadow-soft'
                   : 'bg-sand-100 hover:bg-sand-200 text-ink-800'
               }`}
             >
@@ -249,7 +249,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
                 setSelectedAuthorSlug('all');
                 setSearchQuery('');
               }}
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-ink-900 text-sand-50 font-bold text-sm shadow-soft hover:-translate-y-0.5 transition-all"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-saffron-600 text-sand-50 font-bold text-sm shadow-soft hover:-translate-y-0.5 transition-all"
             >
               <span>બધા ભજન જુઓ</span>
             </button>
