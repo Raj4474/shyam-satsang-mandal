@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Dhun, Author } from '@/types';
-import { Plus, Edit, Trash2, Music, X, Video, Search, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Plus, Edit, Trash2, Music, X, Video, Search, RefreshCw, CheckCircle2, ArrowRightLeft } from 'lucide-react';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { ColorPickerPalette } from '@/components/admin/ColorPickerPalette';
 import { RichColorTextArea } from '@/components/admin/RichColorTextArea';
@@ -106,6 +106,23 @@ export default function ManageDhunsPage() {
     }
   };
 
+  const handleConvertToBhajan = async (id: string) => {
+    if (!confirm('શું તમે આ ધૂનને ભજનમાં ફેરવવા માંગો છો? (Convert to Bhajan?)')) return;
+    try {
+      const res = await fetch(`/api/dhuns/${id}/convert`, { method: 'POST' });
+      if (res.ok) {
+        alert('સફળતાપૂર્વક ભજનમાં ફેરવવામાં આવ્યું! (Successfully converted to Bhajan)');
+        loadData(searchQuery);
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        alert('ભજનમાં ફેરવવામાં ભૂલ: ' + (errData.error || 'Failed'));
+      }
+    } catch (err) {
+      console.error('Convert error:', err);
+      alert('કન્વર્ટ ક્ષતિ આવી');
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -206,6 +223,9 @@ export default function ManageDhunsPage() {
                   </td>
                   <td className="p-4 font-bold text-xs">{d.status}</td>
                   <td className="p-4 text-right space-x-2">
+                    <button onClick={() => handleConvertToBhajan(d.id)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg" title="ભજનમાં ફેરવો (Convert to Bhajan)">
+                      <ArrowRightLeft className="w-4 h-4" />
+                    </button>
                     <button onClick={() => handleEdit(d)} className="p-2 text-saffron-700 hover:bg-saffron-500/10 rounded-lg" title="એડિટ કરો">
                       <Edit className="w-4 h-4" />
                     </button>

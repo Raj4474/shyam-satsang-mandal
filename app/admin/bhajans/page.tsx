@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Bhajan, Author } from '@/types';
-import { Plus, Edit, Trash2, Sparkles, X, Check, Music, Search, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Plus, Edit, Trash2, Sparkles, X, Check, Music, Search, RefreshCw, CheckCircle2, ArrowRightLeft } from 'lucide-react';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { ColorPickerPalette } from '@/components/admin/ColorPickerPalette';
 import { RichColorTextArea } from '@/components/admin/RichColorTextArea';
@@ -110,6 +110,23 @@ export default function ManageBhajansPage() {
     } catch (err) {
       console.error('Delete error:', err);
       alert('ડીલીટ ક્ષતિ આવી');
+    }
+  };
+
+  const handleConvertToDhun = async (id: string) => {
+    if (!confirm('શું તમે આ ભજનને ધૂનમાં ફેરવવા માંગો છો? (Convert to Dhun?)')) return;
+    try {
+      const res = await fetch(`/api/bhajans/${id}/convert`, { method: 'POST' });
+      if (res.ok) {
+        alert('સફળતાપૂર્વક ધૂનમાં ફેરવવામાં આવ્યું! (Successfully converted to Dhun)');
+        loadData(searchQuery);
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        alert('ધૂનમાં ફેરવવામાં ભૂલ: ' + (errData.error || 'Failed'));
+      }
+    } catch (err) {
+      console.error('Convert error:', err);
+      alert('કન્વર્ટ ક્ષતિ આવી');
     }
   };
 
@@ -222,6 +239,13 @@ export default function ManageBhajansPage() {
                     </span>
                   </td>
                   <td className="p-4 text-right space-x-2">
+                    <button
+                      onClick={() => handleConvertToDhun(b.id)}
+                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
+                      title="ધૂનમાં ફેરવો (Convert to Dhun)"
+                    >
+                      <ArrowRightLeft className="w-4 h-4" />
+                    </button>
                     <button
                       onClick={() => handleEdit(b)}
                       className="p-2 text-saffron-700 hover:bg-saffron-500/10 rounded-lg transition"
