@@ -54,7 +54,7 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
         return 'bg-[#fcf5e5] text-[#432818] border-[#e8dfc7] shadow-soft';
       case 'light':
       default:
-        return 'bg-sand-50 text-ink-900 border-sand-200 shadow-soft';
+        return 'bg-white/60 backdrop-blur-xl text-ink-900 border-white/60 shadow-soft';
     }
   };
 
@@ -66,7 +66,7 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
         return 'border-[#e8dfc7] bg-[#f8efd8] text-[#432818]';
       case 'light':
       default:
-        return 'border-sand-200 bg-sand-100/70 text-ink-900';
+        return 'border-white/50 bg-white/40 text-ink-900';
     }
   };
 

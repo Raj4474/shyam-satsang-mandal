@@ -16,20 +16,20 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
   };
 
   return (
-    <div className="bg-cream-50 rounded-3xl border border-saffron-500/20 shadow-spiritual overflow-hidden font-gujarati space-y-6">
+    <div className="bg-white/60 backdrop-blur-xl rounded-[2rem] border border-white/60 shadow-sm overflow-hidden font-gujarati space-y-6">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-maroon-900 via-maroon-950 to-maroon-900 text-cream-100 p-8 text-center space-y-4">
-        <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-gold-500/20 text-gold-400">
+      <div className="bg-white/40 p-8 sm:p-12 text-center space-y-4 border-b border-white/60">
+        <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-sand-200 text-ink-600">
           પવિત્ર ધૂન
         </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold">{dhun.title.replace(/^[\d\.\s]+/, '')}</h1>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight">{dhun.title.replace(/^[\d\.\s]+/, '')}</h1>
 
         {/* Action Controls */}
         {dhun.lyrics && (
           <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
             <button
               onClick={handleCopy}
-              className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-maroon-900 hover:bg-maroon-800 text-gold-300 text-sm font-semibold border border-gold-500/30 transition"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-ink-900 hover:bg-ink-800 text-sand-50 text-sm font-semibold shadow-sm transition"
             >
               {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
               <span>શબ્દો કોપી કરો</span>
@@ -39,22 +39,22 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
       </div>
 
       {/* Description & Video Section */}
-      <div className="p-8 space-y-8">
+      <div className="p-8 sm:p-12 space-y-10">
         {dhun.description && (
-          <div className="bg-cream-100/70 rounded-2xl p-6 border border-saffron-500/20 text-maroon-900 text-sm leading-relaxed">
-            <h3 className="font-bold text-maroon-950 text-base mb-2">ધૂન પરિચય</h3>
+          <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/60 text-ink-700 text-sm sm:text-base leading-relaxed">
+            <h3 className="font-bold text-ink-900 text-base mb-3">ધૂન પરિચય</h3>
             <p>{dhun.description}</p>
           </div>
         )}
 
         {/* Video Embed if present */}
         {dhun.videoUrl && (
-          <div className="space-y-3">
-            <h3 className="text-xl font-bold text-maroon-950 flex items-center gap-2">
+          <div className="space-y-4">
+            <h3 className="text-xl sm:text-2xl font-bold text-ink-900 flex items-center gap-2">
               <Video className="w-5 h-5 text-saffron-600" />
               <span>વિડિયો કીર્તન (Video Recording)</span>
             </h3>
-            <div className="aspect-video rounded-2xl overflow-hidden border border-saffron-500/20 shadow-md">
+            <div className="aspect-video rounded-[1.5rem] overflow-hidden border border-sand-200 shadow-soft">
               <iframe
                 src={dhun.videoUrl}
                 title={dhun.title}
@@ -68,13 +68,13 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
 
         {/* Full Lyrics */}
         {dhun.lyrics && (
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold text-maroon-950 border-b border-saffron-500/20 pb-2">
+          <div className="space-y-6">
+            <h3 className="text-xl sm:text-2xl font-bold text-ink-900 border-b border-white/60 pb-3">
               ધૂન સાહિત્ય / પદ બોલ
             </h3>
             <div
               style={{ color: dhun.textColor || undefined }}
-              className="whitespace-pre-line text-lg text-center leading-relaxed text-maroon-900 font-medium bg-cream-100/40 p-8 rounded-2xl border border-saffron-500/10"
+              className="whitespace-pre-line text-lg sm:text-xl text-center leading-[2.5] text-ink-900 font-bold bg-white/50 backdrop-blur-sm p-8 sm:p-12 rounded-[2rem] border border-white/60 shadow-inner"
               dangerouslySetInnerHTML={{ __html: formatHtmlContent(dhun.lyrics) }}
             />
           </div>

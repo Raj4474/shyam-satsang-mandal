@@ -216,11 +216,11 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
             <Link
               key={bhajan.id}
               href={`/bhajans/${bhajan.slug}`}
-              className="group bg-sand-50 rounded-[2rem] border border-sand-200 p-7 shadow-sm hover:shadow-soft transition-all duration-300 flex flex-col justify-between"
+              className="group bg-white/60 backdrop-blur-md rounded-[2rem] border border-white/60 p-7 shadow-sm hover:shadow-soft transition-all duration-300 flex flex-col justify-between"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between text-xs font-semibold text-ink-500">
-                  <span className="bg-sand-200 px-3 py-1 rounded-full text-ink-800">{bhajan.category || 'સંતવાણી'}</span>
+                  <span className="bg-sand-200/80 px-3 py-1 rounded-full text-ink-800">{bhajan.category || 'સંતવાણી'}</span>
                   <span>{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
                 </div>
                 <h2 className="text-xl font-bold text-ink-900 tracking-tight group-hover:text-saffron-600 transition-colors leading-snug">

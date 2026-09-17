@@ -82,7 +82,7 @@ export function AartiSection() {
 
       {/* Tabs Switcher */}
       <div className="flex justify-center mb-8">
-        <div className="inline-flex p-1.5 rounded-[1.5rem] bg-sand-100 border border-sand-200 shadow-inner gap-2 max-w-md w-full sm:w-auto">
+        <div className="inline-flex p-1.5 rounded-[1.5rem] bg-white/60 backdrop-blur-md border border-white/60 shadow-sm gap-2 max-w-md w-full sm:w-auto">
           {aartiData.map((aarti) => {
             const active = aarti.id === activeTab;
             return (
@@ -104,7 +104,7 @@ export function AartiSection() {
       </div>
 
       {/* Main Aarti Card Display */}
-      <div className="relative overflow-hidden bg-sand-50 rounded-[2.5rem] p-8 sm:p-12 border border-sand-200 shadow-sm">
+      <div className="relative overflow-hidden bg-white/60 backdrop-blur-xl rounded-[2.5rem] p-8 sm:p-12 border border-white/60 shadow-sm">
         {/* Corner Decorative Ornaments (Minimal) */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-sand-200/50 rounded-bl-full pointer-events-none blur-2xl" />
         <div className="absolute bottom-0 left-0 w-32 h-32 bg-sand-200/50 rounded-tr-full pointer-events-none blur-2xl" />
@@ -143,7 +143,7 @@ export function AartiSection() {
 
           {/* Lyrics Content */}
           <div className="py-10 px-2 sm:px-6">
-            <div className="bg-sand-100/50 rounded-[2rem] p-8 sm:p-12 border border-sand-200/60 shadow-inner">
+            <div className="bg-white/50 backdrop-blur-sm rounded-[2rem] p-8 sm:p-12 border border-white/60 shadow-inner">
               <pre className="font-gujarati text-lg sm:text-2xl font-bold text-ink-900 leading-relaxed sm:leading-[2.5] whitespace-pre-line text-center">
                 {currentAarti.lyrics}
               </pre>

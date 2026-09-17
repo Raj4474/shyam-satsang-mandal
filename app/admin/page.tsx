@@ -40,8 +40,8 @@ export default async function AdminDashboardPage() {
   return (
     <div className="space-y-8 font-gujarati">
       <div>
-        <h1 className="text-3xl font-extrabold text-maroon-950">એડમિન ડેશબોર્ડ (Overview)</h1>
-        <p className="text-maroon-800/70 text-sm mt-1">શ્યામ સત્સંગ મંડળની સામગ્રીનું વ્યવસ્થાપન કરો.</p>
+        <h1 className="text-3xl font-extrabold text-ink-900 tracking-tight">એડમિન ડેશબોર્ડ (Overview)</h1>
+        <p className="text-ink-500 text-sm mt-1">શ્યામ સત્સંગ મંડળની સામગ્રીનું વ્યવસ્થાપન કરો.</p>
       </div>
 
       {/* Metrics Cards Grid */}
@@ -52,11 +52,11 @@ export default async function AdminDashboardPage() {
             <Link
               key={idx}
               href={stat.href}
-              className="bg-cream-50 rounded-3xl p-6 border border-saffron-500/20 shadow-sm hover:shadow-md transition flex items-center justify-between group"
+              className="bg-white/60 backdrop-blur-md rounded-3xl p-6 border border-white/60 shadow-sm hover:shadow-md transition flex items-center justify-between group"
             >
               <div>
-                <span className="text-xs text-maroon-800/70 font-semibold">{stat.label}</span>
-                <p className="text-4xl font-extrabold text-maroon-950 mt-2">{stat.count}</p>
+                <span className="text-xs text-ink-500 font-semibold">{stat.label}</span>
+                <p className="text-4xl font-extrabold text-ink-900 mt-2">{stat.count}</p>
               </div>
               <div className={`w-14 h-14 rounded-2xl ${stat.color} text-cream-50 flex items-center justify-center shadow-md group-hover:scale-105 transition`}>
                 <Icon className="w-7 h-7" />
@@ -67,23 +67,23 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Recent Activity Table */}
-      <div className="bg-cream-50 rounded-3xl p-6 border border-saffron-500/20 shadow-sm space-y-4">
-        <div className="flex items-center justify-between border-b border-saffron-500/20 pb-4">
-          <h2 className="text-xl font-bold text-maroon-950">તાજેતરમાં ઉમેરાયેલા ભજનો</h2>
-          <Link href="/admin/bhajans" className="text-xs font-bold text-saffron-700 hover:underline flex items-center gap-1">
+      <div className="bg-white/60 backdrop-blur-md rounded-3xl p-6 border border-white/60 shadow-sm space-y-4">
+        <div className="flex items-center justify-between border-b border-white/60 pb-4">
+          <h2 className="text-xl font-bold text-ink-900">તાજેતરમાં ઉમેરાયેલા ભજનો</h2>
+          <Link href="/admin/bhajans" className="text-xs font-bold text-saffron-600 hover:text-saffron-700 flex items-center gap-1 transition">
             <span>બધા સંચાલિત કરો</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="divide-y divide-cream-200">
+        <div className="divide-y divide-sand-200">
           {recentBhajans.map((bhajan) => (
             <div key={bhajan.id} className="py-3 flex items-center justify-between text-sm">
               <div>
-                <h3 className="font-bold text-maroon-950">{bhajan.title}</h3>
-                <span className="text-xs text-saffron-700">{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
+                <h3 className="font-bold text-ink-900">{bhajan.title}</h3>
+                <span className="text-xs text-ink-500">{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
               </div>
-              <span className="text-xs px-2.5 py-1 rounded-full bg-saffron-500/10 text-saffron-800 font-semibold">
+              <span className="text-xs px-2.5 py-1 rounded-full bg-sand-200 text-ink-700 font-semibold">
                 {bhajan.status}
               </span>
             </div>

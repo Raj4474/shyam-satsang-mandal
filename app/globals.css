@@ -10,7 +10,12 @@
 
 body {
   font-family: var(--font-gujarati), 'Anek Gujarati', sans-serif;
-  background-color: #fcfcfc; /* sand-50 */
+  background-color: #fcfcfc; /* fallback sand-50 */
+  background-image: url('/images/spiritual-bg.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   color: #1a1a1a; /* ink-900 */
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;

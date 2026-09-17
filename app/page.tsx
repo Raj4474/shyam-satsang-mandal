@@ -81,7 +81,7 @@ export default async function HomePage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-sand-200/50 rounded-full blur-[100px] pointer-events-none -z-10" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sand-200/60 text-ink-700 text-xs sm:text-sm font-medium mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-white/60 text-ink-700 text-xs sm:text-sm font-medium mb-8 shadow-sm">
             <Sparkles className="w-4 h-4 text-saffron-600" />
             <span>{heroBadge}</span>
           </div>
@@ -105,7 +105,7 @@ export default async function HomePage() {
 
             <Link
               href="/bhajans"
-              className="px-7 py-3.5 rounded-full bg-sand-200/80 hover:bg-sand-300 text-ink-900 font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
+              className="px-7 py-3.5 rounded-full bg-white/60 hover:bg-white/80 border border-white/60 text-ink-900 font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-md shadow-sm"
             >
               <Sparkles className="w-4 h-4 text-saffron-600" />
               <span>ભજન જુઓ</span>
@@ -113,7 +113,7 @@ export default async function HomePage() {
 
             <Link
               href="/dhuns"
-              className="px-7 py-3.5 rounded-full bg-sand-200/80 hover:bg-sand-300 text-ink-900 font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
+              className="px-7 py-3.5 rounded-full bg-white/60 hover:bg-white/80 border border-white/60 text-ink-900 font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-md shadow-sm"
             >
               <Music className="w-4 h-4 text-saffron-600" />
               <span>ધૂન જુઓ</span>
@@ -125,7 +125,7 @@ export default async function HomePage() {
       {/* 2. Daily Bhajan of the Day Banner */}
       {dailyBhajan && (
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden bg-sand-100 rounded-[2.5rem] p-8 sm:p-12 border border-sand-200/60 text-ink-900 shadow-soft">
+          <div className="relative overflow-hidden bg-white/60 backdrop-blur-xl rounded-[2.5rem] p-8 sm:p-12 border border-white/60 text-ink-900 shadow-soft">
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
               <div className="space-y-5 max-w-2xl">
                 <div className="inline-flex items-center gap-2 text-saffron-600 text-sm font-bold tracking-wider">
@@ -197,9 +197,9 @@ export default async function HomePage() {
               linkText: 'આરતી સ્તુતિ વાંચો'
             }
           ].map((item, idx) => (
-            <div key={idx} className="group bg-sand-50 rounded-3xl p-8 border border-sand-200 shadow-sm hover:shadow-soft transition-all duration-300 flex flex-col justify-between h-full">
+            <div key={idx} className="group bg-white/60 backdrop-blur-md rounded-3xl p-8 border border-white/60 shadow-sm hover:shadow-soft transition-all duration-300 flex flex-col justify-between h-full">
               <div>
-                <div className="w-12 h-12 rounded-full bg-sand-200 text-ink-900 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-ink-900 group-hover:text-sand-50 transition-all duration-300">
+                <div className="w-12 h-12 rounded-full bg-white/60 shadow-sm text-ink-900 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-ink-900 group-hover:text-sand-50 transition-all duration-300">
                   <item.icon className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl font-bold text-ink-900 mb-3 tracking-tight">{item.title}</h3>
@@ -244,11 +244,11 @@ export default async function HomePage() {
               <Link
                 key={dhun.id}
                 href={`/dhuns/${dhun.slug}`}
-                className="group bg-sand-50 rounded-[2rem] p-7 border border-sand-200 shadow-sm hover:shadow-soft transition-all duration-300 flex flex-col justify-between"
+                className="group bg-white/60 backdrop-blur-md rounded-[2rem] p-7 border border-white/60 shadow-sm hover:shadow-soft transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-xs font-semibold text-ink-500">
-                    <span className="bg-sand-200 px-3 py-1 rounded-full text-ink-800">ધૂન</span>
+                    <span className="bg-sand-200/80 px-3 py-1 rounded-full text-ink-800">ધૂન</span>
                     <span>{dhun.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
                   </div>
                   <h3 className="text-2xl font-bold text-ink-900 tracking-tight group-hover:text-saffron-600 transition-colors">{dhun.title}</h3>

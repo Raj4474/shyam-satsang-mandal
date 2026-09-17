@@ -63,8 +63,8 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
   // Loading spinner during initial check
   if (isAuthenticated === null) {
     return (
-      <div className="min-h-screen bg-maroon-950 flex flex-col items-center justify-center text-cream-100 font-gujarati space-y-4">
-        <Loader2 className="w-10 h-10 text-gold-400 animate-spin" />
+      <div className="min-h-screen bg-sand-50 flex flex-col items-center justify-center text-ink-900 font-gujarati space-y-4">
+        <Loader2 className="w-10 h-10 text-saffron-600 animate-spin" />
         <p className="text-sm font-semibold">એડમિન સુરક્ષા ચકાસણી થઈ રહી છે...</p>
       </div>
     );
@@ -73,37 +73,37 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
   // Render Login Form if NOT Authenticated
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-maroon-950 via-maroon-900 to-maroon-950 flex items-center justify-center p-4 font-gujarati">
-        <div className="max-w-md w-full bg-cream-50 rounded-3xl p-8 border-2 border-gold-500/40 shadow-2xl space-y-6">
-          <div className="text-center space-y-3">
-            <div className="w-16 h-16 rounded-2xl bg-maroon-900 text-gold-400 flex items-center justify-center mx-auto shadow-md">
+      <div className="min-h-screen bg-sand-100 flex items-center justify-center p-4 font-gujarati">
+        <div className="max-w-md w-full bg-sand-50 rounded-[2.5rem] p-10 border border-sand-200 shadow-soft space-y-8">
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 rounded-[1.5rem] bg-sand-200 text-ink-600 flex items-center justify-center mx-auto shadow-sm">
               <Shield className="w-8 h-8" />
             </div>
-            <h1 className="text-2xl font-bold text-maroon-950">એડમિન લૉગિન (Admin Login)</h1>
-            <p className="text-xs text-maroon-800/80 leading-relaxed">
+            <h1 className="text-2xl font-bold text-ink-900 tracking-tight">એડમિન લૉગિન (Admin Login)</h1>
+            <p className="text-sm text-ink-500 leading-relaxed">
               વેબસાઈટમાં ફેરફાર કરવા અથવા ભજન ઉમેરવા માટે ફક્ત અધિકૃત એડમિન જ પ્રવેશી શકે છે.
             </p>
           </div>
 
           {error && (
-            <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-700 text-xs font-bold text-center">
+            <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs font-bold text-center">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div className="space-y-2">
-              <label className="block text-xs font-bold text-maroon-900">
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div className="space-y-3">
+              <label className="block text-sm font-bold text-ink-900">
                 એડમિન પિન / પાસવર્ડ (Admin PIN Password)
               </label>
               <div className="relative">
-                <Lock className="w-5 h-5 text-saffron-600 absolute left-3.5 top-3.5" />
+                <Lock className="w-5 h-5 text-ink-400 absolute left-4 top-4" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="એડમિન પાસવર્ડ દાખલ કરો"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border border-saffron-500/30 focus:border-saffron-600 focus:outline-none text-sm text-maroon-950 font-bold bg-white"
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl border border-sand-300 focus:border-ink-900 focus:outline-none text-sm text-ink-900 font-bold bg-white transition-all shadow-sm"
                   required
                 />
               </div>
@@ -112,21 +112,21 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-maroon-800 to-maroon-900 hover:from-maroon-900 hover:to-maroon-950 text-gold-300 font-bold text-base shadow-md transition flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-4 rounded-2xl bg-ink-900 hover:bg-ink-800 text-sand-50 font-bold text-base shadow-soft transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
                 <>
-                  <KeyRound className="w-5 h-5 text-gold-400" />
+                  <KeyRound className="w-5 h-5" />
                   <span>પ્રવેશ કરો (Login as Admin)</span>
                 </>
               )}
             </button>
           </form>
 
-          <div className="pt-4 border-t border-cream-200 text-center">
-            <Link href="/" className="text-xs text-saffron-700 hover:text-maroon-900 font-bold">
+          <div className="pt-6 border-t border-sand-200 text-center">
+            <Link href="/" className="text-sm text-ink-500 hover:text-ink-900 font-bold transition-colors">
               ← પરત મુખ્ય પૃષ્ઠ પર જાવ (Back to Main Website)
             </Link>
           </div>
@@ -138,14 +138,14 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
   // Render Authenticated Admin Interface with Logout Button
   return (
     <>
-      <div className="bg-maroon-900 text-cream-100 text-xs px-6 py-2 flex items-center justify-between border-b border-gold-500/30">
-        <span className="flex items-center gap-2 font-bold text-gold-400">
-          <CheckCircle className="w-4 h-4 text-green-400" />
+      <div className="bg-sand-100 text-ink-900 text-xs px-6 py-3 flex items-center justify-between border-b border-sand-200 shadow-sm">
+        <span className="flex items-center gap-2 font-bold text-ink-900">
+          <CheckCircle className="w-4 h-4 text-green-600" />
           <span>તમે એડમિન તરીકે લોગિન છો (Admin Authenticated)</span>
         </span>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-1 text-xs font-bold text-saffron-300 hover:text-cream-50 transition bg-maroon-950/60 px-3 py-1 rounded-lg border border-gold-500/20"
+          className="flex items-center gap-1.5 text-xs font-bold text-ink-600 hover:text-ink-900 hover:bg-sand-200 transition bg-sand-50 px-4 py-1.5 rounded-full border border-sand-300 shadow-sm"
         >
           <LogOut className="w-3.5 h-3.5" />
           <span>લૉગ આઉટ (Logout)</span>

@@ -82,7 +82,7 @@ export function ImageUpload({ value = '', onChange, label = 'ઈમેજ પસ
 
   return (
     <div className="space-y-3 font-gujarati">
-      <label className="block text-xs font-bold text-maroon-900 dark:text-gold-400">
+      <label className="block text-xs font-bold text-ink-900">
         {label}
       </label>
 
@@ -97,13 +97,13 @@ export function ImageUpload({ value = '', onChange, label = 'ઈમેજ પસ
 
       {/* Preview or Drop Area */}
       {value ? (
-        <div className="relative rounded-2xl border-2 border-gold-500/40 p-2 bg-cream-100 dark:bg-maroon-900/60 flex items-center gap-4 shadow-sm">
-          <div className="w-20 h-20 rounded-xl overflow-hidden bg-maroon-950/20 border border-gold-500/30 flex-shrink-0">
+        <div className="relative rounded-2xl border-2 border-sand-200 p-2 bg-sand-100 flex items-center gap-4 shadow-sm">
+          <div className="w-20 h-20 rounded-xl overflow-hidden bg-sand-200 border border-sand-300 flex-shrink-0">
             <img src={value} alt="Preview" className="w-full h-full object-cover" />
           </div>
           <div className="flex-grow min-w-0">
-            <p className="text-xs font-bold text-maroon-950 dark:text-cream-100 truncate">{value}</p>
-            <p className="text-[11px] text-green-700 dark:text-green-400 font-semibold mt-1 flex items-center gap-1">
+            <p className="text-xs font-bold text-ink-900 truncate">{value}</p>
+            <p className="text-[11px] text-green-700 font-semibold mt-1 flex items-center gap-1">
               <CheckCircle className="w-3.5 h-3.5" />
               <span>ઈમેજ તૈયાર છે (Image Ready)</span>
             </p>
@@ -111,7 +111,7 @@ export function ImageUpload({ value = '', onChange, label = 'ઈમેજ પસ
           <button
             type="button"
             onClick={handleRemove}
-            className="p-2 rounded-xl bg-red-500/10 hover:bg-red-500 text-red-600 hover:text-white transition flex-shrink-0"
+            className="p-2 rounded-xl bg-red-50 hover:bg-red-500 text-red-600 hover:text-white transition flex-shrink-0"
             title="ઈમેજ હટાવો"
           >
             <X className="w-4 h-4" />
@@ -120,7 +120,7 @@ export function ImageUpload({ value = '', onChange, label = 'ઈમેજ પસ
       ) : (
         <div
           onClick={() => fileInputRef.current?.click()}
-          className="border-2 border-dashed border-saffron-500/40 hover:border-saffron-600 rounded-2xl p-6 text-center bg-cream-50/60 hover:bg-cream-100/80 dark:bg-maroon-900/30 dark:hover:bg-maroon-900/50 transition cursor-pointer flex flex-col items-center justify-center space-y-2 group"
+          className="border-2 border-dashed border-sand-300 hover:border-saffron-500 rounded-2xl p-6 text-center bg-sand-50 hover:bg-sand-100 transition cursor-pointer flex flex-col items-center justify-center space-y-2 group"
         >
           {uploading ? (
             <div className="flex flex-col items-center space-y-2 py-2">
@@ -129,14 +129,14 @@ export function ImageUpload({ value = '', onChange, label = 'ઈમેજ પસ
             </div>
           ) : (
             <>
-              <div className="w-12 h-12 rounded-2xl bg-saffron-500/15 group-hover:bg-saffron-500 text-saffron-700 group-hover:text-cream-50 flex items-center justify-center transition shadow-sm">
+              <div className="w-12 h-12 rounded-2xl bg-sand-200 group-hover:bg-saffron-500 text-ink-600 group-hover:text-sand-50 flex items-center justify-center transition shadow-sm">
                 <Upload className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm font-bold text-maroon-950 dark:text-cream-100">
+                <p className="text-sm font-bold text-ink-900">
                   કોઈપણ ફોર્મેટની ઈમેજ અપલોડ કરો (Upload Image)
                 </p>
-                <p className="text-xs text-maroon-800/70 dark:text-cream-300/70 mt-0.5">
+                <p className="text-xs text-ink-500 mt-0.5">
                   JPG, PNG, WEBP, GIF, SVG, AVIF કે અન્ય કોઈપણ ફોટો સાઈઝ
                 </p>
               </div>
@@ -152,12 +152,12 @@ export function ImageUpload({ value = '', onChange, label = 'ઈમેજ પસ
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="flex-grow px-3.5 py-2 rounded-xl bg-cream-100 dark:bg-maroon-900 border border-saffron-500/30 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-saffron-500"
+          className="flex-grow px-3.5 py-2 rounded-xl bg-sand-100 border border-sand-200 text-ink-900 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-saffron-500"
         />
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
-          className="px-3.5 py-2 rounded-xl bg-saffron-600 hover:bg-saffron-700 text-cream-50 font-bold text-xs shadow transition flex items-center gap-1.5 flex-shrink-0"
+          className="px-3.5 py-2 rounded-xl bg-ink-900 hover:bg-ink-800 text-sand-50 font-bold text-xs shadow transition flex items-center gap-1.5 flex-shrink-0"
         >
           <ImageIcon className="w-3.5 h-3.5" />
           <span>ફાઈલ પસંદ કરો</span>

@@ -35,7 +35,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="antialiased flex flex-col min-h-screen bg-sand-50 text-ink-900 selection:bg-saffron-200 selection:text-ink-900">
+      <body className="antialiased flex flex-col min-h-screen text-ink-900 selection:bg-saffron-200 selection:text-ink-900">
         <Navbar />
         <main className="flex-grow pb-20 lg:pb-0">{children}</main>
         <Footer />
