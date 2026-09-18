@@ -31,6 +31,8 @@ export const metadata: Metadata = {
   keywords: ['Gujarati Bhajan', 'Dhun', 'Shyamji Bapa', 'Satsang', 'Gujarati Devotional'],
 };
 
+import { MorPankhBackground } from '@/components/ui/MorPankhBackground';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -43,7 +45,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="antialiased flex flex-col min-h-screen text-ink-900 selection:bg-teal-200 selection:text-ink-900 divine-bg relative">
-        <div className="absolute inset-0 z-[-1] divine-pattern pointer-events-none mix-blend-multiply opacity-60" />
+        <MorPankhBackground />
         <Navbar />
         <main className="flex-grow pb-20 lg:pb-0">{children}</main>
         <Footer />
