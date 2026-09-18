@@ -77,8 +77,15 @@ export default async function HomePage() {
     <div className="space-y-24 font-gujarati pb-20">
       {/* 1. Hero Section */}
       <section className="relative overflow-hidden pt-20 pb-24">
-        {/* Soft orb background effect */}
+        {/* Soft orb background effect with subtle illustration */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-sand-200/50 rounded-full blur-[100px] pointer-events-none -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 pointer-events-none -z-10 text-saffron-900">
+          <svg width="600" height="600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 22c-3-3.5-5-7.5-5-10 0-3.5 2-6 5-10 3 4 5 6.5 5 10 0 2.5-2 6.5-5 10z"/>
+            <path d="M7 12c-3.5 0-6 2-5 5 2 2.5 5 2.5 10 5"/>
+            <path d="M17 12c3.5 0 6 2 5 5-2 2.5-5 2.5-10 5"/>
+          </svg>
+        </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-white/60 text-ink-700 text-xs sm:text-sm font-medium mb-8 shadow-sm">
@@ -278,14 +285,12 @@ export default async function HomePage() {
                   href={`/authors/${author.slug}`}
                   className="group flex flex-col items-center text-center"
                 >
-                  <div className="w-32 h-32 rounded-full overflow-hidden mb-6 bg-saffron-700 p-1 group-hover:scale-105 transition-transform duration-500 relative">
-                    <Image
-                      src={author.profileImage || '/authors/default-sant.jpg'}
-                      alt={author.gujaratiName}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover rounded-full grayscale group-hover:grayscale-0 transition-all duration-500"
-                    />
+                  <div className="w-32 h-32 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500 relative text-sand-500 group-hover:text-saffron-300">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="opacity-80">
+                      <path d="M12 22c-3-3.5-5-7.5-5-10 0-3.5 2-6 5-10 3 4 5 6.5 5 10 0 2.5-2 6.5-5 10z"/>
+                      <path d="M7 12c-3.5 0-6 2-5 5 2 2.5 5 2.5 10 5"/>
+                      <path d="M17 12c3.5 0 6 2 5 5-2 2.5-5 2.5-10 5"/>
+                    </svg>
                   </div>
                   <h3 className="font-bold text-xl text-sand-50 group-hover:text-saffron-400 transition-colors tracking-tight">
                     {author.gujaratiName}

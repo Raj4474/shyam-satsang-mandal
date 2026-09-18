@@ -40,7 +40,21 @@ export default async function DhunsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10 font-gujarati">
       {/* Header Banner */}
-      <div className="text-center space-y-3 border-b border-saffron-500/20 pb-8">
+      <div className="text-center space-y-4 border-b border-saffron-500/20 pb-8 relative overflow-hidden">
+        {/* Subtle decorative background */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gold-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 -z-10"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-maroon-100/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 -z-10"></div>
+        
+        <div className="flex justify-center mb-2">
+          <div className="text-gold-500/60">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22c-3-3.5-5-7.5-5-10 0-3.5 2-6 5-10 3 4 5 6.5 5 10 0 2.5-2 6.5-5 10z"/>
+              <path d="M7 12c-3.5 0-6 2-5 5 2 2.5 5 2.5 10 5"/>
+              <path d="M17 12c3.5 0 6 2 5 5-2 2.5-5 2.5-10 5"/>
+            </svg>
+          </div>
+        </div>
+        
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/15 text-gold-800 text-xs font-semibold">
           <Music className="w-4 h-4 text-gold-600" />
           <span>ભક્તિમય નામ સ્મરણ</span>

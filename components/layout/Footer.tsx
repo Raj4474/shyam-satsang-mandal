@@ -29,6 +29,15 @@ export async function Footer() {
       {/* Premium Background Layer */}
       <div className="absolute inset-0 z-0 mandala-pattern opacity-10 mix-blend-screen pointer-events-none" />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-maroon-950/50 to-black/60 pointer-events-none" />
+      
+      {/* Subtle Lotus Background Illustration */}
+      <div className="absolute top-0 right-0 opacity-[0.03] text-sand-50 translate-x-1/4 -translate-y-1/4 pointer-events-none z-0">
+        <svg width="600" height="600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 22c-3-3.5-5-7.5-5-10 0-3.5 2-6 5-10 3 4 5 6.5 5 10 0 2.5-2 6.5-5 10z"/>
+          <path d="M7 12c-3.5 0-6 2-5 5 2 2.5 5 2.5 10 5"/>
+          <path d="M17 12c3.5 0 6 2 5 5-2 2.5-5 2.5-10 5"/>
+        </svg>
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
