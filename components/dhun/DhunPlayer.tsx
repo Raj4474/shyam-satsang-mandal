@@ -10,51 +10,73 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
 
   const handleCopy = () => {
     if (!dhun.lyrics) return;
-    navigator.clipboard.writeText(`${dhun.title.replace(/^[\d\.\s]+/, '')}\n\n${dhun.lyrics}`);
+    navigator.clipboard.writeText(`${dhun.title.replace(/^[\d\.\s૦-૯]+/, '')}\n\n${dhun.lyrics}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const displayTitle = dhun.title.replace(/^[\d\.\s૦-૯]+/, '');
+  const displayAuthor = dhun.author?.gujaratiName || 'શ્યામ સત્સંગ';
+
   return (
-    <div className="bg-white/60 backdrop-blur-xl rounded-[2rem] border border-white/60 shadow-sm overflow-hidden font-gujarati space-y-6">
+    <div className="bg-paper-surface border border-border-elegant font-gujarati">
+      
       {/* Header Banner */}
-      <div className="bg-white/40 p-8 sm:p-12 text-center space-y-4 border-b border-white/60">
-        <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-sand-200 text-ink-600">
-          પવિત્ર ધૂન
-        </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight">{dhun.title.replace(/^[\d\.\s]+/, '')}</h1>
+      <div className="px-4 sm:px-12 py-12 sm:py-16 text-center space-y-6 border-b border-border-elegant">
+        <div className="inline-block border border-border-elegant px-4 py-1 rounded-full text-xs font-bold tracking-widest text-ink-muted uppercase font-serif">
+          ધૂન સંગ્રહ
+        </div>
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-ink tracking-tight leading-[1.2]">
+          {displayTitle}
+        </h1>
+        <div className="flex items-center justify-center gap-4">
+          <div className="h-[1px] w-12 bg-accent/30" />
+          <p className="text-sm sm:text-base font-serif italic text-ink-muted">
+            {displayAuthor}
+          </p>
+          <div className="h-[1px] w-12 bg-accent/30" />
+        </div>
 
         {/* Action Controls */}
         {dhun.lyrics && (
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+          <div className="flex justify-center pt-6">
             <button
               onClick={handleCopy}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-saffron-600 hover:bg-saffron-700 text-sand-50 text-sm font-semibold shadow-sm transition"
+              className="flex items-center gap-2 px-5 py-2 rounded-full border border-border-elegant text-ink hover:border-ink transition-colors text-xs font-bold"
             >
-              {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+              {copied ? <Check className="w-4 h-4 text-accent" /> : <Copy className="w-4 h-4" />}
               <span>શબ્દો કોપી કરો</span>
             </button>
           </div>
         )}
       </div>
 
-      {/* Description & Video Section */}
-      <div className="p-8 sm:p-12 space-y-10">
+      {/* Description Section */}
+      <div className="px-4 sm:px-12 py-12 max-w-3xl mx-auto space-y-16">
+        
         {dhun.description && (
-          <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/60 text-ink-700 text-sm sm:text-base leading-relaxed">
-            <h3 className="font-bold text-ink-900 text-base mb-3">ધૂન પરિચય</h3>
-            <p>{dhun.description}</p>
+          <div className="text-center space-y-4">
+            <p className="text-ink-muted text-sm sm:text-base leading-relaxed font-medium italic">
+              {dhun.description}
+            </p>
+            <div className="flex justify-center pt-2 opacity-30">
+              <div className="flex gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-ink" />
+                <div className="w-1.5 h-1.5 rounded-full bg-ink" />
+                <div className="w-1.5 h-1.5 rounded-full bg-ink" />
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Video Embed if present */}
+        {/* Video Embed */}
         {dhun.videoUrl && (
-          <div className="space-y-4">
-            <h3 className="text-xl sm:text-2xl font-bold text-ink-900 flex items-center gap-2">
-              <Video className="w-5 h-5 text-saffron-600" />
-              <span>વિડિયો કીર્તન (Video Recording)</span>
+          <div className="space-y-6">
+            <h3 className="text-sm font-bold tracking-widest text-ink uppercase text-center flex items-center justify-center gap-2">
+              <Video className="w-4 h-4" />
+              <span>વિડિયો કીર્તન</span>
             </h3>
-            <div className="aspect-video rounded-[1.5rem] overflow-hidden border border-sand-200 shadow-soft">
+            <div className="aspect-video rounded-sm overflow-hidden border border-border-elegant">
               <iframe
                 src={dhun.videoUrl}
                 title={dhun.title}
@@ -68,17 +90,26 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
 
         {/* Full Lyrics */}
         {dhun.lyrics && (
-          <div className="space-y-6">
-            <h3 className="text-xl sm:text-2xl font-bold text-ink-900 border-b border-white/60 pb-3">
-              ધૂન સાહિત્ય / પદ બોલ
-            </h3>
+          <div className="space-y-8 pt-8">
+            <div className="flex items-center justify-between border-b-2 border-ink pb-4 mb-4">
+              <h2 className="text-sm font-bold tracking-widest text-ink uppercase">ધૂન સાહિત્ય</h2>
+            </div>
+            
             <div
               style={{ color: dhun.textColor || undefined }}
-              className="whitespace-pre-line text-lg sm:text-xl text-center leading-[2.5] text-ink-900 font-bold bg-white/50 backdrop-blur-sm p-8 sm:p-12 rounded-[2rem] border border-white/60 shadow-inner"
+              className="whitespace-pre-line text-lg sm:text-xl text-center leading-[2.5] text-ink font-bold px-2 md:px-0"
               dangerouslySetInnerHTML={{ __html: formatHtmlContent(dhun.lyrics) }}
             />
           </div>
         )}
+
+        <div className="flex justify-center pt-8 opacity-30">
+          <div className="flex gap-2">
+            <div className="w-2 h-2 rounded-full bg-ink" />
+            <div className="w-2 h-2 rounded-full bg-ink" />
+            <div className="w-2 h-2 rounded-full bg-ink" />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -16,58 +16,63 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-cream-100/50 font-gujarati flex flex-col md:flex-row">
-        {/* Responsive Sidebar for Mobile, Tablet & Desktop */}
-        <aside className="w-full md:w-64 bg-sand-100 text-ink-900 p-4 md:p-6 border-b md:border-b-0 md:border-r border-sand-200 flex-shrink-0">
-          <div className="flex items-center justify-between md:justify-start gap-3 pb-4 md:pb-6 border-b border-sand-200 mb-4 md:mb-6">
+      <div className="min-h-screen bg-paper font-gujarati flex flex-col md:flex-row">
+        {/* Minimal Sidebar for Mobile, Tablet & Desktop */}
+        <aside className="w-full md:w-64 bg-paper-surface text-ink p-6 border-b md:border-b-0 md:border-r border-border-elegant flex-shrink-0">
+          
+          {/* Logo & Header */}
+          <div className="flex items-center justify-between md:justify-start gap-4 pb-6 border-b border-border-elegant mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-saffron-600 flex items-center justify-center font-bold text-sand-50 shadow-sm">
-                <Shield className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-full border border-border-elegant flex items-center justify-center font-bold text-accent shadow-sm bg-paper">
+                <Shield className="w-4 h-4" />
               </div>
               <div>
-                <h2 className="font-bold text-base sm:text-lg text-ink-900 tracking-tight">એડમિન પેનલ</h2>
-                <p className="text-[11px] text-ink-500 font-semibold">શ્યામ સત્સંગ મંડળ</p>
+                <h2 className="font-bold text-base sm:text-lg text-ink tracking-tight uppercase">વહીવટ</h2>
+                <p className="text-xs text-ink-muted font-serif italic">શ્યામ સત્સંગ</p>
               </div>
             </div>
 
             <Link
               href="/"
-              className="md:hidden flex items-center gap-1 text-xs font-bold text-saffron-600 hover:text-saffron-700 transition"
+              className="md:hidden flex items-center gap-1 text-xs font-bold text-accent hover:text-accent-dark transition"
             >
               <Globe className="w-4 h-4" />
-              <span>મુખ્ય સાઈટ</span>
+              <span>સાઈટ</span>
             </Link>
           </div>
 
-          <nav className="flex md:flex-col overflow-x-auto md:overflow-x-visible gap-1.5 pb-2 md:pb-0 no-scrollbar">
+          {/* Navigation Links */}
+          <nav className="flex md:flex-col overflow-x-auto md:overflow-x-visible gap-2 pb-2 md:pb-0 no-scrollbar">
             {adminLinks.map((link) => {
               const Icon = link.icon;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-2.5 px-3.5 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-semibold text-ink-600 hover:bg-sand-200 hover:text-ink-900 transition whitespace-nowrap"
+                  className="flex items-center gap-3 px-4 py-3 rounded-md text-xs md:text-sm font-semibold text-ink-muted hover:bg-paper hover:text-ink transition whitespace-nowrap border border-transparent hover:border-border-elegant"
                 >
-                  <Icon className="w-4 h-4 text-ink-500 flex-shrink-0" />
+                  <Icon className="w-4 h-4 flex-shrink-0" />
                   <span>{link.name}</span>
                 </Link>
               );
             })}
           </nav>
 
-          <div className="hidden md:block pt-8 border-t border-sand-200 mt-8">
+          <div className="hidden md:block pt-8 border-t border-border-elegant mt-8">
             <Link
               href="/"
-              className="flex items-center gap-2 text-xs font-bold text-saffron-600 hover:text-saffron-700 transition"
+              className="flex items-center gap-2 text-xs font-bold text-ink-muted hover:text-ink transition"
             >
               <Globe className="w-4 h-4" />
-              <span>વેબસાઈટ પર જાવ (View Public Site)</span>
+              <span>વેબસાઈટ પર જાવ</span>
             </Link>
           </div>
         </aside>
 
         {/* Main Content Area */}
-        <main className="flex-grow p-4 sm:p-6 md:p-10 max-w-6xl w-full overflow-hidden">{children}</main>
+        <main className="flex-grow p-4 sm:p-8 md:p-12 max-w-7xl w-full mx-auto overflow-hidden">
+          {children}
+        </main>
       </div>
     </AdminGuard>
   );

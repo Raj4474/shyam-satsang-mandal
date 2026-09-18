@@ -30,21 +30,21 @@ export default async function AdminDashboardPage() {
   const { bhajansCount, dhunsCount, authorsCount, bioCount, mediaCount, recentBhajans } = await getDashboardStats();
 
   const stats = [
-    { label: 'કુલ ભજનો (Bhajans)', count: bhajansCount, href: '/admin/bhajans', icon: Sparkles, color: 'bg-saffron-500' },
-    { label: 'કુલ ધૂનો (Dhuns)', count: dhunsCount, href: '/admin/dhuns', icon: Music, color: 'bg-gold-500' },
-    { label: 'સંતો / લેખકો (Authors)', count: authorsCount, href: '/admin/authors', icon: UserCheck, color: 'bg-maroon-700' },
-    { label: 'જીવન ચરિત્ર સેક્શન', count: bioCount, href: '/admin/biography', icon: BookOpen, color: 'bg-saffron-700' },
-    { label: 'મીડિયા ફાઇલો (Media)', count: mediaCount, href: '/admin/media', icon: ImageIcon, color: 'bg-maroon-900' },
+    { label: 'કુલ ભજનો', count: bhajansCount, href: '/admin/bhajans', icon: Sparkles },
+    { label: 'કુલ ધૂનો', count: dhunsCount, href: '/admin/dhuns', icon: Music },
+    { label: 'સંતો / લેખકો', count: authorsCount, href: '/admin/authors', icon: UserCheck },
+    { label: 'જીવન ચરિત્ર', count: bioCount, href: '/admin/biography', icon: BookOpen },
+    { label: 'મીડિયા ફાઇલો', count: mediaCount, href: '/admin/media', icon: ImageIcon },
   ];
 
   return (
-    <div className="space-y-8 font-gujarati">
-      <div>
-        <h1 className="text-3xl font-extrabold text-ink-900 tracking-tight">એડમિન ડેશબોર્ડ (Overview)</h1>
-        <p className="text-ink-500 text-sm mt-1">શ્યામ સત્સંગ મંડળની સામગ્રીનું વ્યવસ્થાપન કરો.</p>
+    <div className="space-y-12 font-gujarati">
+      <div className="border-b-2 border-ink pb-6">
+        <h1 className="text-4xl font-extrabold text-ink tracking-tight">ડેશબોર્ડ</h1>
+        <p className="text-ink-muted text-sm mt-2 font-serif italic">શ્યામ સત્સંગ મંડળની સામગ્રીનું વ્યવસ્થાપન</p>
       </div>
 
-      {/* Metrics Cards Grid */}
+      {/* Metrics Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {stats.map((stat, idx) => {
           const Icon = stat.icon;
@@ -52,14 +52,14 @@ export default async function AdminDashboardPage() {
             <Link
               key={idx}
               href={stat.href}
-              className="bg-white/60 backdrop-blur-md rounded-3xl p-6 border border-white/60 shadow-sm hover:shadow-md transition flex items-center justify-between group"
+              className="bg-paper-surface p-6 border border-border-elegant hover:border-ink transition group flex items-start justify-between"
             >
               <div>
-                <span className="text-xs text-ink-500 font-semibold">{stat.label}</span>
-                <p className="text-4xl font-extrabold text-ink-900 mt-2">{stat.count}</p>
+                <span className="text-xs tracking-widest text-ink-muted font-bold uppercase">{stat.label}</span>
+                <p className="text-5xl font-extrabold text-ink mt-4 font-serif">{stat.count}</p>
               </div>
-              <div className={`w-14 h-14 rounded-2xl ${stat.color} text-cream-50 flex items-center justify-center shadow-md group-hover:scale-105 transition`}>
-                <Icon className="w-7 h-7" />
+              <div className="text-accent opacity-50 group-hover:opacity-100 transition">
+                <Icon className="w-8 h-8" />
               </div>
             </Link>
           );
@@ -67,27 +67,32 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Recent Activity Table */}
-      <div className="bg-white/60 backdrop-blur-md rounded-3xl p-6 border border-white/60 shadow-sm space-y-4">
-        <div className="flex items-center justify-between border-b border-white/60 pb-4">
-          <h2 className="text-xl font-bold text-ink-900">તાજેતરમાં ઉમેરાયેલા ભજનો</h2>
-          <Link href="/admin/bhajans" className="text-xs font-bold text-saffron-600 hover:text-saffron-700 flex items-center gap-1 transition">
-            <span>બધા સંચાલિત કરો</span>
+      <div className="bg-paper-surface border border-border-elegant pt-6 pb-2">
+        <div className="flex items-center justify-between border-b border-border-elegant pb-4 px-6">
+          <h2 className="text-lg font-bold text-ink uppercase tracking-widest text-xs">તાજેતરમાં ઉમેરાયેલા ભજનો</h2>
+          <Link href="/admin/bhajans" className="text-xs font-bold text-accent hover:text-accent-dark flex items-center gap-1 transition">
+            <span>બધા જુઓ</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="divide-y divide-sand-200">
+        <div className="divide-y divide-border-elegant">
           {recentBhajans.map((bhajan) => (
-            <div key={bhajan.id} className="py-3 flex items-center justify-between text-sm">
+            <div key={bhajan.id} className="px-6 py-4 flex items-center justify-between text-sm group hover:bg-paper transition-colors">
               <div>
-                <h3 className="font-bold text-ink-900">{bhajan.title}</h3>
-                <span className="text-xs text-ink-500">{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
+                <h3 className="font-bold text-ink">{bhajan.title.replace(/^[\d\.\s૦-૯]+/, '')}</h3>
+                <span className="text-xs text-ink-muted font-serif italic">{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
               </div>
-              <span className="text-xs px-2.5 py-1 rounded-full bg-sand-200 text-ink-700 font-semibold">
+              <span className={`text-xs px-2 py-1 rounded-sm border font-semibold ${bhajan.status === 'PUBLISHED' ? 'border-green-600/30 text-green-700 bg-green-50' : 'border-orange-600/30 text-orange-700 bg-orange-50'}`}>
                 {bhajan.status}
               </span>
             </div>
           ))}
+          {recentBhajans.length === 0 && (
+            <div className="px-6 py-8 text-center text-ink-muted text-sm italic">
+              કોઈ ભજન મળ્યા નથી.
+            </div>
+          )}
         </div>
       </div>
     </div>

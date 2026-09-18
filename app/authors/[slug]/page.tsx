@@ -3,7 +3,8 @@ import { db } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Sparkles, Music, BookOpen, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Sparkles, Music } from 'lucide-react';
+import { LiteratureRow } from '@/components/ui/LiteratureRow';
 
 export const revalidate = 3600;
 
@@ -32,35 +33,35 @@ export default async function AuthorDetailPage({ params }: { params: Promise<{ s
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 font-gujarati">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24 font-gujarati">
       {/* Back Link */}
       <div>
         <Link
           href="/authors"
-          className="inline-flex items-center gap-2 text-sm font-bold text-ink-500 hover:text-ink-900 transition"
+          className="inline-flex items-center gap-2 text-sm font-bold text-ink-muted hover:text-ink transition"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>પરત સંતોની યાદીમાં (Back to Authors)</span>
+          <span>પરત સર્જકોની યાદીમાં</span>
         </Link>
       </div>
 
-      {/* Author Bio Header Card */}
-      <div className="bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 sm:p-10 border border-white/60 shadow-soft flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-10">
-        <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-[1.5rem] overflow-hidden border border-white/60 shadow-sm flex-shrink-0 relative">
+      {/* Author Bio Header */}
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-12 border-b border-border-elegant pb-16">
+        <div className="w-48 h-48 sm:w-64 sm:h-64 rounded-full overflow-hidden border border-border-elegant flex-shrink-0 relative">
           <Image
-            src={author.profileImage || '/shyamjibapa.jpg'}
+            src={author.profileImage || '/authors/default-sant.jpg'}
             alt={author.gujaratiName}
             fill
             priority
-            sizes="(max-width: 640px) 128px, 160px"
-            className="object-cover"
+            sizes="(max-width: 640px) 192px, 256px"
+            className="object-cover grayscale"
           />
         </div>
-        <div className="space-y-2 flex-grow text-center sm:text-left">
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-ink-900 tracking-tight">{author.gujaratiName}</h1>
-          {author.birthInfo && <p className="text-base sm:text-lg font-bold text-saffron-700">{author.birthInfo}</p>}
+        <div className="space-y-6 flex-grow text-center md:text-left">
+          <h1 className="text-4xl sm:text-6xl font-extrabold text-ink tracking-tight">{author.gujaratiName}</h1>
+          {author.birthInfo && <p className="text-lg font-bold text-accent font-serif tracking-wide">{author.birthInfo}</p>}
           {author.shortBio && (
-            <p className="text-ink-600 text-sm sm:text-base leading-relaxed whitespace-pre-line pt-2">
+            <p className="text-ink-muted text-base sm:text-lg leading-relaxed whitespace-pre-line font-medium max-w-2xl">
               {author.shortBio}
             </p>
           )}
@@ -68,62 +69,58 @@ export default async function AuthorDetailPage({ params }: { params: Promise<{ s
       </div>
 
       {/* Bhajans by Author */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold text-ink-900 flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-saffron-600" />
-          <span>{author.gujaratiName} ના રચેલા ભજનો ({author.bhajans.length})</span>
-        </h2>
+      <div className="space-y-8">
+        <div className="flex items-center justify-between border-b-2 border-ink pb-4">
+          <h2 className="text-2xl font-bold text-ink flex items-center gap-2">
+            <span>સંતવાણી અને ભજનો</span>
+          </h2>
+          <span className="text-sm font-serif italic text-ink-muted">{author.bhajans.length} કૃતિઓ</span>
+        </div>
 
         {author.bhajans.length === 0 ? (
-          <p className="text-sm text-ink-500 italic">હજુ સુધી કોઈ ભજન ઉમેરાયેલ નથી.</p>
+          <p className="text-sm text-ink-muted italic py-8 text-center">હજુ સુધી કોઈ કૃતિ ઉમેરાયેલ નથી.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {author.bhajans.map((bhajan) => (
-              <Link
+          <div className="flex flex-col">
+            {author.bhajans.map((bhajan, index) => (
+              <LiteratureRow
                 key={bhajan.id}
+                index={index + 1}
+                title={bhajan.title.replace(/^[\d\.\s૦-૯]+/, '')}
+                author={author.gujaratiName}
+                category={bhajan.category || 'સંતવાણી'}
+                excerpt={bhajan.description || bhajan.lyrics?.slice(0, 80) || ''}
                 href={`/bhajans/${bhajan.slug}`}
-                className="bg-white/60 backdrop-blur-md rounded-2xl p-5 border border-white/60 hover:border-saffron-500 shadow-sm hover:shadow-md transition flex items-center justify-between group"
-              >
-                <div>
-                  <h3 className="font-bold text-ink-900 text-lg mb-1 group-hover:text-saffron-700 transition-colors">{bhajan.title}</h3>
-                  <span className="text-xs text-ink-600 bg-sand-200 px-3 py-1 rounded-full font-semibold">
-                    {bhajan.category || 'સંતવાણી'}
-                  </span>
-                </div>
-                <ArrowRight className="w-5 h-5 text-ink-400 group-hover:text-saffron-600 transition-colors" />
-              </Link>
+              />
             ))}
           </div>
         )}
       </div>
 
       {/* Dhuns by Author */}
-      <div className="space-y-6 pt-6 border-t border-sand-200">
-        <h2 className="text-2xl font-bold text-ink-900 flex items-center gap-2">
-          <Music className="w-5 h-5 text-saffron-600" />
-          <span>{author.gujaratiName} ની પવિત્ર ધૂન ({author.dhuns.length})</span>
-        </h2>
+      {author.dhuns.length > 0 && (
+        <div className="space-y-8">
+          <div className="flex items-center justify-between border-b-2 border-ink pb-4">
+            <h2 className="text-2xl font-bold text-ink flex items-center gap-2">
+              <span>ધૂન સંગ્રહ</span>
+            </h2>
+            <span className="text-sm font-serif italic text-ink-muted">{author.dhuns.length} ધૂન</span>
+          </div>
 
-        {author.dhuns.length === 0 ? (
-          <p className="text-sm text-ink-500 italic">હજુ સુધી કોઈ ધૂન ઉમેરાયેલ નથી.</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {author.dhuns.map((dhun) => (
-              <Link
+          <div className="flex flex-col">
+            {author.dhuns.map((dhun, index) => (
+              <LiteratureRow
                 key={dhun.id}
+                index={index + 1}
+                title={dhun.title}
+                author={author.gujaratiName}
+                category="ધૂન"
+                excerpt={dhun.description || dhun.lyrics?.slice(0, 80) || ''}
                 href={`/dhuns/${dhun.slug}`}
-                className="bg-white/60 backdrop-blur-md rounded-2xl p-5 border border-white/60 hover:border-saffron-500 shadow-sm hover:shadow-md transition flex items-center justify-between group"
-              >
-                <div>
-                  <h3 className="font-bold text-ink-900 text-lg mb-1 group-hover:text-saffron-700 transition-colors">{dhun.title}</h3>
-                  <p className="text-xs text-ink-500 line-clamp-1">{dhun.description || dhun.lyrics}</p>
-                </div>
-                <ArrowRight className="w-5 h-5 text-ink-400 group-hover:text-saffron-600 transition-colors" />
-              </Link>
+              />
             ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
