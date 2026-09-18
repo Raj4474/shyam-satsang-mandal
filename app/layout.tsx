@@ -42,8 +42,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="antialiased flex flex-col min-h-screen text-ink-900 selection:bg-saffron-200 selection:text-ink-900 ancient-manuscript-bg relative">
-        <div className="absolute inset-0 z-[-1] pointer-events-none mix-blend-multiply opacity-50" />
+      <body className="antialiased flex flex-col min-h-screen text-ink-900 selection:bg-saffron-200 selection:text-ink-900 manuscript-bg relative">
+        <div className="absolute inset-0 z-[-1] manuscript-pattern pointer-events-none mix-blend-multiply opacity-60" />
         <Navbar />
         <main className="flex-grow pb-20 lg:pb-0">{children}</main>
         <Footer />
