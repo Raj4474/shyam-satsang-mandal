@@ -127,7 +127,7 @@ export default function ManageAuthorsPage() {
           <div key={a.id} className="bg-cream-50 rounded-3xl p-6 border border-saffron-500/20 shadow-sm space-y-4 flex flex-col justify-between">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gold-500/40 flex-shrink-0">
-                <img src={a.profileImage || 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=300&q=80'} alt={a.gujaratiName} className="w-full h-full object-cover" />
+                <img src={a.profileImage || '/authors/default-sant.jpg'} alt={a.gujaratiName} className="w-full h-full object-cover" />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-maroon-950">{a.gujaratiName}</h3>

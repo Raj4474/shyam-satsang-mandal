@@ -26,7 +26,7 @@ export function AuthorGrid({ authors }: { authors: any[] }) {
             >
               <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-gold-500/40 shadow-md group-hover:scale-105 transition-transform duration-300 relative">
                 <Image
-                  src={author.profileImage || 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80'}
+                  src={author.profileImage || '/authors/default-sant.jpg'}
                   alt={author.gujaratiName}
                   fill
                   priority={index < 6}
