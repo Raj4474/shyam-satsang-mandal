@@ -24,7 +24,15 @@ export function AuthorGrid({ authors }: { authors: any[] }) {
               href={`/authors/${author.slug}`}
               className="group glass-panel rounded-3xl p-6 hover:shadow-spiritual transition-all duration-300 flex flex-col items-center text-center space-y-4 h-full block"
             >
-              <div className="space-y-1 pt-2">
+              <div className="mb-3 text-saffron-400/40 group-hover:text-saffron-500/70 group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500 ease-out">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22c-3-3.5-5-7.5-5-10 0-3.5 2-6 5-10 3 4 5 6.5 5 10 0 2.5-2 6.5-5 10z"/>
+                  <path d="M7 12c-3.5 0-6 2-5 5 2 2.5 5 2.5 10 5"/>
+                  <path d="M17 12c3.5 0 6 2 5 5-2 2.5-5 2.5-10 5"/>
+                </svg>
+              </div>
+
+              <div className="space-y-1 text-center">
                 <h2 className="text-2xl font-bold text-maroon-950 group-hover:text-saffron-600 transition-colors duration-300">
                   {author.gujaratiName}
                 </h2>

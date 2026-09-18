@@ -45,10 +45,22 @@ export default async function AuthorDetailPage({ params }: { params: Promise<{ s
       </div>
 
       {/* Author Bio Header Card */}
-      <div className="bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 sm:p-10 border border-white/60 shadow-soft flex flex-col items-center text-center gap-6">
-        <div className="space-y-3 max-w-3xl">
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-ink-900 tracking-tight">{author.gujaratiName}</h1>
-          {author.birthInfo && <p className="text-base sm:text-lg font-bold text-saffron-700">{author.birthInfo}</p>}
+      <div className="bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 sm:p-10 border border-white/60 shadow-soft flex flex-col items-center text-center gap-6 relative overflow-hidden">
+        {/* Decorative background element */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-saffron-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-maroon-100/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
+        
+        <div className="space-y-4 max-w-3xl relative z-10 flex flex-col items-center">
+          <div className="text-saffron-500/50 mb-2">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22c-3-3.5-5-7.5-5-10 0-3.5 2-6 5-10 3 4 5 6.5 5 10 0 2.5-2 6.5-5 10z"/>
+              <path d="M7 12c-3.5 0-6 2-5 5 2 2.5 5 2.5 10 5"/>
+              <path d="M17 12c3.5 0 6 2 5 5-2 2.5-5 2.5-10 5"/>
+            </svg>
+          </div>
+          
+          <h1 className="text-4xl sm:text-6xl font-extrabold text-ink-900 tracking-tight">{author.gujaratiName}</h1>
+          {author.birthInfo && <p className="text-lg sm:text-xl font-bold text-saffron-700">{author.birthInfo}</p>}
           {author.shortBio && (
             <p className="text-ink-600 text-sm sm:text-base leading-relaxed whitespace-pre-line pt-2">
               {author.shortBio}
