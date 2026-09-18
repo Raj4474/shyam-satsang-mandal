@@ -1,7 +1,7 @@
 import React from 'react';
 import { db } from '@/lib/db';
-import { Music } from 'lucide-react';
-import { LiteratureRow } from '@/components/ui/LiteratureRow';
+import Link from 'next/link';
+import { Music, Video, Play, ArrowRight, Sparkles } from 'lucide-react';
 
 export const revalidate = 3600;
 
@@ -10,7 +10,6 @@ async function getDhunsData() {
     const [dhuns, settings] = await Promise.all([
       db.dhun.findMany({
         where: { status: 'PUBLISHED' },
-        include: { author: true },
       }),
       db.siteSetting.findMany(),
     ]);
@@ -20,6 +19,7 @@ async function getDhunsData() {
       const numB = parseInt(b.title.match(/^\d+/)?.[0] || b.slug.split('-')[0], 10) || 0;
       return numA - numB;
     });
+
 
     const settingsMap: Record<string, string> = {};
     settings.forEach((s) => (settingsMap[s.key] = s.value));
@@ -38,46 +38,59 @@ export default async function DhunsPage() {
   const subtitle = settingsMap['dhunsSubtitle'] || 'ઈશ્વરના દિવ્ય નામની કીર્તન ધૂનનો સંગ્રહ અને પદ સાહિત્ય.';
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16 font-gujarati">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10 font-gujarati">
       {/* Header Banner */}
-      <div className="text-center space-y-4 border-b border-border-elegant pb-12">
-        <div className="inline-flex items-center gap-2 text-accent text-xs font-bold uppercase tracking-widest font-serif">
-          <Music className="w-4 h-4" />
+      <div className="text-center space-y-3 border-b border-saffron-500/20 pb-8">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/15 text-gold-800 text-xs font-semibold">
+          <Music className="w-4 h-4 text-gold-600" />
           <span>ભક્તિમય નામ સ્મરણ</span>
         </div>
-        <h1 className="text-4xl sm:text-6xl font-extrabold text-ink tracking-tight">{title}</h1>
-        <p className="text-ink-muted text-lg max-w-2xl mx-auto leading-relaxed font-medium">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-maroon-950">{title}</h1>
+        <p className="text-maroon-800/80 text-base max-w-2xl mx-auto leading-relaxed">
           {subtitle}
         </p>
       </div>
 
-      {/* Dhun List */}
-      <div className="max-w-5xl mx-auto pt-8">
-        <div className="flex items-center justify-between border-b-2 border-ink pb-4 mb-4">
-          <h2 className="text-sm font-bold tracking-widest text-ink uppercase">ધૂન પરિણામો</h2>
-          <span className="text-sm font-serif italic text-ink-muted">{dhuns.length} ધૂન</span>
-        </div>
-        
-        {dhuns.length > 0 ? (
-          <div className="flex flex-col">
-            {dhuns.map((dhun, index) => (
-              <LiteratureRow
-                key={dhun.id}
-                index={index + 1}
-                title={dhun.title.replace(/^[\d\.\s૦-૯]+/, '')}
-                author={dhun.author?.gujaratiName || 'શ્યામ સત્સંગ'}
-                category="ધૂન"
-                excerpt={dhun.description || dhun.lyrics?.slice(0, 80) || ''}
+      {/* Dhun Cards Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {dhuns.map((dhun, index) => (
+          <div
+            key={dhun.id}
+            className="bg-cream-50 rounded-3xl border border-saffron-500/20 p-6 shadow-card hover:shadow-spiritual transition flex flex-col justify-between space-y-4"
+          >
+            <div>
+              <div className="flex items-center justify-between text-xs text-saffron-700 font-semibold mb-3">
+                <span className="bg-gold-500/15 px-3 py-1 rounded-full text-gold-800 font-bold">ધૂન</span>
+              </div>
+              <h2 className="text-2xl font-bold text-maroon-950 mb-2 leading-snug">
+                {index + 1}. {dhun.title.replace(/^[\d\.\s]+/, '')}
+              </h2>
+              <p className="text-maroon-800/80 text-xs line-clamp-3 leading-relaxed whitespace-pre-line">
+                {dhun.description || dhun.lyrics?.slice(0, 120)}
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-cream-200 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                {dhun.videoUrl && (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-maroon-800 bg-maroon-900/10 px-2.5 py-0.5 rounded-full">
+                    <Video className="w-3 h-3" /> વિડિયો
+                  </span>
+                )}
+              </div>
+
+              <Link
                 href={`/dhuns/${dhun.slug}`}
-              />
-            ))}
+                className="inline-flex items-center gap-1 text-sm font-bold text-maroon-900 hover:text-saffron-600 transition"
+              >
+                <span>વાંચો</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
-        ) : (
-          <div className="py-20 text-center space-y-6">
-            <p className="text-ink-muted text-sm italic">હજુ સુધી કોઈ ધૂન ઉમેરાયેલ નથી.</p>
-          </div>
-        )}
+        ))}
       </div>
     </div>
   );
 }
+

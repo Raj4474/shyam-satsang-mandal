@@ -6,40 +6,78 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: ["class", ".divo"], // use .divo class for dark mode
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        paper: {
-          DEFAULT: '#FFF8E7', // Background
-          surface: '#FFFDF8', // Surface
-          cream: '#F7EBCB', // Secondary cream
+        saffron: {
+          50: '#fffbebe6',
+          100: '#fef3c7',
+          200: '#fde68a',
+          300: '#fcd34d',
+          400: '#fbbf24',
+          500: '#f59e0b',
+          600: '#d97706',
+          700: '#b45309',
+          800: '#92400e',
+          900: '#78350f',
+          950: '#451a03',
+        },
+        maroon: {
+          50: '#fff1f2',
+          100: '#ffe4e6',
+          200: '#fecdd3',
+          300: '#fda4af',
+          400: '#fb7185',
+          500: '#e11d48',
+          600: '#be123c',
+          700: '#9f1239',
+          800: '#7f1d1d',
+          900: '#701a20',
+          950: '#450a0a',
+        },
+        cream: {
+          50: '#fdfbf7',
+          100: '#f7f2e7',
+          200: '#efe6d5',
+          300: '#e5d7c0',
+          400: '#d9c4a5',
+          500: '#cbaf89',
+          600: '#bc9a6f',
+          700: '#a5825a',
+          800: '#866a4a',
+          900: '#6e563d',
+        },
+        gold: {
+          400: '#f3e5ab',
+          500: '#d4af37',
+          600: '#b89726',
+          700: '#967819',
+        },
+        sand: {
+          50: '#fcfcfc',
+          100: '#faf9f8',
+          200: '#f3f2f0',
+          300: '#e8e6e1',
+          400: '#d5d2c9',
+          500: '#b8b4a8',
         },
         ink: {
-          DEFAULT: '#241A12', // Primary ink
-          muted: '#806F5C', // Muted text
+          900: '#1a1a1a',
+          800: '#2d2d2d',
+          700: '#404040',
+          600: '#595959',
         },
-        accent: {
-          DEFAULT: '#D97706', // Primary accent
-          dark: '#A85400', // Dark accent
-        },
-        border: {
-          elegant: '#E8D9B8', // Border
-        },
-        divo: {
-          bg: '#211812',
-          text: '#F4E7C8',
-        }
       },
       fontFamily: {
         gujarati: ['var(--font-gujarati)', 'Anek Gujarati', 'Noto Sans Gujarati', 'sans-serif'],
         serif: ['var(--font-playfair)', 'Playfair Display', 'serif'],
       },
       boxShadow: {
-        spiritual: '0 10px 30px -5px rgba(217, 119, 6, 0.08)',
-        card: '0 4px 20px -2px rgba(36, 26, 18, 0.04)',
-        soft: '0 8px 30px rgba(36, 26, 18, 0.03)',
-        glass: '0 8px 32px 0 rgba(36, 26, 18, 0.02)',
+        spiritual: '0 10px 30px -5px rgba(217, 119, 6, 0.15)',
+        card: '0 4px 20px -2px rgba(120, 53, 15, 0.08)',
+        soft: '0 8px 30px rgba(0,0,0,0.04)',
+        glass: '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
       }
     },
   },

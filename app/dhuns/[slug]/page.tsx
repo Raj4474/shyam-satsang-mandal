@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { DhunPlayer } from '@/components/dhun/DhunPlayer';
 import { ArrowLeft, Music, Sparkles } from 'lucide-react';
-import { LiteratureRow } from '@/components/ui/LiteratureRow';
 
 export const revalidate = 3600;
 
@@ -50,10 +49,10 @@ export default async function DhunDetailPage({ params }: { params: Promise<{ slu
       <div className="print:hidden">
         <Link
           href="/dhuns"
-          className="inline-flex items-center gap-2 text-sm font-bold text-ink-muted hover:text-ink transition"
+          className="inline-flex items-center gap-2 text-sm font-bold text-maroon-800 hover:text-saffron-600 transition"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>પરત ધૂનોની યાદીમાં</span>
+          <span>પરત ધૂનોની યાદીમાં (Back to Dhuns)</span>
         </Link>
       </div>
 
@@ -62,22 +61,19 @@ export default async function DhunDetailPage({ params }: { params: Promise<{ slu
 
       {/* Related Dhuns */}
       {related.length > 0 && (
-        <div className="print:hidden space-y-6 pt-16 border-t border-border-elegant">
-          <div className="flex items-center justify-between border-b-2 border-ink pb-4 mb-4">
-            <h2 className="text-sm font-bold tracking-widest text-ink uppercase">અન્ય પવિત્ર ધૂન</h2>
-          </div>
-          
-          <div className="flex flex-col">
-            {related.map((item, index) => (
-              <LiteratureRow
+        <div className="print:hidden space-y-6 border-t border-saffron-500/20 pt-10">
+          <h3 className="text-2xl font-bold text-maroon-950">અન્ય પવિત્ર ધૂન</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {related.map((item) => (
+              <Link
                 key={item.id}
-                index={index + 1}
-                title={item.title.replace(/^[\d\.\s૦-૯]+/, '')}
-                author={item.author?.gujaratiName || 'શ્યામ સત્સંગ'}
-                category="ધૂન"
-                excerpt={item.description || item.lyrics?.slice(0, 80) || ''}
                 href={`/dhuns/${item.slug}`}
-              />
+                className="bg-cream-50 rounded-2xl p-5 border border-saffron-500/20 hover:border-saffron-500/50 shadow-sm hover:shadow-md transition space-y-2"
+              >
+                <span className="text-[11px] font-semibold text-saffron-700">ધૂન</span>
+                <h4 className="text-lg font-bold text-maroon-950 line-clamp-1">{item.title.replace(/^[\d\.\s]+/, '')}</h4>
+                <p className="text-xs text-maroon-800/70 line-clamp-2">{item.description || item.lyrics}</p>
+              </Link>
             ))}
           </div>
         </div>

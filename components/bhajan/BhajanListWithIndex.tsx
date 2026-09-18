@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bhajan, Author } from '@/types';
-import { Search, Sparkles, BookOpen } from 'lucide-react';
-import { getSearchQueries } from '@/lib/transliterate';
-import { LiteratureRow } from '../ui/LiteratureRow';
+import { Search, Sparkles, ArrowRight, Filter, BookOpen } from 'lucide-react';
+import { isEnglishOrMixed, getSearchQueries } from '@/lib/transliterate';
 
 const GUJARATI_ALPHABET = [
   'બધા',
@@ -84,22 +84,22 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
   }, [bhajans, selectedLetter, selectedAuthorSlug, searchQuery]);
 
   return (
-    <div className="space-y-12 font-gujarati max-w-5xl mx-auto">
+    <div className="space-y-8 font-gujarati">
       {/* 1. Search Bar */}
-      <div className="relative border-b border-border-elegant pb-6">
+      <div className="max-w-2xl mx-auto relative">
         <div className="relative flex items-center">
-          <Search className="w-6 h-6 absolute left-2 text-ink-muted pointer-events-none" />
+          <Search className="w-5 h-5 absolute left-4 text-ink-400 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="ભજન શીર્ષક, કડી અથવા બોલ શોધો..."
-            className="w-full pl-12 pr-4 py-4 bg-transparent border-none text-2xl text-ink placeholder-ink-muted focus:outline-none focus:ring-0 transition-all font-serif"
+            placeholder="ભજન શીર્ષક, કડી અથવા બોલ શોધો... (Search in Gujarati or Gujlish)"
+            className="w-full pl-12 pr-4 py-4 rounded-full bg-sand-100 border border-sand-200 text-ink-900 placeholder-ink-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-ink-900 focus:border-transparent text-sm transition-all"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-2 text-sm font-semibold text-ink-muted hover:text-ink transition-colors"
+              className="absolute right-4 text-xs font-semibold text-ink-500 hover:text-ink-900 transition-colors"
             >
               સાફ કરો
             </button>
@@ -107,9 +107,24 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
         </div>
       </div>
 
-      {/* 2. Alphabetical Index Bar */}
-      <div className="space-y-4">
-        <div className="flex flex-wrap gap-2 justify-center items-center">
+      {/* 2. Alphabetical Index Bar (ક-ખ-ગ Indexing) */}
+      <div className="bg-sand-50 border border-sand-200 rounded-[2rem] p-5 sm:p-7 space-y-5 shadow-sm">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-ink-900 font-bold text-sm">
+            <BookOpen className="w-4 h-4 text-saffron-600" />
+            <span>સંપૂર્ણ ક-ખ-ગ અનુક્રમણિકા</span>
+          </div>
+          {selectedLetter !== 'બધા' && (
+            <button
+              onClick={() => setSelectedLetter('બધા')}
+              className="text-xs font-semibold text-ink-500 hover:text-ink-900 transition-colors"
+            >
+              તમામ પત્રો જુઓ
+            </button>
+          )}
+        </div>
+
+        <div className="flex flex-wrap gap-2 sm:gap-2.5 justify-start items-center">
           {GUJARATI_ALPHABET.map((letter) => {
             const count = letterCounts[letter] || 0;
             const isSelected = selectedLetter === letter;
@@ -120,43 +135,48 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
                 key={letter}
                 onClick={() => setSelectedLetter(letter)}
                 disabled={!hasBhajans && letter !== 'બધા'}
-                className={`px-3 py-1.5 rounded-full text-sm font-semibold transition-all flex items-center gap-1 ${
+                className={`px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-1.5 ${
                   isSelected
-                    ? 'bg-ink text-paper-surface'
+                    ? 'bg-saffron-600 text-sand-50 shadow-soft scale-105'
                     : hasBhajans
-                    ? 'bg-transparent text-ink-muted hover:text-ink hover:bg-paper-cream border border-transparent hover:border-border-elegant'
-                    : 'bg-transparent text-ink-muted/30 cursor-not-allowed'
+                    ? 'bg-sand-100 hover:bg-sand-200 text-ink-800'
+                    : 'bg-sand-50 text-ink-300 border border-sand-200 cursor-not-allowed opacity-50'
                 }`}
                 title={hasBhajans ? `${letter} થી શરૂ થતા ${count} ભજન` : `${letter} થી કોઈ ભજન નથી`}
               >
                 <span>{letter}</span>
+                {letter !== 'બધા' && count > 0 && (
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${isSelected ? 'bg-sand-50/20 text-sand-50' : 'bg-ink-200/50 text-ink-700'}`}>
+                    {count}
+                  </span>
+                )}
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* 3. Author Filter */}
+      {/* 3. Author Filter Pills */}
       {authors.length > 0 && (
-        <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             onClick={() => setSelectedAuthorSlug('all')}
-            className={`px-4 py-1.5 rounded-full text-xs tracking-wide font-semibold transition-all border ${
+            className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all ${
               selectedAuthorSlug === 'all'
-                ? 'bg-accent text-white border-accent'
-                : 'bg-transparent text-ink-muted border-border-elegant hover:border-accent hover:text-accent'
+                ? 'bg-saffron-600 text-sand-50 shadow-soft'
+                : 'bg-sand-100 hover:bg-sand-200 text-ink-800'
             }`}
           >
-            તમામ રચયિતા
+            તમામ રચયિતા ({bhajans.length})
           </button>
           {authors.map((author) => (
             <button
               key={author.id}
               onClick={() => setSelectedAuthorSlug(author.slug)}
-              className={`px-4 py-1.5 rounded-full text-xs tracking-wide font-semibold transition-all border ${
+              className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
                 selectedAuthorSlug === author.slug
-                  ? 'bg-accent text-white border-accent'
-                  : 'bg-transparent text-ink-muted border-border-elegant hover:border-accent hover:text-accent'
+                  ? 'bg-saffron-600 text-sand-50 shadow-soft'
+                  : 'bg-sand-100 hover:bg-sand-200 text-ink-800'
               }`}
             >
               {author.gujaratiName}
@@ -165,61 +185,88 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
         </div>
       )}
 
-      {/* 4. Literature Rows */}
-      <div className="pt-8">
-        <div className="flex items-center justify-between border-b-2 border-ink pb-2 mb-4">
-          <h2 className="text-sm font-bold tracking-widest text-ink uppercase">સંગ્રહ પરિણામો</h2>
-          <span className="text-sm font-serif italic text-ink-muted">{filteredBhajans.length} પદો</span>
+      {/* Active Filter Summary Bar */}
+      <div className="flex items-center justify-between border-b border-sand-200 pb-4 text-sm font-medium text-ink-600">
+        <div>
+          કુલ દર્શાવેલ ભજન: <span className="font-bold text-ink-900">{filteredBhajans.length}</span>
+          {selectedLetter !== 'બધા' && (
+            <span className="ml-3 bg-sand-200 px-3 py-1 rounded-full text-ink-800 text-xs">
+              અક્ષર: '{selectedLetter}'
+            </span>
+          )}
         </div>
-        
-        {filteredBhajans.length > 0 ? (
-          <div className="flex flex-col">
-            <AnimatePresence mode="popLayout">
-              {filteredBhajans.map((bhajan, index) => (
-                <motion.div
-                  key={bhajan.id}
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+
+        {(selectedLetter !== 'બધા' || selectedAuthorSlug !== 'all' || searchQuery) && (
+          <button
+            onClick={() => {
+              setSelectedLetter('બધા');
+              setSelectedAuthorSlug('all');
+              setSearchQuery('');
+            }}
+            className="text-ink-500 hover:text-ink-900 font-semibold transition-colors"
+          >
+            બધા ફિલ્ટર સાફ કરો
+          </button>
+        )}
+      </div>
+
+      {/* 4. Bhajan Cards Grid */}
+      {filteredBhajans.length > 0 ? (
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <AnimatePresence mode="popLayout">
+            {filteredBhajans.map((bhajan, index) => (
+              <motion.div
+                key={bhajan.id}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+              >
+                <Link
+                  href={`/bhajans/${bhajan.slug}`}
+                  className="group glass-panel rounded-[2rem] p-7 hover:shadow-spiritual transition-all duration-300 flex flex-col justify-between h-full"
                 >
-                  <LiteratureRow
-                    index={bhajans.findIndex((b) => b.id === bhajan.id) + 1}
-                    title={bhajan.title.replace(/^[\d\.\s૦-૯]+/, '')}
-                    author={bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}
-                    category={bhajan.category || 'સંતવાણી'}
-                    excerpt={bhajan.description || bhajan.lyrics?.slice(0, 80) || ''}
-                    href={`/bhajans/${bhajan.slug}`}
-                  />
-                </motion.div>
-              ))}
-            </AnimatePresence>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between text-xs font-semibold text-ink-500">
+                      <span className="bg-sand-200/80 px-3 py-1 rounded-full text-ink-800">{bhajan.category || 'સંતવાણી'}</span>
+                      <span>{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
+                    </div>
+                    <h2 className="text-xl font-bold text-ink-900 tracking-tight group-hover:text-saffron-600 transition-colors leading-snug">
+                      {bhajans.findIndex(b => b.id === bhajan.id) + 1}. {bhajan.title.replace(/^[\d\.\s૦-૯]+/, '')}
+                    </h2>
+                    <p className="text-ink-600 text-sm line-clamp-3 leading-relaxed whitespace-pre-line">
+                      {bhajan.description || bhajan.lyrics?.slice(0, 120)}
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      ) : (
+        <div className="bg-sand-50 rounded-[2.5rem] p-12 text-center space-y-5 border border-sand-200 shadow-sm max-w-xl mx-auto">
+          <div className="w-16 h-16 bg-sand-200 rounded-full flex items-center justify-center mx-auto text-ink-500">
+            <Sparkles className="w-8 h-8" />
           </div>
-        ) : (
-          <div className="py-20 text-center space-y-6">
-            <div className="w-16 h-16 rounded-full border border-border-elegant flex items-center justify-center mx-auto text-ink-muted">
-              <Sparkles className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-ink">પરિણામ મળ્યું નથી</h3>
-              <p className="text-ink-muted text-sm mt-2">
-                તમારા સર્ચ મુજબ કોઈ સાહિત્ય મળ્યું નથી.
-              </p>
-            </div>
+          <h3 className="text-2xl font-bold text-ink-900 tracking-tight">પરિણામ મળ્યું નથી</h3>
+          <p className="text-ink-600 text-sm leading-relaxed max-w-md mx-auto">
+            તમારા સર્ચ અથવા અક્ષર મુજબ કોઈ ભજન મળ્યું નથી. કૃપા કરીને અન્ય અક્ષરથી શોધો.
+          </p>
+          <div className="pt-4">
             <button
               onClick={() => {
                 setSelectedLetter('બધા');
                 setSelectedAuthorSlug('all');
                 setSearchQuery('');
               }}
-              className="inline-block px-6 py-2 border border-ink text-ink font-semibold rounded-full hover:bg-ink hover:text-paper-surface transition-colors"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-saffron-600 text-sand-50 font-bold text-sm shadow-soft hover:-translate-y-0.5 transition-all"
             >
-              ફિલ્ટર સાફ કરો
+              <span>બધા ભજન જુઓ</span>
             </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
