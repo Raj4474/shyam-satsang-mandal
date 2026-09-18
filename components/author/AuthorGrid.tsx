@@ -24,18 +24,7 @@ export function AuthorGrid({ authors }: { authors: any[] }) {
               href={`/authors/${author.slug}`}
               className="group glass-panel rounded-3xl p-6 hover:shadow-spiritual transition-all duration-300 flex flex-col items-center text-center space-y-4 h-full block"
             >
-              <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-gold-500/40 shadow-md group-hover:scale-105 transition-transform duration-300 relative">
-                <Image
-                  src={author.profileImage || '/authors/default-sant.jpg'}
-                  alt={author.gujaratiName}
-                  fill
-                  priority={index < 6}
-                  sizes="112px"
-                  className="object-cover"
-                />
-              </div>
-
-              <div className="space-y-1">
+              <div className="space-y-1 pt-2">
                 <h2 className="text-2xl font-bold text-maroon-950 group-hover:text-saffron-600 transition-colors duration-300">
                   {author.gujaratiName}
                 </h2>

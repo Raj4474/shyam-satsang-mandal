@@ -45,18 +45,8 @@ export default async function AuthorDetailPage({ params }: { params: Promise<{ s
       </div>
 
       {/* Author Bio Header Card */}
-      <div className="bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 sm:p-10 border border-white/60 shadow-soft flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-10">
-        <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-[1.5rem] overflow-hidden border border-white/60 shadow-sm flex-shrink-0 relative">
-          <Image
-            src={author.profileImage || '/shyamjibapa.jpg'}
-            alt={author.gujaratiName}
-            fill
-            priority
-            sizes="(max-width: 640px) 128px, 160px"
-            className="object-cover"
-          />
-        </div>
-        <div className="space-y-2 flex-grow text-center sm:text-left">
+      <div className="bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 sm:p-10 border border-white/60 shadow-soft flex flex-col items-center text-center gap-6">
+        <div className="space-y-3 max-w-3xl">
           <h1 className="text-3xl sm:text-5xl font-extrabold text-ink-900 tracking-tight">{author.gujaratiName}</h1>
           {author.birthInfo && <p className="text-base sm:text-lg font-bold text-saffron-700">{author.birthInfo}</p>}
           {author.shortBio && (
