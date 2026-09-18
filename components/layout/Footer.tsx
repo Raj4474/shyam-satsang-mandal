@@ -38,7 +38,7 @@ export async function Footer() {
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gold-500/50 bg-sand-200 shadow-spiritual">
                 <img src="/logo.jpg" alt={title} className="w-full h-full object-cover" />
               </div>
-              <h3 className="text-3xl font-extrabold text-sand-50 tracking-wide font-serif text-shadow-sm">{title}</h3>
+              <h3 className="text-3xl font-extrabold text-sand-50 tracking-wide text-shadow-sm">{title}</h3>
             </div>
             <p className="text-sand-200/80 text-sm leading-relaxed max-w-md font-medium">
               {desc}
@@ -50,7 +50,7 @@ export async function Footer() {
 
           {/* Column 2: Quick Links */}
           <div className="space-y-6">
-            <h4 className="text-xl font-bold text-sand-50 tracking-wide font-serif">મુખ્ય વિભાગો</h4>
+            <h4 className="text-xl font-bold text-sand-50 tracking-wide">મુખ્ય વિભાગો</h4>
             <ul className="space-y-4 text-sm font-medium text-sand-300">
               {[
                 { name: 'શામજીબાપાનું જીવન ચરિત્ર', href: '/biography' },
@@ -70,7 +70,7 @@ export async function Footer() {
 
           {/* Column 3: Admin & Contact */}
           <div className="space-y-6">
-            <h4 className="text-xl font-bold text-sand-50 tracking-wide font-serif">વ્યવસ્થાપન</h4>
+            <h4 className="text-xl font-bold text-sand-50 tracking-wide">વ્યવસ્થાપન</h4>
             <p className="text-xs text-sand-400 font-medium leading-relaxed">
               સંગ્રહાલયમાં નવા ભજન, ધૂન કે સુધારા-વધારા માટે એડમિન ડેશબોર્ડનો ઉપયોગ કરો.
             </p>

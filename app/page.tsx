@@ -86,7 +86,7 @@ export default async function HomePage() {
             <span>{heroBadge}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-ink-900 tracking-tight max-w-4xl mx-auto leading-tight mb-6 px-2 font-serif">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-ink-900 tracking-tight max-w-4xl mx-auto leading-tight mb-6 px-2">
             {heroTitle}
           </h1>
 
@@ -133,7 +133,7 @@ export default async function HomePage() {
                   <span>આજનું પદ</span>
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight leading-snug font-serif">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight leading-snug">
                   {dailyBhajan.title}
                 </h2>
 
@@ -163,7 +163,7 @@ export default async function HomePage() {
       {/* 3. Main Category Cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
-          <h2 className="text-3xl font-extrabold text-ink-900 tracking-tight font-serif">મુખ્ય વિભાગો</h2>
+          <h2 className="text-3xl font-extrabold text-ink-900 tracking-tight">મુખ્ય વિભાગો</h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
@@ -228,7 +228,7 @@ export default async function HomePage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
             <div>
-              <h2 className="text-3xl font-extrabold text-ink-900 tracking-tight font-serif">મનોહર ધૂન સંગ્રહ</h2>
+              <h2 className="text-3xl font-extrabold text-ink-900 tracking-tight">મનોહર ધૂન સંગ્રહ</h2>
             </div>
             <Link
               href="/dhuns"
@@ -267,7 +267,7 @@ export default async function HomePage() {
         <section className="bg-saffron-600 text-sand-50 py-24 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-sand-50 tracking-tight mb-3 font-serif">{saintsTitle}</h2>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-sand-50 tracking-tight mb-3">{saintsTitle}</h2>
               <p className="text-sand-300 text-base">{saintsSubtitle}</p>
             </div>
 
