@@ -264,7 +264,7 @@ export default async function HomePage() {
 
       {/* 6. Featured Authors / Saints */}
       {authors.length > 0 && (
-        <section className="bg-saffron-600 text-sand-50 py-24 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-8">
+        <section className="bg-saffron-600/80 backdrop-blur-xl border border-saffron-400/30 text-sand-50 py-24 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-8 shadow-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-sand-50 tracking-tight mb-3">{saintsTitle}</h2>

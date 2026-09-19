@@ -25,7 +25,7 @@ export async function Footer() {
   const copyright = s.footerCopyright || `© ${new Date().getFullYear()} શ્યામ સત્સંગ મંડળ. સર્વાધિકાર સુરક્ષિત.`;
 
   return (
-    <footer className="print:hidden relative overflow-hidden bg-maroon-950 text-sand-50 pt-16 pb-24 md:pb-12 font-gujarati border-t-4 border-saffron-600 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+    <footer className="print:hidden relative overflow-hidden bg-maroon-950/60 backdrop-blur-2xl text-sand-50 pt-16 pb-24 md:pb-12 font-gujarati border-t-4 border-saffron-600 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
       {/* Premium Background Layer */}
       <div className="absolute inset-0 z-0 mandala-pattern opacity-10 mix-blend-screen pointer-events-none" />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-maroon-950/50 to-black/60 pointer-events-none" />
