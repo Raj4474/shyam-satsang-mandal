@@ -60,7 +60,7 @@ export default function SearchPage() {
           </h1>
           <p className="text-white text-base leading-relaxed font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             ભજનનું શીર્ષક, પદના બોલ, ધૂન અથવા સંતનું નામ ટાઇપ કરીને શોધો.{' '}
-            <span className="font-bold text-saffron-300 block mt-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+            <span className="font-bold text-saffron-500 block mt-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
               તમે English / WhatsApp Language માં પણ લખી શકો છો (દા.ત. satguru ➔ સદ્ ગુરુ, mohan ➔ મોહન).
             </span>
           </p>
