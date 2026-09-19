@@ -48,19 +48,23 @@ export default function SearchPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8 font-gujarati">
       {/* Header & Search Bar */}
-      <div className="text-center space-y-4 max-w-2xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-saffron-500/10 text-saffron-800 text-xs font-semibold">
-          <Languages className="w-4 h-4 text-saffron-600" />
-          <span>ગુજરાતી + English (WhatsApp Language) સર્ચ</span>
-        </div>
+      <div className="text-center space-y-6 max-w-2xl mx-auto">
+        <div className="space-y-6 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 shadow-sm text-saffron-800 text-xs font-bold">
+            <Languages className="w-4 h-4 text-saffron-600" />
+            <span>ગુજરાતી + English (WhatsApp Language) સર્ચ</span>
+          </div>
 
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-maroon-950">સંગ્રહાલય શોધો (Global Search)</h1>
-        <p className="text-maroon-800/80 text-sm leading-relaxed">
-          ભજનનું શીર્ષક, પદના બોલ, ધૂન અથવા સંતનું નામ ટાઇપ કરીને શોધો.{' '}
-          <span className="font-semibold text-saffron-700 block mt-1">
-            તમે English / WhatsApp Language માં પણ લખી શકો છો (દા.ત. satguru ➔ સદ્ ગુરુ, mohan ➔ મોહન).
-          </span>
-        </p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">
+            સંગ્રહાલય શોધો (Global Search)
+          </h1>
+          <p className="text-white text-base leading-relaxed font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            ભજનનું શીર્ષક, પદના બોલ, ધૂન અથવા સંતનું નામ ટાઇપ કરીને શોધો.{' '}
+            <span className="font-bold text-saffron-300 block mt-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+              તમે English / WhatsApp Language માં પણ લખી શકો છો (દા.ત. satguru ➔ સદ્ ગુરુ, mohan ➔ મોહન).
+            </span>
+          </p>
+        </div>
 
         <div className="relative">
           <Search className="absolute left-4 top-4 w-5 h-5 text-saffron-600" />
