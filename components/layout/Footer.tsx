@@ -40,7 +40,7 @@ export async function Footer() {
               </div>
               <h3 className="text-3xl font-extrabold text-white tracking-wide text-shadow-sm">{title}</h3>
             </div>
-            <p className="text-sand-200/80 text-sm leading-relaxed max-w-md font-medium">
+            <p className="text-cream-200/80 text-sm leading-relaxed max-w-md font-medium">
               {desc}
             </p>
             <div className="pl-5 border-l-2 border-gold-500 text-gold-300 text-sm italic tracking-wide">
@@ -51,7 +51,7 @@ export async function Footer() {
           {/* Column 2: Quick Links */}
           <div className="space-y-6">
             <h4 className="text-xl font-bold text-white tracking-wide">મુખ્ય વિભાગો</h4>
-            <ul className="space-y-4 text-sm font-medium text-sand-300">
+            <ul className="space-y-4 text-sm font-medium text-cream-300">
               {[
                 { name: 'શામજીબાપાનું જીવન ચરિત્ર', href: '/biography' },
                 { name: 'ગુજરાતી ભજનો', href: '/bhajans' },
@@ -71,7 +71,7 @@ export async function Footer() {
           {/* Column 3: Admin & Contact */}
           <div className="space-y-6">
             <h4 className="text-xl font-bold text-white tracking-wide">વ્યવસ્થાપન</h4>
-            <p className="text-xs text-sand-400 font-medium leading-relaxed">
+            <p className="text-xs text-cream-400 font-medium leading-relaxed">
               સંગ્રહાલયમાં નવા ભજન, ધૂન કે સુધારા-વધારા માટે એડમિન ડેશબોર્ડનો ઉપયોગ કરો.
             </p>
             <Link
@@ -84,7 +84,7 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-maroon-800/60 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs font-medium text-sand-400 gap-4">
+        <div className="border-t border-maroon-800/60 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs font-medium text-cream-400 gap-4">
           <p>{copyright}</p>
           <p className="flex items-center gap-1.5">
             <span>ભક્તિ અને શ્રદ્ધા સાથે નિર્મિત</span>

@@ -267,7 +267,7 @@ export default async function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">{saintsTitle}</h2>
-              <p className="text-sand-300 text-base">{saintsSubtitle}</p>
+              <p className="text-cream-300 text-base">{saintsSubtitle}</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
@@ -283,7 +283,7 @@ export default async function HomePage() {
                   <h3 className="font-bold text-xl text-white group-hover:text-saffron-400 transition-colors tracking-tight">
                     {author.gujaratiName}
                   </h3>
-                  <p className="text-sm text-sand-400 mt-2">{author.birthInfo}</p>
+                  <p className="text-sm text-cream-400 mt-2">{author.birthInfo}</p>
                 </Link>
               ))}
             </div>

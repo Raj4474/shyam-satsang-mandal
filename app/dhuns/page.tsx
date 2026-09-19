@@ -73,7 +73,7 @@ export default async function DhunsPage() {
             <div className="pt-4 border-t border-ink-200/20 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 {dhun.videoUrl && (
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-ink-700 bg-ink-900/5 px-2.5 py-0.5 rounded-full dark:bg-sand-50/10 dark:text-sand-200">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-ink-700 bg-ink-900/5 px-2.5 py-0.5 rounded-full dark:bg-sand-50/10">
                     <Video className="w-3 h-3" /> વિડિયો
                   </span>
                 )}
