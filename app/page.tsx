@@ -277,15 +277,6 @@ export default async function HomePage() {
                   href={`/authors/${author.slug}`}
                   className="group flex flex-col items-center text-center"
                 >
-                  <div className="w-32 h-32 rounded-full overflow-hidden mb-6 bg-saffron-700 p-1 group-hover:scale-105 transition-transform duration-500 relative">
-                    <Image
-                      src={author.profileImage || '/authors/default-sant.jpg'}
-                      alt={author.gujaratiName}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover rounded-full grayscale group-hover:grayscale-0 transition-all duration-500"
-                    />
-                  </div>
                   <h3 className="font-bold text-xl text-sand-50 group-hover:text-saffron-400 transition-colors tracking-tight">
                     {author.gujaratiName}
                   </h3>
