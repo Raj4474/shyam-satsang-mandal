@@ -24,29 +24,19 @@ export function MorPankhBackground() {
   if (!mounted) return <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1]" />;
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1] bg-black">
-      {/* Light Theme Background: Modern Glowing */}
+    <div className={`fixed inset-0 pointer-events-none overflow-hidden z-[-1] transition-colors duration-1000 ${isDark ? 'bg-ink-950' : 'bg-sand-50'}`}>
+      {/* Shrine Background Image */}
       <Image 
-        src="/images/bg-modern-glowing.jpg" 
-        alt="Modern Glowing Feather Background" 
+        src="/images/shrine-bg.jpg" 
+        alt="Shrine Background" 
         fill 
         quality={90}
-        className={`object-cover transition-opacity duration-1000 ease-in-out ${isDark ? 'opacity-0' : 'opacity-100'}`} 
-        priority 
-      />
-      
-      {/* Dark Theme Background: Cascading Feathers */}
-      <Image 
-        src="/images/bg-cascading-feathers.jpg" 
-        alt="Cascading Feathers Background" 
-        fill 
-        quality={90}
-        className={`object-cover transition-opacity duration-1000 ease-in-out ${isDark ? 'opacity-100' : 'opacity-0'}`} 
+        className={`object-cover transition-opacity duration-1000 ease-in-out ${isDark ? 'opacity-20' : 'opacity-30'}`} 
         priority 
       />
 
       {/* Subtle Overlay to ensure text readability globally */}
-      <div className={`absolute inset-0 transition-colors duration-1000 ease-in-out ${isDark ? 'bg-black/40' : 'bg-white/40'}`} />
+      <div className={`absolute inset-0 transition-colors duration-1000 ease-in-out ${isDark ? 'bg-black/60' : 'bg-white/70'}`} />
     </div>
   );
 }
