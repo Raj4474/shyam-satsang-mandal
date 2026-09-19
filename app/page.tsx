@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { db } from '@/lib/db';
-import { BookOpen, Sparkles, Music, UserCheck, Play, ArrowRight, Search, HeartHandshake, Mic, Flame } from 'lucide-react';
+import { BookOpen, Sparkles, Music, UserCheck, Play, ArrowRight, Search, HeartHandshake, Mic, Flame, Feather } from 'lucide-react';
 import { AartiSection } from '@/components/aarti/AartiSection';
 
 export const revalidate = 3600;
@@ -277,13 +277,8 @@ export default async function HomePage() {
                   href={`/authors/${author.slug}`}
                   className="group flex flex-col items-center text-center"
                 >
-                  <div className="w-16 h-16 relative mb-4 group-hover:scale-110 transition-transform duration-500">
-                    <Image
-                      src="/images/peacock-symbol.png"
-                      alt="Symbol"
-                      fill
-                      className="object-contain mix-blend-multiply opacity-70 group-hover:opacity-100 transition-all duration-300"
-                    />
+                  <div className="mb-4 group-hover:scale-110 transition-transform duration-500">
+                    <Feather className="w-8 h-8 text-saffron-300 opacity-80 group-hover:opacity-100 group-hover:text-sand-50 transition-all duration-300" />
                   </div>
                   <h3 className="font-bold text-xl text-sand-50 group-hover:text-saffron-400 transition-colors tracking-tight">
                     {author.gujaratiName}
