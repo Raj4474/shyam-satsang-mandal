@@ -40,7 +40,7 @@ export default async function DhunsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10 font-gujarati">
       {/* Header Banner */}
-      <div className="text-center space-y-3 border-b border-saffron-500/20 pb-8">
+      <div className="text-center space-y-3 glass-panel rounded-3xl p-8 pb-10">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/15 text-gold-800 text-xs font-semibold">
           <Music className="w-4 h-4 text-gold-600" />
           <span>ભક્તિમય નામ સ્મરણ</span>
@@ -66,7 +66,7 @@ export default async function DhunsPage() {
                 {index + 1}. {dhun.title.replace(/^[\d\.\s]+/, '')}
               </h2>
               <p className="text-ink-600 text-xs line-clamp-3 leading-relaxed whitespace-pre-line">
-                {dhun.description || dhun.lyrics?.slice(0, 120)}
+                {dhun.description?.startsWith('ધૂન નંબર') ? dhun.lyrics?.slice(0, 120) : (dhun.description || dhun.lyrics?.slice(0, 120))}
               </p>
             </div>
 

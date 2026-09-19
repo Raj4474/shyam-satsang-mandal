@@ -44,6 +44,9 @@ export function MorPankhBackground() {
         className={`object-cover transition-opacity duration-1000 ease-in-out ${isDark ? 'opacity-100' : 'opacity-0'}`} 
         priority 
       />
+
+      {/* Subtle Overlay to ensure text readability globally */}
+      <div className={`absolute inset-0 transition-colors duration-1000 ease-in-out ${isDark ? 'bg-black/40' : 'bg-white/40'}`} />
     </div>
   );
 }

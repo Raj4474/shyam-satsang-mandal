@@ -108,7 +108,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
       </div>
 
       {/* 2. Alphabetical Index Bar (ક-ખ-ગ Indexing) */}
-      <div className="bg-sand-50 border border-sand-200 rounded-[2rem] p-5 sm:p-7 space-y-5 shadow-sm">
+      <div className="glass-panel rounded-[2.5rem] p-6 sm:p-8 space-y-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-ink-900 font-bold text-sm">
             <BookOpen className="w-4 h-4 text-saffron-600" />
@@ -186,7 +186,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
       )}
 
       {/* Active Filter Summary Bar */}
-      <div className="flex items-center justify-between border-b border-sand-200 pb-4 text-sm font-medium text-ink-600">
+      <div className="flex items-center justify-between glass-panel rounded-full px-6 py-4 text-sm font-medium text-ink-600">
         <div>
           કુલ દર્શાવેલ ભજન: <span className="font-bold text-ink-900">{filteredBhajans.length}</span>
           {selectedLetter !== 'બધા' && (
@@ -228,9 +228,8 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
                   className="group glass-panel rounded-[2rem] p-7 hover:shadow-spiritual transition-all duration-300 flex flex-col justify-between h-full"
                 >
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between text-xs font-semibold text-ink-500">
+                    <div className="flex items-center text-xs font-semibold text-ink-500">
                       <span className="bg-sand-200/80 px-3 py-1 rounded-full text-ink-800">{bhajan.category || 'સંતવાણી'}</span>
-                      <span>{bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
                     </div>
                     <h2 className="text-xl font-bold text-ink-900 tracking-tight group-hover:text-saffron-600 transition-colors leading-snug">
                       {bhajans.findIndex(b => b.id === bhajan.id) + 1}. {bhajan.title.replace(/^[\d\.\s૦-૯]+/, '')}

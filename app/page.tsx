@@ -247,13 +247,12 @@ export default async function HomePage() {
                 className="group glass-panel rounded-[2rem] p-7 hover:shadow-spiritual transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between text-xs font-semibold text-ink-500">
+                  <div className="flex items-center text-xs font-semibold text-ink-500">
                     <span className="bg-sand-200/80 px-3 py-1 rounded-full text-ink-800">ધૂન</span>
-                    <span>{dhun.author?.gujaratiName || 'શ્યામ સત્સંગ'}</span>
                   </div>
                   <h3 className="text-2xl font-bold text-ink-900 tracking-tight group-hover:text-saffron-600 transition-colors">{dhun.title}</h3>
                   <p className="text-sm text-ink-600 line-clamp-2 leading-relaxed">
-                    {dhun.description || dhun.lyrics?.slice(0, 100)}
+                    {dhun.description?.startsWith('ધૂન નંબર') ? dhun.lyrics?.slice(0, 100) : (dhun.description || dhun.lyrics?.slice(0, 100))}
                   </p>
                 </div>
               </Link>

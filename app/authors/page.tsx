@@ -36,13 +36,13 @@ export default async function AuthorsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10 font-gujarati">
       {/* Header Banner */}
-      <div className="text-center space-y-3 border-b border-saffron-500/20 pb-8">
+      <div className="text-center space-y-3 glass-panel rounded-3xl p-8 pb-10">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-saffron-500/15 text-saffron-800 text-xs font-semibold">
           <UserCheck className="w-4 h-4 text-saffron-600" />
           <span>સંત પરિચય અને રચયિતાઓ</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-maroon-950">{title}</h1>
-        <p className="text-maroon-800/80 text-base max-w-2xl mx-auto leading-relaxed">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-ink-900">{title}</h1>
+        <p className="text-ink-700 text-base max-w-2xl mx-auto leading-relaxed">
           {subtitle}
         </p>
       </div>

@@ -25,18 +25,18 @@ export function AuthorGrid({ authors }: { authors: any[] }) {
               className="group glass-panel rounded-3xl p-6 hover:shadow-spiritual transition-all duration-300 flex flex-col items-center text-center space-y-4 h-full block"
             >
               <div className="space-y-1 pt-2">
-                <h2 className="text-2xl font-bold text-maroon-950 group-hover:text-saffron-600 transition-colors duration-300">
+                <h2 className="text-2xl font-bold text-ink-900 group-hover:text-saffron-600 transition-colors duration-300">
                   {author.gujaratiName}
                 </h2>
                 <p className="text-xs text-saffron-700 font-semibold">{author.birthInfo}</p>
               </div>
 
-              <p className="text-maroon-800/80 text-xs line-clamp-3 leading-relaxed flex-grow">
+              <p className="text-ink-600 text-xs line-clamp-3 leading-relaxed flex-grow">
                 {author.shortBio || author.fullBio}
               </p>
 
-              <div className="pt-4 border-t border-cream-200 w-full flex items-center justify-between text-xs mt-auto">
-                <span className="font-bold text-maroon-900 bg-saffron-500/10 px-3 py-1 rounded-full">
+              <div className="pt-4 border-t border-ink-200/20 w-full flex items-center justify-between text-xs mt-auto">
+                <span className="font-bold text-ink-800 bg-sand-200/50 px-3 py-1 rounded-full">
                   {author._count?.bhajans || 0} ભજન • {author._count?.dhuns || 0} ધૂન
                 </span>
 
