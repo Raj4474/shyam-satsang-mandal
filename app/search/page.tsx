@@ -57,7 +57,7 @@ export default function SearchPage() {
         <h1 className="text-3xl sm:text-4xl font-extrabold text-maroon-950">સંગ્રહાલય શોધો (Global Search)</h1>
         <p className="text-maroon-800/80 text-sm leading-relaxed">
           ભજનનું શીર્ષક, પદના બોલ, ધૂન અથવા સંતનું નામ ટાઇપ કરીને શોધો.{' '}
-          <span className="font-semibold text-[#4C292B] block mt-1">
+          <span className="font-semibold text-maroon-900 block mt-1">
             તમે English / WhatsApp Language માં પણ લખી શકો છો (દા.ત. satguru ➔ સદ્ ગુરુ, mohan ➔ મોહન).
           </span>
         </p>

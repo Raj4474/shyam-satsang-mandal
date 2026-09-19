@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bhajan, Author } from '@/types';
-import { Search, Sparkles, ArrowRight, Filter, BookOpen } from 'lucide-react';
+import { Search, Sparkles, ArrowRight, Filter, BookOpen, Users } from 'lucide-react';
 import { isEnglishOrMixed, getSearchQueries } from '@/lib/transliterate';
 
 const GUJARATI_ALPHABET = [
@@ -137,7 +137,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
                 disabled={!hasBhajans && letter !== 'બધા'}
                 className={`px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-1.5 ${
                   isSelected
-                    ? 'bg-saffron-600 text-sand-50 shadow-soft scale-105'
+                    ? 'bg-saffron-600 text-white shadow-soft scale-105'
                     : hasBhajans
                     ? 'bg-sand-100 hover:bg-sand-200 text-ink-800'
                     : 'bg-sand-50 text-ink-300 border border-sand-200 cursor-not-allowed opacity-50'
@@ -146,7 +146,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
               >
                 <span>{letter}</span>
                 {letter !== 'બધા' && count > 0 && (
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${isSelected ? 'bg-sand-50/20 text-sand-50' : 'bg-ink-200/50 text-ink-700'}`}>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${isSelected ? 'bg-sand-50/20 text-white' : 'bg-ink-200/50 text-ink-700'}`}>
                     {count}
                   </span>
                 )}
@@ -156,32 +156,55 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
         </div>
       </div>
 
-      {/* 3. Author Filter Pills */}
+      {/* 3. Author Filter Cards */}
       {authors.length > 0 && (
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <button
-            onClick={() => setSelectedAuthorSlug('all')}
-            className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all ${
-              selectedAuthorSlug === 'all'
-                ? 'bg-saffron-600 text-sand-50 shadow-soft'
-                : 'bg-sand-100 hover:bg-sand-200 text-ink-800'
-            }`}
-          >
-            તમામ રચયિતા ({bhajans.length})
-          </button>
-          {authors.map((author) => (
+        <div className="glass-panel rounded-[2.5rem] p-6 sm:p-8 space-y-5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-ink-900 font-bold text-sm">
+              <Users className="w-4 h-4 text-saffron-600" />
+              <span>રચયિતા મુજબ શોધો</span>
+            </div>
+            {selectedAuthorSlug !== 'all' && (
+              <button
+                onClick={() => setSelectedAuthorSlug('all')}
+                className="text-xs font-semibold text-ink-500 hover:text-ink-900 transition-colors"
+              >
+                બધા રચયિતા
+              </button>
+            )}
+          </div>
+          
+          <div className="flex flex-wrap gap-2 sm:gap-2.5 justify-start items-center max-h-64 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-saffron-200 scrollbar-track-transparent">
             <button
-              key={author.id}
-              onClick={() => setSelectedAuthorSlug(author.slug)}
-              className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
-                selectedAuthorSlug === author.slug
-                  ? 'bg-saffron-600 text-sand-50 shadow-soft'
+              onClick={() => setSelectedAuthorSlug('all')}
+              className={`px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-1.5 ${
+                selectedAuthorSlug === 'all'
+                  ? 'bg-saffron-600 text-white shadow-soft scale-105'
                   : 'bg-sand-100 hover:bg-sand-200 text-ink-800'
               }`}
             >
-              {author.gujaratiName}
+              તમામ રચયિતા
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${selectedAuthorSlug === 'all' ? 'bg-sand-50/20 text-white' : 'bg-ink-200/50 text-ink-700'}`}>
+                {bhajans.length}
+              </span>
             </button>
-          ))}
+            {authors.map((author) => {
+              const isSelected = selectedAuthorSlug === author.slug;
+              return (
+                <button
+                  key={author.id}
+                  onClick={() => setSelectedAuthorSlug(author.slug)}
+                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                    isSelected
+                      ? 'bg-saffron-600 text-white shadow-soft scale-105'
+                      : 'bg-sand-100 hover:bg-sand-200 text-ink-800'
+                  }`}
+                >
+                  {author.gujaratiName}
+                </button>
+              );
+            })}
+          </div>
         </div>
       )}
 
@@ -259,7 +282,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
                 setSelectedAuthorSlug('all');
                 setSearchQuery('');
               }}
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-saffron-600 text-sand-50 font-bold text-sm shadow-soft hover:-translate-y-0.5 transition-all"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-saffron-600 text-white font-bold text-sm shadow-soft hover:-translate-y-0.5 transition-all"
             >
               <span>બધા ભજન જુઓ</span>
             </button>

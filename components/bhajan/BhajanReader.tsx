@@ -49,7 +49,7 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
   const getThemeClasses = () => {
     switch (theme) {
       case 'dark':
-        return 'bg-ink-900 text-sand-50 border-ink-800 shadow-soft';
+        return 'bg-ink-900 text-white border-ink-800 shadow-soft';
       case 'sepia':
         return 'bg-[#fcf5e5] text-[#432818] border-[#e8dfc7] shadow-soft';
       case 'light':
@@ -61,7 +61,7 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
   const getHeaderBgClasses = () => {
     switch (theme) {
       case 'dark':
-        return 'border-ink-800 bg-ink-800/50 text-sand-50';
+        return 'border-ink-800 bg-ink-800/50 text-white';
       case 'sepia':
         return 'border-[#e8dfc7] bg-[#f8efd8] text-[#432818]';
       case 'light':

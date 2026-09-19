@@ -21,7 +21,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <aside className="w-full md:w-64 bg-sand-100 text-ink-900 p-4 md:p-6 border-b md:border-b-0 md:border-r border-sand-200 flex-shrink-0">
           <div className="flex items-center justify-between md:justify-start gap-3 pb-4 md:pb-6 border-b border-sand-200 mb-4 md:mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-saffron-600 flex items-center justify-center font-bold text-sand-50 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-saffron-600 flex items-center justify-center font-bold text-white shadow-sm">
                 <Shield className="w-5 h-5" />
               </div>
               <div>

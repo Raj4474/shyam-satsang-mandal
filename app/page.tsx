@@ -97,7 +97,7 @@ export default async function HomePage() {
           <div className="flex flex-wrap justify-center items-center gap-4">
             <Link
               href="/biography"
-              className="px-7 py-3.5 rounded-full bg-saffron-600 text-sand-50 font-semibold text-base shadow-soft hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
+              className="px-7 py-3.5 rounded-full bg-saffron-600 text-white font-semibold text-base shadow-soft hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
             >
               <span>જીવન ચરિત્ર વાંચો</span>
               <ArrowRight className="w-4 h-4" />
@@ -149,7 +149,7 @@ export default async function HomePage() {
               <div className="shrink-0">
                 <Link
                   href={`/bhajans/${dailyBhajan.slug}`}
-                  className="w-14 h-14 rounded-full bg-saffron-600 hover:bg-saffron-700 text-sand-50 shadow-soft transition-all duration-300 flex items-center justify-center group"
+                  className="w-14 h-14 rounded-full bg-saffron-600 hover:bg-saffron-700 text-white shadow-soft transition-all duration-300 flex items-center justify-center group"
                   title="સંપૂર્ણ ભજન વાંચો"
                 >
                   <Play className="w-5 h-5 ml-1 group-hover:scale-110 transition-transform" />
@@ -199,7 +199,7 @@ export default async function HomePage() {
           ].map((item, idx) => (
             <div key={idx} className="group glass-panel rounded-3xl p-8 hover:shadow-spiritual transition-all duration-300 flex flex-col justify-between h-full">
               <div>
-                <div className="w-12 h-12 rounded-full bg-white/60 shadow-sm text-ink-900 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-saffron-600 group-hover:text-sand-50 transition-all duration-300">
+                <div className="w-12 h-12 rounded-full bg-white/60 shadow-sm text-ink-900 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-saffron-600 group-hover:text-white transition-all duration-300">
                   <item.icon className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl font-bold text-ink-900 mb-3 tracking-tight">{item.title}</h3>
@@ -263,10 +263,10 @@ export default async function HomePage() {
 
       {/* 6. Featured Authors / Saints */}
       {authors.length > 0 && (
-        <section className="bg-saffron-600/80 backdrop-blur-xl border border-saffron-400/30 text-sand-50 py-24 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-8 shadow-lg">
+        <section className="bg-saffron-600/80 backdrop-blur-xl border border-saffron-400/30 text-white py-24 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-8 shadow-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-sand-50 tracking-tight mb-3">{saintsTitle}</h2>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">{saintsTitle}</h2>
               <p className="text-sand-300 text-base">{saintsSubtitle}</p>
             </div>
 
@@ -278,9 +278,9 @@ export default async function HomePage() {
                   className="group flex flex-col items-center text-center"
                 >
                   <div className="mb-4 group-hover:scale-110 transition-transform duration-500">
-                    <Feather className="w-8 h-8 text-saffron-300 opacity-80 group-hover:opacity-100 group-hover:text-sand-50 transition-all duration-300" />
+                    <Feather className="w-8 h-8 text-saffron-300 opacity-80 group-hover:opacity-100 group-hover:text-white transition-all duration-300" />
                   </div>
-                  <h3 className="font-bold text-xl text-sand-50 group-hover:text-saffron-400 transition-colors tracking-tight">
+                  <h3 className="font-bold text-xl text-white group-hover:text-saffron-400 transition-colors tracking-tight">
                     {author.gujaratiName}
                   </h3>
                   <p className="text-sm text-sand-400 mt-2">{author.birthInfo}</p>

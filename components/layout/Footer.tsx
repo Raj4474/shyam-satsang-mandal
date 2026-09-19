@@ -25,7 +25,7 @@ export async function Footer() {
   const copyright = s.footerCopyright || `© ${new Date().getFullYear()} શ્યામ સત્સંગ મંડળ. સર્વાધિકાર સુરક્ષિત.`;
 
   return (
-    <footer className="print:hidden relative overflow-hidden bg-maroon-950/60 backdrop-blur-2xl text-sand-50 pt-16 pb-24 md:pb-12 font-gujarati border-t-4 border-saffron-600 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+    <footer className="print:hidden relative overflow-hidden bg-maroon-950/60 backdrop-blur-2xl text-white pt-16 pb-24 md:pb-12 font-gujarati border-t-4 border-saffron-600 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
       {/* Premium Background Layer */}
       <div className="absolute inset-0 z-0 mandala-pattern opacity-10 mix-blend-screen pointer-events-none" />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-maroon-950/50 to-black/60 pointer-events-none" />
@@ -38,7 +38,7 @@ export async function Footer() {
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gold-500/50 bg-sand-200 shadow-spiritual">
                 <img src="/logo.jpg" alt={title} className="w-full h-full object-cover" />
               </div>
-              <h3 className="text-3xl font-extrabold text-sand-50 tracking-wide text-shadow-sm">{title}</h3>
+              <h3 className="text-3xl font-extrabold text-white tracking-wide text-shadow-sm">{title}</h3>
             </div>
             <p className="text-sand-200/80 text-sm leading-relaxed max-w-md font-medium">
               {desc}
@@ -50,7 +50,7 @@ export async function Footer() {
 
           {/* Column 2: Quick Links */}
           <div className="space-y-6">
-            <h4 className="text-xl font-bold text-sand-50 tracking-wide">મુખ્ય વિભાગો</h4>
+            <h4 className="text-xl font-bold text-white tracking-wide">મુખ્ય વિભાગો</h4>
             <ul className="space-y-4 text-sm font-medium text-sand-300">
               {[
                 { name: 'શામજીબાપાનું જીવન ચરિત્ર', href: '/biography' },
@@ -70,13 +70,13 @@ export async function Footer() {
 
           {/* Column 3: Admin & Contact */}
           <div className="space-y-6">
-            <h4 className="text-xl font-bold text-sand-50 tracking-wide">વ્યવસ્થાપન</h4>
+            <h4 className="text-xl font-bold text-white tracking-wide">વ્યવસ્થાપન</h4>
             <p className="text-xs text-sand-400 font-medium leading-relaxed">
               સંગ્રહાલયમાં નવા ભજન, ધૂન કે સુધારા-વધારા માટે એડમિન ડેશબોર્ડનો ઉપયોગ કરો.
             </p>
             <Link
               href="/admin"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-saffron-600/90 hover:bg-saffron-500 text-sand-50 font-bold text-xs border border-saffron-400/50 shadow-spiritual hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-saffron-600/90 hover:bg-saffron-500 text-white font-bold text-xs border border-saffron-400/50 shadow-spiritual hover:scale-105 transition-all duration-300"
             >
               <Shield className="w-4 h-4 text-gold-200" />
               <span>એડમિન ડેશબોર્ડ (Admin)</span>

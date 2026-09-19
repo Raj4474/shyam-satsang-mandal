@@ -81,11 +81,11 @@ export function Navbar() {
                     href={link.href}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 font-gujarati ${
                       active
-                        ? 'bg-saffron-600 text-sand-50 shadow-soft'
+                        ? 'bg-saffron-600 text-white shadow-soft'
                         : 'text-ink-700 hover:bg-sand-200 hover:text-ink-900'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 ${active ? 'text-sand-50' : 'opacity-70'}`} />
+                    <Icon className={`w-4 h-4 ${active ? 'text-white' : 'opacity-70'}`} />
                     <span>{link.name}</span>
                   </Link>
                 );
@@ -139,11 +139,11 @@ export function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-base font-medium transition-colors ${
                     active
-                      ? 'bg-saffron-600 text-sand-50'
+                      ? 'bg-saffron-600 text-white'
                       : 'text-ink-800 hover:bg-sand-200'
                   }`}
                 >
-                  <Icon className={`w-5 h-5 ${active ? 'text-sand-50' : 'text-ink-600'}`} />
+                  <Icon className={`w-5 h-5 ${active ? 'text-white' : 'text-ink-600'}`} />
                   <span>{link.name}</span>
                 </Link>
               );
