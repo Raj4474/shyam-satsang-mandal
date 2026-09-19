@@ -24,19 +24,18 @@ export function MorPankhBackground() {
   if (!mounted) return <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1]" />;
 
   return (
-    <div className={`fixed inset-0 pointer-events-none overflow-hidden z-[-1] transition-colors duration-1000 ${isDark ? 'bg-ink-950' : 'bg-sand-50'}`}>
-      {/* Shrine Background Image */}
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1] bg-sand-100">
       <Image 
-        src="/images/shrine-bg.jpg" 
-        alt="Shrine Background" 
+        src="/images/ashram_bg.jpg" 
+        alt="Ashram Background" 
         fill 
         quality={90}
-        className={`object-cover transition-opacity duration-1000 ease-in-out ${isDark ? 'opacity-20' : 'opacity-30'}`} 
+        className="object-cover opacity-80" 
         priority 
       />
-
-      {/* Subtle Overlay to ensure text readability globally */}
-      <div className={`absolute inset-0 transition-colors duration-1000 ease-in-out ${isDark ? 'bg-black/60' : 'bg-white/70'}`} />
+      
+      {/* Dynamic Overlay to ensure text readability globally */}
+      <div className={`absolute inset-0 transition-colors duration-1000 ease-in-out ${isDark ? 'bg-black/60' : 'bg-white/60'}`} />
     </div>
   );
 }
