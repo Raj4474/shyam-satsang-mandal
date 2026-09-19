@@ -277,6 +277,14 @@ export default async function HomePage() {
                   href={`/authors/${author.slug}`}
                   className="group flex flex-col items-center text-center"
                 >
+                  <div className="w-16 h-16 relative mb-4 group-hover:scale-110 transition-transform duration-500">
+                    <Image
+                      src="/images/peacock-symbol.png"
+                      alt="Symbol"
+                      fill
+                      className="object-contain mix-blend-multiply opacity-70 group-hover:opacity-100 transition-all duration-300"
+                    />
+                  </div>
                   <h3 className="font-bold text-xl text-sand-50 group-hover:text-saffron-400 transition-colors tracking-tight">
                     {author.gujaratiName}
                   </h3>
