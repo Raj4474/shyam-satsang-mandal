@@ -111,3 +111,24 @@ model SiteSetting {
   key   String @unique
   value String
 }
+
+model Aarti {
+  id          String    @id @default(cuid())
+  title       String
+  subtitle    String?
+  slug        String    @unique
+  tek         String?
+  lyrics      String
+  textColor   String?
+  featured    Boolean   @default(false)
+  sortOrder   Int       @default(0)
+  status      String    @default("PUBLISHED")
+  publishedAt DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([status])
+  @@index([sortOrder])
+  @@index([featured])
+}

@@ -1,59 +1,25 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Flame, Copy, Check, Sparkles, Music } from 'lucide-react';
+import { Flame, Copy, Check, Sparkles, Edit } from 'lucide-react';
+import Link from 'next/link';
 
 interface AartiItem {
-  id: number;
+  id: string;
   title: string;
-  subtitle: string;
-  tek: string;
+  subtitle?: string | null;
+  tek?: string | null;
   lyrics: string;
+  textColor?: string | null;
 }
 
-const aartiData: AartiItem[] = [
-  {
-    id: 1,
-    title: 'આરતી ૧: જય ગુરૂ શ્યામરામ',
-    subtitle: 'સદ્ગુરુ સ્તુતિ અને પાવન ગુરુ વાંદના',
-    tek: 'જય ગુરૂ શ્યામરામ જય ગુરૂ શ્યામરામ...',
-    lyrics: `જય ગુરૂ શ્યામરામ જય ગુરૂ શ્યામરામ
-ઘટોઘટના છે વાસી, ઘટોઘટના છે વાસી
-શાંતિના દેનાર... વ્હાલા
+interface AartiSectionProps {
+  aartis?: AartiItem[];
+}
 
-ધરાઈ નામની માંય આપે અવતાર લીધો વ્હાલા
-અનેક ભક્તોને તાર્યા (૨) કૃપાસિંઘુ કરતાર... વ્હાલા
-
-ગુરુ ધાર્યા ધૂસારામ નિર્ભય પદ લીધું વ્હાલા
-લોક લાજને મેલી (૨) પૂરણ પદ પામનાર... વ્હાલા
-
-મુજને આપ્યું સતનામ, આનંદ અવતારી વ્હાલા
-વંદન કરે આ બાળ (૨) ઉપકારી ગુરુદેવ... વ્હાલા`
-  },
-  {
-    id: 2,
-    title: 'આરતી ૨: ધૂસારામ બોલતા મનડું હરખાય',
-    subtitle: 'સદ્ગુરુ શ્રી ધૂસારામ બાપાની દિવ્ય આરતી',
-    tek: 'ધૂસારામ બોલતા મનડું હરખાય, ધૂસારામની વાર...',
-    lyrics: `ધૂસારામ બોલતા મનડું હરખાય, ધૂસારામની વાર... (ટેક)
-
-હે સગુણાની છે આરતી અને નિર્ગુણા છે નિરાકાર
-ગુરુ આપ મળ્યા તેથી જાણ્યું, નહિતર બાળક અમે અજ્ઞાન... ધૂસારામ
-
-હે ધૂસારામે આપ્યું સતનામ, તેથી શ્યામનો થઈ ઓળખાણ
-આ એણે કૃપા કરી અમ્ પર, તેથી હૈયે આનંદ વારંવાર... ધૂસારામ
-
-હે ધૂસારામે આપ્યું સતજ્ઞાન, તેથી નાનડને થઈ ઓળખાણ
-એણે ભજન કરીને જોયું તો, નાનડ પામ્યા છે પૂરણ પદ... ધૂસારામ
-
-હે બાળક અમે અબુધ છીએ, પણ કાલાઘેલા તમારા
-આ ભવસાગરમાંથી ગુરુ ઉગારો, રમેશ વંદે વારંવાર... ધૂસારામ`
-  }
-];
-
-export function AartiSection() {
-  const [activeTab, setActiveTab] = useState<number>(1);
-  const [copiedId, setCopiedId] = useState<number | null>(null);
+export function AartiSection({ aartis = [] }: AartiSectionProps) {
+  const [activeTab, setActiveTab] = useState<string>(aartis[0]?.id || '');
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const handleCopy = (aarti: AartiItem) => {
     const fullText = `${aarti.title}\n\n${aarti.lyrics}`;
@@ -62,7 +28,11 @@ export function AartiSection() {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const currentAarti = aartiData.find((a) => a.id === activeTab) || aartiData[0];
+  if (!aartis || aartis.length === 0) {
+    return null; // Don't render section if no aartis exist
+  }
+
+  const currentAarti = aartis.find((a) => a.id === activeTab) || aartis[0];
 
   return (
     <section id="aarti-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 font-gujarati">
@@ -81,27 +51,29 @@ export function AartiSection() {
       </div>
 
       {/* Tabs Switcher */}
-      <div className="flex justify-center mb-8">
-        <div className="inline-flex p-1.5 rounded-[1.5rem] bg-sand-50/60 backdrop-blur-md border border-white/60 shadow-sm gap-2 max-w-md w-full sm:w-auto">
-          {aartiData.map((aarti) => {
-            const active = aarti.id === activeTab;
-            return (
-              <button
-                key={aarti.id}
-                onClick={() => setActiveTab(aarti.id)}
-                className={`flex-1 sm:flex-initial px-6 py-3 rounded-[1.25rem] font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 ${
-                  active
-                    ? 'bg-saffron-600 text-white shadow-soft'
-                    : 'text-ink-600 hover:text-ink-900 hover:bg-sand-200/50'
-                }`}
-              >
-                <Flame className={`w-4 h-4 ${active ? 'text-saffron-400' : 'opacity-60'}`} />
-                <span>{aarti.id === 1 ? 'આરતી ૧' : 'આરતી ૨'}</span>
-              </button>
-            );
-          })}
+      {aartis.length > 1 && (
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex p-1.5 rounded-[1.5rem] bg-sand-50/60 backdrop-blur-md border border-white/60 shadow-sm gap-2 max-w-md w-full sm:w-auto">
+            {aartis.map((aarti, idx) => {
+              const active = aarti.id === (activeTab || aartis[0].id);
+              return (
+                <button
+                  key={aarti.id}
+                  onClick={() => setActiveTab(aarti.id)}
+                  className={`flex-1 sm:flex-initial px-6 py-3 rounded-[1.25rem] font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 ${
+                    active
+                      ? 'bg-saffron-600 text-white shadow-soft'
+                      : 'text-ink-600 hover:text-ink-900 hover:bg-sand-200/50'
+                  }`}
+                >
+                  <Flame className={`w-4 h-4 ${active ? 'text-saffron-400' : 'opacity-60'}`} />
+                  <span>{`આરતી ${idx + 1}`}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main Aarti Card Display */}
       <div className="relative overflow-hidden bg-sand-50/60 backdrop-blur-xl rounded-[2.5rem] p-8 sm:p-12 border border-white/60 shadow-sm">
@@ -113,38 +85,52 @@ export function AartiSection() {
           {/* Card Top Header */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-8 border-b border-sand-200">
             <div>
-              <div className="flex items-center gap-2 text-xs font-bold text-ink-500 uppercase tracking-wider mb-2">
-                <Sparkles className="w-3.5 h-3.5 text-saffron-600" />
-                <span>{currentAarti.subtitle}</span>
-              </div>
+              {currentAarti.subtitle && (
+                <div className="flex items-center gap-2 text-xs font-bold text-ink-500 uppercase tracking-wider mb-2">
+                  <Sparkles className="w-3.5 h-3.5 text-saffron-600" />
+                  <span>{currentAarti.subtitle}</span>
+                </div>
+              )}
               <h3 className="text-2xl sm:text-3xl font-extrabold text-ink-900 tracking-tight">
                 {currentAarti.title}
               </h3>
             </div>
 
-            <button
-              onClick={() => handleCopy(currentAarti)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-sand-100 hover:bg-sand-200 border border-sand-200 text-ink-800 font-semibold text-xs sm:text-sm shadow-sm transition-all shrink-0"
-              title="આરતી કોપી કરો"
-            >
-              {copiedId === currentAarti.id ? (
-                <>
-                  <Check className="w-4 h-4 text-emerald-600" />
-                  <span className="text-emerald-700 font-bold">કોપી થઈ ગયું!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-4 h-4 text-ink-600" />
-                  <span>કોપી કરો</span>
-                </>
-              )}
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => handleCopy(currentAarti)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-sand-100 hover:bg-sand-200 border border-sand-200 text-ink-800 font-semibold text-xs sm:text-sm shadow-sm transition-all shrink-0"
+                title="આરતી કોપી કરો"
+              >
+                {copiedId === currentAarti.id ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-600" />
+                    <span className="text-emerald-700 font-bold">કોપી થઈ ગયું!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4 text-ink-600" />
+                    <span>કોપી કરો</span>
+                  </>
+                )}
+              </button>
+              
+              <Link
+                href="/admin/aartis"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-maroon-50 hover:bg-maroon-100 border border-maroon-200 text-maroon-800 font-semibold text-xs sm:text-sm shadow-sm transition-all shrink-0"
+                title="આરતી સુધારો (Edit)"
+              >
+                <Edit className="w-4 h-4" />
+                <span className="hidden sm:inline">એડિટ</span>
+              </Link>
+            </div>
           </div>
 
           {/* Lyrics Content */}
           <div className="py-10 px-2 sm:px-6">
             <div className="bg-sand-100/50 backdrop-blur-sm rounded-[2rem] p-8 sm:p-12 border border-white/60 shadow-inner">
-              <pre className="font-gujarati text-lg sm:text-2xl font-bold text-ink-900 leading-relaxed sm:leading-[2.5] whitespace-pre-line text-center">
+              <pre className="font-gujarati text-lg sm:text-2xl font-bold text-ink-900 leading-relaxed sm:leading-[2.5] whitespace-pre-line text-center"
+                   style={{ color: currentAarti.textColor || 'inherit' }}>
                 {currentAarti.lyrics}
               </pre>
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Shield, Sparkles, Music, UserCheck, BookOpen, Image as ImageIcon, Settings, LayoutDashboard, Globe } from 'lucide-react';
+import { Shield, Sparkles, Music, UserCheck, BookOpen, Image as ImageIcon, Settings, LayoutDashboard, Globe, Flame } from 'lucide-react';
 import { AdminGuard } from '@/components/admin/AdminGuard';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -8,6 +8,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'ડેશબોર્ડ', href: '/admin', icon: LayoutDashboard },
     { name: 'ભજન સંગ્રહ', href: '/admin/bhajans', icon: Sparkles },
     { name: 'ધૂન સંગ્રહ', href: '/admin/dhuns', icon: Music },
+    { name: 'આરતી સંગ્રહ', href: '/admin/aartis', icon: Flame },
     { name: 'સંતો / લેખકો', href: '/admin/authors', icon: UserCheck },
     { name: 'જીવન ચરિત્ર', href: '/admin/biography', icon: BookOpen },
     { name: 'મીડિયા ફાઇલો', href: '/admin/media', icon: ImageIcon },

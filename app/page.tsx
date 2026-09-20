@@ -17,7 +17,7 @@ async function getHomeData() {
     const totalBhajans = await db.bhajan.count({ where: { status: 'PUBLISHED' } });
     const dailyIndex = totalBhajans > 0 ? dayOfYear % totalBhajans : 0;
 
-    const [bhajans, dhuns, authors, settings, dailyBhajan] = await Promise.all([
+    const [bhajans, dhuns, authors, settings, dailyBhajan, aartis] = await Promise.all([
       db.bhajan.findMany({
         where: { status: 'PUBLISHED' },
         include: { author: true },
@@ -44,20 +44,24 @@ async function getHomeData() {
             orderBy: { id: 'asc' },
           })
         : null,
+      db.aarti.findMany({
+        where: { status: 'PUBLISHED' },
+        orderBy: { sortOrder: 'asc' },
+      }),
     ]);
 
     const settingsMap: Record<string, string> = {};
     settings.forEach((s) => (settingsMap[s.key] = s.value));
 
-    return { bhajans, dhuns, authors, settingsMap, dailyBhajan };
+    return { bhajans, dhuns, authors, settingsMap, dailyBhajan, aartis };
   } catch (error) {
     console.error('Error fetching home data:', error);
-    return { bhajans: [], dhuns: [], authors: [], settingsMap: {}, dailyBhajan: null };
+    return { bhajans: [], dhuns: [], authors: [], settingsMap: {}, dailyBhajan: null, aartis: [] };
   }
 }
 
 export default async function HomePage() {
-  const { bhajans, dhuns, authors, settingsMap, dailyBhajan } = await getHomeData();
+  const { bhajans, dhuns, authors, settingsMap, dailyBhajan, aartis } = await getHomeData();
 
   const heroBadge = settingsMap['heroBadge'] || 'શ્યામ સત્સંગ મંડળ પવિત્ર સંગ્રહાલય';
   const heroTitle = settingsMap['heroTitle'] || 'ભજન, ધૂન, આરતી અને આધ્યાત્મિક વારસાનું ડિજિટલ સંગ્રહાલય';
@@ -220,7 +224,7 @@ export default async function HomePage() {
       </section>
 
       {/* 4. Aarti Section */}
-      <AartiSection />
+      <AartiSection aartis={aartis} />
 
 
       {/* 5. Featured Dhuns Section */}
