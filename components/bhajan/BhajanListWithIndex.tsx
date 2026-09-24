@@ -247,6 +247,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
                   </div>
                 </Link>
               </motion.div>
+              );
             })}
           </AnimatePresence>
         </motion.div>
