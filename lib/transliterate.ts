@@ -4,10 +4,10 @@
 
 // Common Satsang, Bhajan, Sant, and Gujarati word mappings
 const DICTIONARY: Record<string, string[]> = {
-  'satguru': ['સદ્ ગુરુ', 'સદગુરુ', 'સદ્ગુરુ', 'સતગુરુ'],
-  'sadguru': ['સદ્ ગુરુ', 'સદગુરુ', 'સદ્ગુરુ', 'સતગુરુ'],
-  'sat guru': ['સદ્ ગુરુ', 'સદગુરુ', 'સદ્ગુરુ'],
-  'sad guru': ['સદ્ ગુરુ', 'સદગુરુ', 'સદ્ગુરુ'],
+  'satguru': ['સદ્ ગુરુ', 'સદગુરુ', 'સદ્ ગુરુ', 'સતગુરુ'],
+  'sadguru': ['સદ્ ગુરુ', 'સદગુરુ', 'સદ્ ગુરુ', 'સતગુરુ'],
+  'sat guru': ['સદ્ ગુરુ', 'સદગુરુ', 'સદ્ ગુરુ'],
+  'sad guru': ['સદ્ ગુરુ', 'સદગુરુ', 'સદ્ ગુરુ'],
   'mohan': ['મોહન'],
   'shyam': ['શ્યામ', 'શામ'],
   'sham': ['શામ', 'શ્યામ'],
@@ -263,7 +263,7 @@ export function getSearchQueries(query: string): string[] {
     const primaryPhrase = transliteratedWords.map((arr) => arr[0]).join(' ');
     if (primaryPhrase) {
       queries.add(primaryPhrase);
-      // Also add unspaced variant if relevant (e.g. "સદ્ગુરુ")
+      // Also add unspaced variant if relevant (e.g. "સદ્ ગુરુ")
       queries.add(primaryPhrase.replace(/\s+/g, ''));
     }
 

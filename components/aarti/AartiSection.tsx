@@ -95,7 +95,7 @@ export function AartiSection({ aartis = [] }: AartiSectionProps) {
           પવિત્ર આરતી સંગ્રહ
         </h2>
         <p className="text-ink-600 text-sm sm:text-base mt-3 max-w-xl mx-auto">
-          સદ્ગુરુ શ્યામરામ તથા સદ્ગુરુ ધૂસારામ બાપાની નિત્ય સ્તુતિ અને પાવન આરતી.
+          સદ્ ગુરુ શ્યામરામ તથા સદ્ ગુરુ ધૂસારામ બાપાની નિત્ય સ્તુતિ અને પાવન આરતી.
         </p>
       </div>
 

@@ -158,7 +158,7 @@ export default async function BiographyPage() {
       {/* Blog Footer Note */}
       <footer className="glass-panel rounded-[2.5rem] p-8 text-center space-y-3">
         <HeartHandshake className="w-8 h-8 text-saffron-600 mx-auto" />
-        <h3 className="text-xl font-bold text-ink-900">જય સદ્ગુરુ શ્યામ</h3>
+        <h3 className="text-xl font-bold text-ink-900">જય સદ્ ગુરુ શ્યામ</h3>
         <p className="text-xs sm:text-sm text-ink-600 max-w-lg mx-auto leading-relaxed">
           પૂજ્ય શામજીબાપાના દિવ્ય આશીર્વાદ અને સંતવાણીનો સંગ્રહ હંમેશાં સાચા મુમુક્ષુઓનું કલ્યાણ કરશે.
         </p>

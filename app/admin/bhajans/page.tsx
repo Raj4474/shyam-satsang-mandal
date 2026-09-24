@@ -354,7 +354,7 @@ export default function ManageBhajansPage() {
                 label="આ ભજનના લખાણનો રંગ (Bhajan Lyrics Text Color)"
                 value={form.textColor}
                 onChange={(col) => setForm({ ...form, textColor: col })}
-                sampleText={form.title ? form.title : 'જય સદ્ગુરુ શ્યામ - ભજન બોલ'}
+                sampleText={form.title ? form.title : 'જય સદ્ ગુરુ શ્યામ - ભજન બોલ'}
               />
 
               <ImageUpload

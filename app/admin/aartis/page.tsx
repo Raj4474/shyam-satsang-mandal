@@ -289,7 +289,7 @@ export default function ManageAartisPage() {
                         value={form.subtitle}
                         onChange={e => setForm({ ...form, subtitle: e.target.value })}
                         className="w-full p-2.5 rounded-xl border border-saffron-500/30 bg-white font-medium"
-                        placeholder="દા.ત. સદ્ગુરુ સ્તુતિ..."
+                        placeholder="દા.ત. સદ્ ગુરુ સ્તુતિ..."
                       />
                     </div>
                   </div>

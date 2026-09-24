@@ -62,7 +62,7 @@ export default async function HomePage() {
   const card1Title = settingsMap['card1Title'] || 'શામજીબાપાનું જીવન ચરિત્ર';
   const card1Desc = settingsMap['card1Desc'] || 'શામજીબાપાના જીવન, વિચારો અને આધ્યાત્મિક યાત્રા વિશે વિસ્તૃત જાણો.';
   const card2Title = settingsMap['card2Title'] || 'ભજન સંગ્રહ';
-  const card2Desc = settingsMap['card2Desc'] || 'સંતવાણી પદો અને સદ્ગુરુ વાણીનો પવિત્ર સંગ્રહ.';
+  const card2Desc = settingsMap['card2Desc'] || 'સંતવાણી પદો અને સદ્ ગુરુ વાણીનો પવિત્ર સંગ્રહ.';
   const card3Title = settingsMap['card3Title'] || 'ધૂન સંગ્રહ';
   const card3Desc = settingsMap['card3Desc'] || 'ભક્તિમય અને મનોહર ધૂન વાંચો તથા શ્રવણ કરો.';
 
@@ -152,7 +152,7 @@ export default async function HomePage() {
             },
             {
               title: 'પવિત્ર આરતી',
-              desc: 'સદ્ગુરુ શ્યામરામ તથા ધૂસારામ બાપાની નિત્ય દિવ્ય આરતી અને સ્તુતિ.',
+              desc: 'સદ્ ગુરુ શ્યામરામ તથા ધૂસારામ બાપાની નિત્ય દિવ્ય આરતી અને સ્તુતિ.',
               icon: Flame,
               href: '/aarti',
               linkText: 'આરતી સ્તુતિ વાંચો'

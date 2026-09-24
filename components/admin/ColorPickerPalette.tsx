@@ -34,7 +34,7 @@ export function ColorPickerPalette({
   label = 'લખાણનો રંગ (Admin Text Color Palette)',
   value,
   onChange,
-  sampleText = 'જય સદ્ગુરુ શ્યામ - આ લખાણ પસંદ કરેલા રંગમાં દેખાશે',
+  sampleText = 'જય સદ્ ગુરુ શ્યામ - આ લખાણ પસંદ કરેલા રંગમાં દેખાશે',
 }: ColorPickerPaletteProps) {
   const currentColor = value || '';
 
