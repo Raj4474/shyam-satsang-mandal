@@ -3,30 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BookOpen, Music, Search, UserCheck, Menu, X, Home, Shield, Sparkles, Flame, Sun, Moon } from 'lucide-react';
+import { BookOpen, Music, Search, UserCheck, Menu, X, Home, Shield, Sparkles, Flame } from 'lucide-react';
 
 export function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-    setIsDark(document.documentElement.classList.contains('dark'));
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const toggleTheme = () => {
-    if (isDark) {
-      document.documentElement.classList.remove('dark');
-      setIsDark(false);
-    } else {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    }
-  };
 
   const navLinks = [
     { name: 'મુખ્ય પૃષ્ઠ', href: '/', icon: Home },
@@ -90,13 +78,6 @@ export function Navbar() {
                   </Link>
                 );
               })}
-              <button
-                onClick={toggleTheme}
-                className="p-2 ml-2 text-ink-700 hover:bg-sand-200 hover:text-ink-900 rounded-full transition-colors dark:text-sand-100 dark:hover:bg-sand-800"
-                aria-label="Toggle Theme"
-              >
-                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
             </nav>
 
             {/* Mobile Hamburger Toggle */}
@@ -108,13 +89,7 @@ export function Navbar() {
                >
                  <Search className="w-5 h-5" />
                </Link>
-              <button
-                onClick={toggleTheme}
-                className="p-2.5 text-ink-800 rounded-full hover:bg-sand-200 transition-colors dark:text-sand-100 dark:hover:bg-sand-800"
-                aria-label="Toggle Theme"
-              >
-                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
+
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2.5 text-ink-800 rounded-full hover:bg-sand-200 transition-colors"
