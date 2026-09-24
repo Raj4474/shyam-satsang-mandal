@@ -215,35 +215,6 @@ export default async function HomePage() {
       {/* 4. Aarti Section Moved to Separate Page */}
       {/* 5. Featured Dhuns Section Removed */}
 
-      {/* 6. Featured Authors / Saints */}
-      {authors.length > 0 && (
-        <section className="bg-saffron-600/80 backdrop-blur-xl border border-saffron-400/30 text-white py-24 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-8 shadow-lg">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">{saintsTitle}</h2>
-              <p className="text-cream-300 text-base">{saintsSubtitle}</p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-              {authors.map((author) => (
-                <Link
-                  key={author.id}
-                  href={`/authors/${author.slug}`}
-                  className="group flex flex-col items-center text-center"
-                >
-                  <div className="mb-4 group-hover:scale-110 transition-transform duration-500">
-                    <Feather className="w-8 h-8 text-saffron-300 opacity-80 group-hover:opacity-100 group-hover:text-white transition-all duration-300" />
-                  </div>
-                  <h3 className="font-bold text-xl text-white group-hover:text-saffron-400 transition-colors tracking-tight">
-                    {author.gujaratiName}
-                  </h3>
-                  <p className="text-sm text-cream-400 mt-2">{author.birthInfo}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
     </div>
   );
 }
