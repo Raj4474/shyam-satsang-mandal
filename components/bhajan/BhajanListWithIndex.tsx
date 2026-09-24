@@ -214,33 +214,40 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
         <div className="space-y-8">
           <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <AnimatePresence mode="popLayout">
-              {currentBhajans.map((bhajan, index) => (
-              <motion.div
-                key={bhajan.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-              >
-                <Link
-                  href={`/bhajans/${bhajan.slug}`}
-                  className="group glass-panel rounded-[2rem] p-7 hover:shadow-spiritual transition-all duration-300 flex flex-col justify-between h-full"
+              {currentBhajans.map((bhajan, index) => {
+                let displayNumber = bhajans.findIndex(b => b.id === bhajan.id) + 1;
+                if (selectedAuthorSlug !== 'all') {
+                  const authorBhajans = bhajans.filter(b => b.author?.slug === selectedAuthorSlug);
+                  displayNumber = authorBhajans.findIndex(b => b.id === bhajan.id) + 1;
+                }
+
+                return (
+                <motion.div
+                  key={bhajan.id}
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
-                  <div className="space-y-4">
-                    <div className="flex items-center text-xs font-semibold text-ink-500">
-                      <span className="bg-sand-200/80 px-3 py-1 rounded-full text-ink-800">{bhajan.category || 'સંતવાણી'}</span>
-                    </div>
-                    <h2 className="text-xl font-bold text-ink-900 tracking-tight group-hover:text-saffron-600 transition-colors leading-snug">
-                      {bhajans.findIndex(b => b.id === bhajan.id) + 1}. {bhajan.title.replace(/^[\d\.\s૦-૯]+/, '')}
-                    </h2>
+                  <Link
+                    href={`/bhajans/${bhajan.slug}`}
+                    className="group glass-panel rounded-[2rem] p-7 hover:shadow-spiritual transition-all duration-300 flex flex-col justify-between h-full"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex items-center text-xs font-semibold text-ink-500">
+                        <span className="bg-sand-200/80 px-3 py-1 rounded-full text-ink-800">{bhajan.category || 'સંતવાણી'}</span>
+                      </div>
+                      <h2 className="text-xl font-bold text-ink-900 tracking-tight group-hover:text-saffron-600 transition-colors leading-snug">
+                        {displayNumber}. {bhajan.title.replace(/^[\d\.\s૦-૯]+/, '')}
+                      </h2>
                     <p className="text-ink-600 text-sm line-clamp-3 leading-relaxed whitespace-pre-line">
                       {bhajan.description || bhajan.lyrics?.slice(0, 120)}
                     </p>
                   </div>
                 </Link>
               </motion.div>
-            ))}
+            })}
           </AnimatePresence>
         </motion.div>
 
