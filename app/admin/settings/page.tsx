@@ -13,7 +13,7 @@ export default function WebsiteSettingsPage() {
   const [settings, setSettings] = useState<Record<string, string>>({
     // Home / Mukhya Prusht
     siteName: 'શ્યામ સત્સંગ મંડળ',
-    siteTagline: 'ગુજરાતી ભજન અને ધૂન ડિજિટલ લાઈબ્રેરી',
+    siteTagline: 'ભજન અને ધૂન ડિજિટલ લાઈબ્રેરી',
     heroBadge: 'શ્યામ સત્સંગ મંડળ પવિત્ર સંગ્રહાલય',
     heroTitle: 'ભજન, ધૂન અને આધ્યાત્મિક વારસાનું ડિજિટલ સંગ્રહાલય',
     heroSubtitle: 'સંતવાણી, ભક્તિ અને જીવનમૂલ્યોને આગામી પેઢી સુધી પહોંચાડવાનો એક પ્રયાસ.',

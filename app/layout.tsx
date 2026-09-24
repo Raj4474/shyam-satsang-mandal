@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'શ્યામ સત્સંગ મંડળ | ગુજરાતી ભજન અને ધૂન ડિજિટલ લાઈબ્રેરી',
+  title: 'શ્યામ સત્સંગ મંડળ | ભજન અને ધૂન ડિજિટલ લાઈબ્રેરી',
   description: 'સંતવાણી પદ અને શામજીબાપાના જીવન ચરિત્રનું દિવ્ય સંગ્રહાલય.',
   keywords: ['Gujarati Bhajan', 'Dhun', 'Shyamji Bapa', 'Satsang', 'Gujarati Devotional'],
 };

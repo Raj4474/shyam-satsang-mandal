@@ -53,7 +53,7 @@ export function Navbar() {
                   શ્યામ સત્સંગ મંડળ
                 </span>
                 <span className="text-[10px] sm:text-xs text-ink-600 font-gujarati tracking-wider block">
-                  ગુજરાતી ભજન અને ધૂન ડિજિટલ લાઈબ્રેરી
+                  ભજન અને ધૂન ડિજિટલ લાઈબ્રેરી
                 </span>
               </div>
             </Link>
