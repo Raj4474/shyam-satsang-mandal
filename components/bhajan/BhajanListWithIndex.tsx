@@ -142,51 +142,35 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
       {/* 3. Author Filter Cards */}
       {authors.length > 0 && (
         <div className="glass-panel rounded-[2.5rem] p-6 sm:p-8 space-y-5">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-ink-900 font-bold text-sm">
               <Users className="w-4 h-4 text-saffron-600" />
               <span>રચયિતા મુજબ શોધો</span>
             </div>
-            {selectedAuthorSlug !== 'all' && (
-              <button
-                onClick={() => setSelectedAuthorSlug('all')}
-                className="text-xs font-semibold text-ink-500 hover:text-ink-900 transition-colors"
+            
+            <div className="relative w-full sm:w-auto min-w-[200px]">
+              <select
+                value={selectedAuthorSlug}
+                onChange={(e) => setSelectedAuthorSlug(e.target.value)}
+                className="w-full appearance-none bg-sand-100 border border-sand-200 text-ink-900 text-sm font-bold rounded-full px-5 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-saffron-500 cursor-pointer shadow-sm transition-all hover:bg-sand-200"
               >
-                બધા રચયિતા
-              </button>
-            )}
-          </div>
-          
-          <div className="flex flex-wrap gap-2 sm:gap-2.5 justify-start items-center max-h-64 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-saffron-200 scrollbar-track-transparent">
-            <button
-              onClick={() => setSelectedAuthorSlug('all')}
-              className={`px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-1.5 ${
-                selectedAuthorSlug === 'all'
-                  ? 'bg-saffron-600 text-white shadow-soft scale-105'
-                  : 'bg-sand-100 hover:bg-sand-200 text-ink-800'
-              }`}
-            >
-              તમામ રચયિતા
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${selectedAuthorSlug === 'all' ? 'bg-sand-50/20 text-white' : 'bg-ink-200/50 text-ink-700'}`}>
-                {bhajans.length}
-              </span>
-            </button>
-            {authors.map((author) => {
-              const isSelected = selectedAuthorSlug === author.slug;
-              return (
-                <button
-                  key={author.id}
-                  onClick={() => setSelectedAuthorSlug(author.slug)}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                    isSelected
-                      ? 'bg-saffron-600 text-white shadow-soft scale-105'
-                      : 'bg-sand-100 hover:bg-sand-200 text-ink-800'
-                  }`}
-                >
-                  {author.gujaratiName}
-                </button>
-              );
-            })}
+                <option value="all">
+                  તમામ રચયિતા ({bhajans.length})
+                </option>
+                {authors.map((author) => {
+                  const count = bhajans.filter(b => b.author?.slug === author.slug).length;
+                  if (count === 0) return null; // Optionally hide authors with 0 bhajans in this context
+                  return (
+                    <option key={author.id} value={author.slug}>
+                      {author.gujaratiName} ({count})
+                    </option>
+                  );
+                })}
+              </select>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-ink-500">
+                <ChevronDown className="w-4 h-4" />
+              </div>
+            </div>
           </div>
         </div>
       )}
