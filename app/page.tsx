@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { db } from '@/lib/db';
 import { BookOpen, Sparkles, Music, UserCheck, Play, ArrowRight, Search, HeartHandshake, Mic, Flame, Feather } from 'lucide-react';
+import { FeaturedBhajanCarousel } from '@/components/home/FeaturedBhajanCarousel';
 
 export const revalidate = 3600;
 
@@ -16,7 +17,7 @@ async function getHomeData() {
     const totalBhajans = await db.bhajan.count({ where: { status: 'PUBLISHED' } });
     const dailyIndex = totalBhajans > 0 ? dayOfYear % totalBhajans : 0;
 
-    const [bhajans, authors, settings, dailyBhajan] = await Promise.all([
+    const [bhajans, authors, settings, featuredBhajans] = await Promise.all([
       db.bhajan.findMany({
         where: { status: 'PUBLISHED' },
         include: { author: true },
@@ -30,27 +31,29 @@ async function getHomeData() {
       }),
       db.siteSetting.findMany(),
       totalBhajans > 0
-        ? db.bhajan.findFirst({
+        ? db.bhajan.findMany({
             where: { status: 'PUBLISHED' },
             include: { author: true },
             skip: dailyIndex,
+            take: 5,
             orderBy: { id: 'asc' },
           })
-        : null,
+        : [],
     ]);
 
     const settingsMap: Record<string, string> = {};
     settings.forEach((s) => (settingsMap[s.key] = s.value));
 
-    return { bhajans, authors, settingsMap, dailyBhajan };
+    // If we fetched fewer than 5 because we were at the end, we can just display what we got
+    return { bhajans, authors, settingsMap, featuredBhajans };
   } catch (error) {
     console.error('Error fetching home data:', error);
-    return { bhajans: [], authors: [], settingsMap: {}, dailyBhajan: null };
+    return { bhajans: [], authors: [], settingsMap: {}, featuredBhajans: [] };
   }
 }
 
 export default async function HomePage() {
-  const { bhajans, authors, settingsMap, dailyBhajan } = await getHomeData();
+  const { bhajans, authors, settingsMap, featuredBhajans } = await getHomeData();
 
   const heroBadge = settingsMap['heroBadge'] || 'શ્યામ સત્સંગ મંડળ પવિત્ર સંગ્રહાલય';
   const heroTitle = settingsMap['heroTitle'] || 'ભજન, ધૂન, આરતી અને આધ્યાત્મિક વારસાનું ડિજિટલ સંગ્રહાલય';
@@ -115,43 +118,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 2. Daily Bhajan of the Day Banner */}
-      {dailyBhajan && (
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden glass-panel rounded-[2.5rem] p-8 sm:p-12 text-ink-900 shadow-soft hover:shadow-spiritual transition-shadow duration-500">
-            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-              <div className="space-y-5 max-w-2xl">
-                <div className="inline-flex items-center gap-2 text-saffron-600 text-sm font-bold tracking-wider">
-                  <Flame className="w-4 h-4 animate-pulse" />
-                  <span>આજનું પદ</span>
-                </div>
-
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight leading-snug">
-                  {dailyBhajan.title}
-                </h2>
-
-                <p className="text-sm text-ink-600 font-medium">
-                  રચયિતા: <span className="font-bold text-ink-900">{dailyBhajan.author?.gujaratiName || 'સંતવાણી'}</span>
-                </p>
-
-                <p className="text-base sm:text-lg text-ink-700 leading-relaxed italic border-l-2 border-saffron-300 pl-5 py-1 line-clamp-3 whitespace-pre-line">
-                  {dailyBhajan.lyrics?.split('\n').slice(0, 4).join('\n')}
-                </p>
-              </div>
-
-              <div className="shrink-0">
-                <Link
-                  href={`/bhajans/${dailyBhajan.slug}`}
-                  className="w-14 h-14 rounded-full bg-saffron-600 hover:bg-saffron-700 text-white shadow-soft transition-all duration-300 flex items-center justify-center group"
-                  title="સંપૂર્ણ ભજન વાંચો"
-                >
-                  <Play className="w-5 h-5 ml-1 group-hover:scale-110 transition-transform" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
+      {/* 2. Featured Bhajan Carousel */}
+      <FeaturedBhajanCarousel featuredBhajans={featuredBhajans} />
 
       {/* 3. Main Category Cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
