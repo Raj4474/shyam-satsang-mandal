@@ -42,7 +42,7 @@ export function FeaturedBhajanCarousel({ featuredBhajans }: FeaturedBhajanCarous
             <div className="space-y-5 max-w-2xl flex-1">
               <div className="inline-flex items-center gap-2 text-saffron-600 text-sm font-bold tracking-wider">
                 <Flame className="w-4 h-4 animate-pulse" />
-                <span>મુખ્ય પદ</span>
+                <span>આજનું પદ</span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight leading-snug">
@@ -69,22 +69,6 @@ export function FeaturedBhajanCarousel({ featuredBhajans }: FeaturedBhajanCarous
             </div>
           </motion.div>
         </AnimatePresence>
-        
-        {/* Carousel Indicators */}
-        {featuredBhajans.length > 1 && (
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2">
-            {featuredBhajans.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  idx === currentIndex ? 'bg-saffron-600 w-6' : 'bg-saffron-200 hover:bg-saffron-400'
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
-          </div>
-        )}
       </div>
     </section>
   );
