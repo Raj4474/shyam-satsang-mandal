@@ -100,10 +100,6 @@ export function DhunList({ dhuns }: DhunListProps) {
         </div>
       </div>
 
-      {/* Results Count */}
-      <div className="text-center text-sm font-semibold text-ink-600">
-        {filteredDhuns.length} ધૂન મળી
-      </div>
 
       {/* Grid */}
       {filteredDhuns.length > 0 ? (
