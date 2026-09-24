@@ -7,11 +7,6 @@ import { Sparkles } from 'lucide-react';
 import { formatHtmlContent } from '@/lib/renderFormattedText';
 import { toGujlish } from '@/lib/transliterate';
 import { ReaderToolbar, ThemeMode, ScriptMode } from '@/components/ui/ReaderToolbar';
-import { formatHtmlContent } from '@/lib/renderFormattedText';
-import { toGujlish } from '@/lib/transliterate';
-
-
-
 export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
   const [fontSize, setFontSize] = useState(24); // default text size in px
   const [theme, setTheme] = useState<ThemeMode>('light');

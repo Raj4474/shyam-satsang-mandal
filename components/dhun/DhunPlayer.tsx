@@ -147,6 +147,7 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
           </div>
         )}
       </div>
+      </div>
     </>
   );
 }
