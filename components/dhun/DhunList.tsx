@@ -163,46 +163,55 @@ export function DhunList({ dhuns }: DhunListProps) {
       {totalPages > 1 && (
         <div className="flex flex-wrap items-center justify-center gap-2 pt-6">
           <button
-            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            onClick={() => {
+              setCurrentPage((p) => Math.max(1, p - 1));
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
             disabled={currentPage === 1}
-            className="px-4 py-2 rounded-xl bg-sand-100 hover:bg-sand-200 disabled:opacity-50 text-ink-900 text-sm font-bold transition"
+            className="px-5 py-2.5 rounded-2xl bg-sand-100 hover:bg-sand-200 disabled:opacity-50 text-ink-900 text-sm font-bold transition"
           >
             પાછળ
           </button>
           
-          <div className="flex items-center gap-1">
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              let pageNum;
-              if (totalPages <= 5) {
-                pageNum = i + 1;
-              } else if (currentPage <= 3) {
-                pageNum = i + 1;
+          {(() => {
+            const pages = [];
+            if (totalPages <= 5) {
+              for (let i = 1; i <= totalPages; i++) pages.push(i);
+            } else {
+              if (currentPage <= 3) {
+                pages.push(1, 2, 3, 4, 5);
               } else if (currentPage >= totalPages - 2) {
-                pageNum = totalPages - 4 + i;
+                pages.push(totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
               } else {
-                pageNum = currentPage - 2 + i;
+                pages.push(currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2);
               }
-
-              return (
-                <button
-                  key={pageNum}
-                  onClick={() => setCurrentPage(pageNum)}
-                  className={`w-10 h-10 rounded-xl text-sm font-bold transition-all ${
-                    currentPage === pageNum
-                      ? 'bg-saffron-600 text-white shadow-soft'
-                      : 'bg-sand-100 hover:bg-sand-200 text-ink-900'
-                  }`}
-                >
-                  {pageNum}
-                </button>
-              );
-            })}
-          </div>
+            }
+            
+            return pages.map((pageNum) => (
+              <button
+                key={pageNum}
+                onClick={() => {
+                  setCurrentPage(pageNum);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className={`w-10 h-10 flex items-center justify-center rounded-2xl text-sm font-bold transition-all ${
+                  currentPage === pageNum
+                    ? 'bg-saffron-600 text-white shadow-soft'
+                    : 'bg-sand-100 hover:bg-sand-200 text-ink-900'
+                }`}
+              >
+                {pageNum}
+              </button>
+            ));
+          })()}
 
           <button
-            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            onClick={() => {
+              setCurrentPage((p) => Math.min(totalPages, p + 1));
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 rounded-xl bg-sand-100 hover:bg-sand-200 disabled:opacity-50 text-ink-900 text-sm font-bold transition"
+            className="px-5 py-2.5 rounded-2xl bg-sand-100 hover:bg-sand-200 disabled:opacity-50 text-ink-900 text-sm font-bold transition"
           >
             આગળ
           </button>

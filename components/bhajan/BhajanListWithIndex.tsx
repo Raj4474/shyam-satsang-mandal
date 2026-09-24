@@ -289,23 +289,49 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
 
         {/* Pagination Controls */}
         {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-3 pt-6">
+          <div className="flex justify-center items-center gap-2 pt-6 flex-wrap">
             <button
               onClick={() => {
                 setCurrentPage(p => Math.max(1, p - 1));
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               disabled={currentPage === 1}
-              className="px-5 py-2.5 rounded-full bg-sand-100 hover:bg-sand-200 text-ink-900 font-bold text-sm shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="px-5 py-2.5 rounded-2xl bg-sand-100 hover:bg-sand-200 text-ink-900 font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              પાછળ (Prev)
+              પાછળ
             </button>
             
-            <div className="text-sm font-bold text-ink-700 px-2 flex items-center gap-1">
-              <span className="w-8 h-8 flex items-center justify-center bg-saffron-100 text-saffron-800 rounded-full">{currentPage}</span>
-              <span className="opacity-60">/</span>
-              <span className="w-8 h-8 flex items-center justify-center text-ink-500">{totalPages}</span>
-            </div>
+            {(() => {
+              const pages = [];
+              if (totalPages <= 5) {
+                for (let i = 1; i <= totalPages; i++) pages.push(i);
+              } else {
+                if (currentPage <= 3) {
+                  pages.push(1, 2, 3, 4, 5);
+                } else if (currentPage >= totalPages - 2) {
+                  pages.push(totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+                } else {
+                  pages.push(currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2);
+                }
+              }
+              
+              return pages.map(pageNum => (
+                <button
+                  key={pageNum}
+                  onClick={() => {
+                    setCurrentPage(pageNum);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className={`w-10 h-10 flex items-center justify-center rounded-2xl font-bold text-sm transition-all ${
+                    currentPage === pageNum 
+                      ? 'bg-saffron-600 text-white shadow-md' 
+                      : 'bg-sand-100 hover:bg-sand-200 text-ink-900'
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              ));
+            })()}
             
             <button
               onClick={() => {
@@ -313,9 +339,9 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               disabled={currentPage === totalPages}
-              className="px-5 py-2.5 rounded-full bg-sand-100 hover:bg-sand-200 text-ink-900 font-bold text-sm shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="px-5 py-2.5 rounded-2xl bg-sand-100 hover:bg-sand-200 text-ink-900 font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              આગળ (Next)
+              આગળ
             </button>
           </div>
         )}
