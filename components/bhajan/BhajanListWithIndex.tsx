@@ -26,7 +26,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
   const [selectedAuthorSlug, setSelectedAuthorSlug] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const ITEMS_PER_PAGE = 24;
+  const ITEMS_PER_PAGE = 10;
 
   useEffect(() => {
     setCurrentPage(1);
