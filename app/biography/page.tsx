@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { db } from '@/lib/db';
 import { BookOpen, Clock, User, Sparkles, Feather, Bookmark, HeartHandshake } from 'lucide-react';
 import { formatHtmlContent } from '@/lib/renderFormattedText';
+import { BiographyIndex } from '@/components/biography/BiographyIndex';
 
 export const revalidate = 3600;
 
@@ -33,7 +34,7 @@ export default async function BiographyPage() {
   const subtitle = settingsMap['biographySubtitle'] || 'શામજીબાપાના દિવ્ય બાલ્યાવસ્થા, સાધના કાળ, ભક્તિ ઉપદેશ અને શ્યામ સત્સંગ મંડળના પવિત્ર વારસાની આત્મગાથા.';
 
   return (
-    <div className="font-gujarati max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div className="font-gujarati max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
       {/* Blog Article Header */}
       <header className="text-center space-y-6 glass-panel rounded-[2.5rem] p-8 pb-10">
         <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold">
@@ -71,29 +72,12 @@ export default async function BiographyPage() {
         </div>
       </header>
 
-      {/* Chapter Quick Index Links */}
-      {sections.length > 0 && (
-        <div className="glass-panel rounded-[2rem] p-6 space-y-3">
-          <div className="flex items-center gap-2 text-sm font-bold text-ink-900">
-            <Bookmark className="w-4 h-4 text-saffron-600" />
-            <span>પ્રકરણ અનુક્રમણિકા (Index)</span>
-          </div>
-          <div className="flex flex-wrap gap-2 pt-1">
-            {sections.map((section, index) => (
-              <a
-                key={section.id}
-                href={`#section-${section.id}`}
-                className="px-3.5 py-1.5 rounded-xl bg-sand-100 hover:bg-sand-200 text-ink-900 text-xs font-medium border border-sand-200 shadow-sm transition"
-              >
-                {section.title.split(':')[0] || `પ્રકરણ ${index + 1}`}
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
+      <div className="lg:flex lg:gap-8 xl:gap-12 lg:items-start">
+        {sections.length > 0 && <BiographyIndex sections={sections} />}
 
-      {/* Blog Main Chapters Content */}
-      <article className="space-y-12">
+        <div className="flex-1 w-full min-w-0 space-y-12">
+          {/* Blog Main Chapters Content */}
+          <article className="space-y-12">
         {sections.length > 0 ? (
           sections.map((section, idx) => (
             <section
@@ -155,7 +139,9 @@ export default async function BiographyPage() {
         <p className="text-xs sm:text-sm text-ink-600 max-w-lg mx-auto leading-relaxed">
           પૂજ્ય શામજીબાપાના દિવ્ય આશીર્વાદ અને સંતવાણીનો સંગ્રહ હંમેશાં સાચા મુમુક્ષુઓનું કલ્યાણ કરશે.
         </p>
-      </footer>
+        </footer>
+        </div>
+      </div>
     </div>
   );
 }
