@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bhajan, Author } from '@/types';
@@ -25,6 +25,12 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
   const [selectedLetter, setSelectedLetter] = useState<string>('બધા');
   const [selectedAuthorSlug, setSelectedAuthorSlug] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const ITEMS_PER_PAGE = 24;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedLetter, selectedAuthorSlug, searchQuery]);
 
   // Compute count of bhajans starting with each letter
   const letterCounts = useMemo(() => {
@@ -82,6 +88,9 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
 
     return result;
   }, [bhajans, selectedLetter, selectedAuthorSlug, searchQuery]);
+
+  const totalPages = Math.ceil(filteredBhajans.length / ITEMS_PER_PAGE);
+  const currentBhajans = filteredBhajans.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   return (
     <div className="space-y-8 font-gujarati">
@@ -202,9 +211,10 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
 
       {/* 4. Bhajan Cards Grid */}
       {filteredBhajans.length > 0 ? (
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          <AnimatePresence mode="popLayout">
-            {filteredBhajans.map((bhajan, index) => (
+        <div className="space-y-8">
+          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <AnimatePresence mode="popLayout">
+              {currentBhajans.map((bhajan, index) => (
               <motion.div
                 key={bhajan.id}
                 layout
@@ -233,6 +243,40 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-3 pt-6">
+            <button
+              onClick={() => {
+                setCurrentPage(p => Math.max(1, p - 1));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              disabled={currentPage === 1}
+              className="px-5 py-2.5 rounded-full bg-sand-100 hover:bg-sand-200 text-ink-900 font-bold text-sm shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              પાછળ (Prev)
+            </button>
+            
+            <div className="text-sm font-bold text-ink-700 px-2 flex items-center gap-1">
+              <span className="w-8 h-8 flex items-center justify-center bg-saffron-100 text-saffron-800 rounded-full">{currentPage}</span>
+              <span className="opacity-60">/</span>
+              <span className="w-8 h-8 flex items-center justify-center text-ink-500">{totalPages}</span>
+            </div>
+            
+            <button
+              onClick={() => {
+                setCurrentPage(p => Math.min(totalPages, p + 1));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              disabled={currentPage === totalPages}
+              className="px-5 py-2.5 rounded-full bg-sand-100 hover:bg-sand-200 text-ink-900 font-bold text-sm shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              આગળ (Next)
+            </button>
+          </div>
+        )}
+      </div>
       ) : (
         <div className="bg-sand-50 rounded-[2.5rem] p-12 text-center space-y-5 border border-sand-200 shadow-sm max-w-xl mx-auto">
           <div className="w-16 h-16 bg-sand-200 rounded-full flex items-center justify-center mx-auto text-ink-500">
