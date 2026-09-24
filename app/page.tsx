@@ -16,17 +16,11 @@ async function getHomeData() {
     const totalBhajans = await db.bhajan.count({ where: { status: 'PUBLISHED' } });
     const dailyIndex = totalBhajans > 0 ? dayOfYear % totalBhajans : 0;
 
-    const [bhajans, dhuns, authors, settings, dailyBhajan] = await Promise.all([
+    const [bhajans, authors, settings, dailyBhajan] = await Promise.all([
       db.bhajan.findMany({
         where: { status: 'PUBLISHED' },
         include: { author: true },
         take: 6,
-        orderBy: { createdAt: 'desc' },
-      }),
-      db.dhun.findMany({
-        where: { status: 'PUBLISHED' },
-        include: { author: true },
-        take: 4,
         orderBy: { createdAt: 'desc' },
       }),
       db.author.findMany({
@@ -48,15 +42,15 @@ async function getHomeData() {
     const settingsMap: Record<string, string> = {};
     settings.forEach((s) => (settingsMap[s.key] = s.value));
 
-    return { bhajans, dhuns, authors, settingsMap, dailyBhajan };
+    return { bhajans, authors, settingsMap, dailyBhajan };
   } catch (error) {
     console.error('Error fetching home data:', error);
-    return { bhajans: [], dhuns: [], authors: [], settingsMap: {}, dailyBhajan: null };
+    return { bhajans: [], authors: [], settingsMap: {}, dailyBhajan: null };
   }
 }
 
 export default async function HomePage() {
-  const { bhajans, dhuns, authors, settingsMap, dailyBhajan } = await getHomeData();
+  const { bhajans, authors, settingsMap, dailyBhajan } = await getHomeData();
 
   const heroBadge = settingsMap['heroBadge'] || 'શ્યામ સત્સંગ મંડળ પવિત્ર સંગ્રહાલય';
   const heroTitle = settingsMap['heroTitle'] || 'ભજન, ધૂન, આરતી અને આધ્યાત્મિક વારસાનું ડિજિટલ સંગ્રહાલય';
@@ -219,43 +213,7 @@ export default async function HomePage() {
       </section>
 
       {/* 4. Aarti Section Moved to Separate Page */}
-      {/* 5. Featured Dhuns Section */}
-      {dhuns.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-            <div>
-              <h2 className="text-3xl font-extrabold text-ink-900 tracking-tight">મનોહર ધૂન સંગ્રહ</h2>
-            </div>
-            <Link
-              href="/dhuns"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-ink-600 hover:text-ink-900 transition-colors"
-            >
-              <span>તમામ ધૂન જુઓ</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {dhuns.map((dhun) => (
-              <Link
-                key={dhun.id}
-                href={`/dhuns/${dhun.slug}`}
-                className="group glass-panel rounded-[2rem] p-7 hover:shadow-spiritual transition-all duration-300 flex flex-col justify-between"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-center text-xs font-semibold text-ink-500">
-                    <span className="bg-sand-200/80 px-3 py-1 rounded-full text-ink-800">ધૂન</span>
-                  </div>
-                  <h3 className="text-2xl font-bold text-ink-900 tracking-tight group-hover:text-saffron-600 transition-colors">{dhun.title}</h3>
-                  <p className="text-sm text-ink-600 line-clamp-2 leading-relaxed">
-                    {dhun.description?.startsWith('ધૂન નંબર') ? dhun.lyrics?.slice(0, 100) : (dhun.description || dhun.lyrics?.slice(0, 100))}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
+      {/* 5. Featured Dhuns Section Removed */}
 
       {/* 6. Featured Authors / Saints */}
       {authors.length > 0 && (
