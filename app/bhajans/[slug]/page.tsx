@@ -2,6 +2,7 @@ import React from 'react';
 import { db } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { BackButton } from '@/components/ui/BackButton';
 import { BhajanReader } from '@/components/bhajan/BhajanReader';
 import { ArrowLeft, Sparkles, ArrowRight } from 'lucide-react';
 
@@ -47,13 +48,7 @@ export default async function BhajanDetailPage({ params }: { params: Promise<{ s
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 font-gujarati">
       {/* Back Button */}
       <div className="print:hidden">
-        <Link
-          href="/bhajans"
-          className="inline-flex items-center gap-2 text-sm font-bold text-maroon-800 hover:text-saffron-600 transition"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>પરત ભજનોની યાદીમાં (Back to Bhajans)</span>
-        </Link>
+        <BackButton label="પરત ભજનોની યાદીમાં (Back to Bhajans)" fallbackRoute="/bhajans" />
       </div>
 
       {/* Main Reader View */}

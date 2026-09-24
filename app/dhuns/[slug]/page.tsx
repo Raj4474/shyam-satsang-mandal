@@ -2,6 +2,7 @@ import React from 'react';
 import { db } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { BackButton } from '@/components/ui/BackButton';
 import { DhunPlayer } from '@/components/dhun/DhunPlayer';
 import { ArrowLeft, Music, Sparkles } from 'lucide-react';
 
@@ -47,13 +48,7 @@ export default async function DhunDetailPage({ params }: { params: Promise<{ slu
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 font-gujarati">
       {/* Back Button */}
       <div className="print:hidden">
-        <Link
-          href="/dhuns"
-          className="inline-flex items-center gap-2 text-sm font-bold text-maroon-800 hover:text-saffron-600 transition"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>પરત ધૂનોની યાદીમાં (Back to Dhuns)</span>
-        </Link>
+        <BackButton label="પરત ધૂનોની યાદીમાં (Back to Dhuns)" fallbackRoute="/dhuns" />
       </div>
 
       {/* Main Dhun Player Component */}

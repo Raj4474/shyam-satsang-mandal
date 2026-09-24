@@ -2,6 +2,7 @@ import React from 'react';
 import { db } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { BackButton } from '@/components/ui/BackButton';
 import Image from 'next/image';
 import { ArrowLeft, Sparkles, Music, BookOpen, ArrowRight } from 'lucide-react';
 
@@ -35,13 +36,7 @@ export default async function AuthorDetailPage({ params }: { params: Promise<{ s
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 font-gujarati">
       {/* Back Link */}
       <div>
-        <Link
-          href="/authors"
-          className="inline-flex items-center gap-2 text-sm font-bold text-ink-500 hover:text-ink-900 transition"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>પરત સંતોની યાદીમાં (Back to Authors)</span>
-        </Link>
+        <BackButton label="પરત સંતોની યાદીમાં (Back to Authors)" fallbackRoute="/authors" />
       </div>
 
       {/* Author Bio Header Card */}

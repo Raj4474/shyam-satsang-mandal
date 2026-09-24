@@ -26,11 +26,33 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
   const [selectedAuthorSlug, setSelectedAuthorSlug] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isInitialized, setIsInitialized] = useState(false);
   const ITEMS_PER_PAGE = 10;
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedLetter, selectedAuthorSlug, searchQuery]);
+    try {
+      const saved = sessionStorage.getItem('bhajanListState');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.selectedLetter) setSelectedLetter(parsed.selectedLetter);
+        if (parsed.selectedAuthorSlug) setSelectedAuthorSlug(parsed.selectedAuthorSlug);
+        if (parsed.searchQuery !== undefined) setSearchQuery(parsed.searchQuery);
+        if (parsed.currentPage) setCurrentPage(parsed.currentPage);
+      }
+    } catch (e) {}
+    setIsInitialized(true);
+  }, []);
+
+  useEffect(() => {
+    if (isInitialized) {
+      sessionStorage.setItem('bhajanListState', JSON.stringify({
+        selectedLetter,
+        selectedAuthorSlug,
+        searchQuery,
+        currentPage
+      }));
+    }
+  }, [selectedLetter, selectedAuthorSlug, searchQuery, currentPage, isInitialized]);
 
   // Compute count of bhajans starting with each letter
   const letterCounts = useMemo(() => {
@@ -101,13 +123,19 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
             placeholder="ભજન શીર્ષક, કડી અથવા બોલ શોધો... (Search in Gujarati or Gujlish)"
             className="w-full pl-12 pr-4 py-4 rounded-full bg-sand-100 border border-sand-200 text-ink-900 placeholder-ink-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-ink-900 focus:border-transparent text-sm transition-all"
           />
           {searchQuery && (
             <button
-              onClick={() => setSearchQuery('')}
+              onClick={() => {
+                setSearchQuery('');
+                setCurrentPage(1);
+              }}
               className="absolute right-4 text-xs font-semibold text-ink-500 hover:text-ink-900 transition-colors"
             >
               સાફ કરો
@@ -127,7 +155,10 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
           <div className="relative w-full sm:w-auto min-w-[200px]">
             <select
               value={selectedLetter}
-              onChange={(e) => setSelectedLetter(e.target.value)}
+              onChange={(e) => {
+                setSelectedLetter(e.target.value);
+                setCurrentPage(1);
+              }}
               className="w-full appearance-none bg-sand-100 border border-sand-200 text-ink-900 text-sm font-bold rounded-full px-5 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-saffron-500 cursor-pointer shadow-sm transition-all hover:bg-sand-200"
             >
               {GUJARATI_ALPHABET.map((letter) => {
@@ -160,7 +191,10 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
             <div className="relative w-full sm:w-auto min-w-[200px]">
               <select
                 value={selectedAuthorSlug}
-                onChange={(e) => setSelectedAuthorSlug(e.target.value)}
+                onChange={(e) => {
+                  setSelectedAuthorSlug(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="w-full appearance-none bg-sand-100 border border-sand-200 text-ink-900 text-sm font-bold rounded-full px-5 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-saffron-500 cursor-pointer shadow-sm transition-all hover:bg-sand-200"
               >
                 <option value="all">
@@ -201,6 +235,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
               setSelectedLetter('બધા');
               setSelectedAuthorSlug('all');
               setSearchQuery('');
+              setCurrentPage(1);
             }}
             className="text-ink-500 hover:text-ink-900 font-semibold transition-colors"
           >
@@ -300,6 +335,7 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
                 setSelectedLetter('બધા');
                 setSelectedAuthorSlug('all');
                 setSearchQuery('');
+                setCurrentPage(1);
               }}
               className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-saffron-600 text-white font-bold text-sm shadow-soft hover:-translate-y-0.5 transition-all"
             >
