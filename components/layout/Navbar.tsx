@@ -33,7 +33,7 @@ export function Navbar() {
     { name: 'જીવન ચરિત્ર', href: '/biography', icon: BookOpen },
     { name: 'ભજન', href: '/bhajans', icon: Sparkles },
     { name: 'ધૂન', href: '/dhuns', icon: Music },
-    { name: 'આરતી', href: '/#aarti-section', icon: Flame },
+    { name: 'આરતી', href: '/aarti', icon: Flame },
     { name: 'સંત / લેખકો', href: '/authors', icon: UserCheck },
     { name: 'શોધો', href: '/search', icon: Search },
     { name: 'એડમિન (Admin)', href: '/admin', icon: Shield },

@@ -56,6 +56,7 @@ export async function Footer() {
                 { name: 'શામજીબાપાનું જીવન ચરિત્ર', href: '/biography' },
                 { name: 'ગુજરાતી ભજનો', href: '/bhajans' },
                 { name: 'ભક્તિમય ધૂન', href: '/dhuns' },
+                { name: 'પવિત્ર આરતી', href: '/aarti' },
                 { name: 'મહાન સંતો', href: '/authors' },
                 { name: 'શોધ અને સંગ્રહ', href: '/search' },
               ].map((link) => (

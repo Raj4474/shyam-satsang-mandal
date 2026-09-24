@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { db } from '@/lib/db';
 import { BookOpen, Sparkles, Music, UserCheck, Play, ArrowRight, Search, HeartHandshake, Mic, Flame, Feather } from 'lucide-react';
-import { AartiSection } from '@/components/aarti/AartiSection';
 
 export const revalidate = 3600;
 
@@ -17,7 +16,7 @@ async function getHomeData() {
     const totalBhajans = await db.bhajan.count({ where: { status: 'PUBLISHED' } });
     const dailyIndex = totalBhajans > 0 ? dayOfYear % totalBhajans : 0;
 
-    const [bhajans, dhuns, authors, settings, dailyBhajan, aartis] = await Promise.all([
+    const [bhajans, dhuns, authors, settings, dailyBhajan] = await Promise.all([
       db.bhajan.findMany({
         where: { status: 'PUBLISHED' },
         include: { author: true },
@@ -44,24 +43,20 @@ async function getHomeData() {
             orderBy: { id: 'asc' },
           })
         : null,
-      db.aarti.findMany({
-        where: { status: 'PUBLISHED' },
-        orderBy: { sortOrder: 'asc' },
-      }),
     ]);
 
     const settingsMap: Record<string, string> = {};
     settings.forEach((s) => (settingsMap[s.key] = s.value));
 
-    return { bhajans, dhuns, authors, settingsMap, dailyBhajan, aartis };
+    return { bhajans, dhuns, authors, settingsMap, dailyBhajan };
   } catch (error) {
     console.error('Error fetching home data:', error);
-    return { bhajans: [], dhuns: [], authors: [], settingsMap: {}, dailyBhajan: null, aartis: [] };
+    return { bhajans: [], dhuns: [], authors: [], settingsMap: {}, dailyBhajan: null };
   }
 }
 
 export default async function HomePage() {
-  const { bhajans, dhuns, authors, settingsMap, dailyBhajan, aartis } = await getHomeData();
+  const { bhajans, dhuns, authors, settingsMap, dailyBhajan } = await getHomeData();
 
   const heroBadge = settingsMap['heroBadge'] || 'શ્યામ સત્સંગ મંડળ પવિત્ર સંગ્રહાલય';
   const heroTitle = settingsMap['heroTitle'] || 'ભજન, ધૂન, આરતી અને આધ્યાત્મિક વારસાનું ડિજિટલ સંગ્રહાલય';
@@ -197,7 +192,7 @@ export default async function HomePage() {
               title: 'પવિત્ર આરતી',
               desc: 'સદ્ગુરુ શ્યામરામ તથા ધૂસારામ બાપાની નિત્ય દિવ્ય આરતી અને સ્તુતિ.',
               icon: Flame,
-              href: '#aarti-section',
+              href: '/aarti',
               linkText: 'આરતી સ્તુતિ વાંચો'
             }
           ].map((item, idx) => (
@@ -223,10 +218,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 4. Aarti Section */}
-      <AartiSection aartis={aartis} />
-
-
+      {/* 4. Aarti Section Moved to Separate Page */}
       {/* 5. Featured Dhuns Section */}
       {dhuns.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
