@@ -172,12 +172,12 @@ export function ReaderToolbar({
 
             <button
               onClick={() => setTheme('sepia')}
-              className={`px-2 py-0.5 rounded-lg text-xs font-bold transition ${
+              className={`p-1.5 rounded-lg transition ${
                 resolvedTheme === 'sepia' ? 'bg-[#f4e4c1] text-[#432818] shadow-sm' : 'opacity-60 hover:opacity-100'
               }`}
               title="સેપિયા મોડ (Warm Sepia Mode)"
             >
-              સેપિયા
+              <span className="text-sm">⛅</span>
             </button>
 
             <button
