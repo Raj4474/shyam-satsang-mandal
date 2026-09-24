@@ -5,29 +5,16 @@ import { Dhun } from '@/types';
 import { Video } from 'lucide-react';
 import { formatHtmlContent } from '@/lib/renderFormattedText';
 import { toGujlish } from '@/lib/transliterate';
-import { ReaderToolbar, ThemeMode, ScriptMode } from '@/components/ui/ReaderToolbar';
+import { ReaderToolbar, ScriptMode } from '@/components/ui/ReaderToolbar';
 
 export function DhunPlayer({ dhun }: { dhun: Dhun }) {
   const [fontSize, setFontSize] = useState(24);
-  const [theme, setTheme] = useState<ThemeMode>('light');
   const [script, setScript] = useState<ScriptMode>('gujarati');
 
   const rawTitle = dhun.title.replace(/^[\d\.\s]+/, '');
   const displayTitle = script === 'gujlish' ? toGujlish(rawTitle) : rawTitle;
   const displayLyrics = dhun.lyrics ? (script === 'gujlish' ? toGujlish(dhun.lyrics) : dhun.lyrics) : '';
   const displayDescription = dhun.description ? (script === 'gujlish' ? toGujlish(dhun.description) : dhun.description) : '';
-
-  const getThemeClasses = () => {
-    switch (theme) {
-      case 'dark':
-        return 'bg-ink-900 text-white border-ink-800 shadow-soft';
-      case 'sepia':
-        return 'bg-[#fcf5e5] text-[#432818] border-[#e8dfc7] shadow-soft';
-      case 'light':
-      default:
-        return 'bg-white/60 backdrop-blur-xl text-ink-900 border-white/60 shadow-soft';
-    }
-  };
 
   return (
     <>
@@ -79,7 +66,7 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
         }
       `}</style>
       
-      <div className={`print-sheet rounded-[2rem] border overflow-hidden font-gujarati space-y-6 transition-colors duration-300 ${getThemeClasses()}`}>
+      <div className="print-sheet rounded-[2rem] border overflow-hidden font-gujarati space-y-6 bg-sand-50/60 backdrop-blur-xl border-white/60 shadow-sm transition-colors duration-300">
         
         <div className="hidden print:block print-header-banner">
           <p className="font-bold text-maroon-900 text-lg uppercase tracking-wider mb-2">॥ પવિત્ર ધૂન ॥</p>
@@ -92,8 +79,6 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
           editHref="/admin/dhuns"
           fontSize={fontSize}
           setFontSize={setFontSize}
-          theme={theme}
-          setTheme={setTheme}
           script={script}
           setScript={setScript}
         />

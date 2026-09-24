@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import { ZoomIn, ZoomOut, Copy, Check, Share2, Sun, Moon, Edit, Printer, Languages, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
+import { useEffect, useState as useReactState } from 'react';
 
-export type ThemeMode = 'light' | 'dark' | 'sepia';
 export type ScriptMode = 'gujarati' | 'gujlish';
 
 interface ReaderToolbarProps {
@@ -14,8 +15,6 @@ interface ReaderToolbarProps {
   editHref?: string;
   fontSize: number;
   setFontSize: React.Dispatch<React.SetStateAction<number>>;
-  theme: ThemeMode;
-  setTheme: React.Dispatch<React.SetStateAction<ThemeMode>>;
   script: ScriptMode;
   setScript: React.Dispatch<React.SetStateAction<ScriptMode>>;
 }
@@ -27,12 +26,16 @@ export function ReaderToolbar({
   editHref,
   fontSize,
   setFontSize,
-  theme,
-  setTheme,
   script,
   setScript,
 }: ReaderToolbarProps) {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useReactState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useReactState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(textToCopy);
@@ -57,11 +60,12 @@ export function ReaderToolbar({
   };
 
   const getHeaderBgClasses = () => {
-    switch (theme) {
+    if (!mounted) return 'border-white/50 bg-white/40 text-ink-900';
+    switch (resolvedTheme) {
       case 'dark':
         return 'border-ink-800 bg-ink-800/50 text-white';
       case 'sepia':
-        return 'border-[#e8dfc7] bg-[#f8efd8] text-[#432818]';
+        return 'border-sand-300 bg-sand-200/50 text-ink-900';
       case 'light':
       default:
         return 'border-white/50 bg-white/40 text-ink-900';
@@ -154,37 +158,39 @@ export function ReaderToolbar({
         <div className="w-px h-5 bg-saffron-500/20 hidden sm:block" />
 
         {/* Theme Selector */}
-        <div className="flex items-center gap-1 bg-black/5 dark:bg-white/10 p-1 rounded-xl">
-          <button
-            onClick={() => setTheme('light')}
-            className={`p-1.5 rounded-lg transition ${
-              theme === 'light' ? 'bg-cream-100 text-maroon-950 shadow-sm' : 'opacity-60 hover:opacity-100'
-            }`}
-            title="લાઇટ મોડ (Light Theme)"
-          >
-            <Sun className="w-4 h-4 text-saffron-600" />
-          </button>
+        {mounted && (
+          <div className="flex items-center gap-1 bg-black/5 dark:bg-white/10 p-1 rounded-xl">
+            <button
+              onClick={() => setTheme('light')}
+              className={`p-1.5 rounded-lg transition ${
+                resolvedTheme === 'light' ? 'bg-cream-100 text-maroon-950 shadow-sm' : 'opacity-60 hover:opacity-100'
+              }`}
+              title="લાઇટ મોડ (Light Theme)"
+            >
+              <Sun className="w-4 h-4 text-saffron-600" />
+            </button>
 
-          <button
-            onClick={() => setTheme('sepia')}
-            className={`px-2 py-0.5 rounded-lg text-xs font-bold transition ${
-              theme === 'sepia' ? 'bg-[#f4e4c1] text-[#432818] shadow-sm' : 'opacity-60 hover:opacity-100'
-            }`}
-            title="સેપિયા મોડ (Warm Sepia Mode)"
-          >
-            સેપિયા
-          </button>
+            <button
+              onClick={() => setTheme('sepia')}
+              className={`px-2 py-0.5 rounded-lg text-xs font-bold transition ${
+                resolvedTheme === 'sepia' ? 'bg-[#f4e4c1] text-[#432818] shadow-sm' : 'opacity-60 hover:opacity-100'
+              }`}
+              title="સેપિયા મોડ (Warm Sepia Mode)"
+            >
+              સેપિયા
+            </button>
 
-          <button
-            onClick={() => setTheme('dark')}
-            className={`p-1.5 rounded-lg transition ${
-              theme === 'dark' ? 'bg-maroon-900 text-gold-400 shadow-sm' : 'opacity-60 hover:opacity-100'
-            }`}
-            title="નાઇટ મોડ (Dark Mode)"
-          >
-            <Moon className="w-4 h-4" />
-          </button>
-        </div>
+            <button
+              onClick={() => setTheme('dark')}
+              className={`p-1.5 rounded-lg transition ${
+                resolvedTheme === 'dark' ? 'bg-maroon-900 text-gold-400 shadow-sm' : 'opacity-60 hover:opacity-100'
+              }`}
+              title="નાઇટ મોડ (Dark Mode)"
+            >
+              <Moon className="w-4 h-4" />
+            </button>
+          </div>
+        )}
 
         <div className="w-px h-5 bg-saffron-500/20 hidden sm:block" />
 

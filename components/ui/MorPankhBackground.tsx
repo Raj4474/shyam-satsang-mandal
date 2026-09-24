@@ -1,27 +1,22 @@
 'use client';
 
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
 export function MorPankhBackground() {
-  const [isDark, setIsDark] = useState(false);
+  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    // Check initial theme
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    };
-    checkTheme();
-
-    // Listen for dark class changes on HTML element
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    return () => observer.disconnect();
   }, []);
 
-  if (!mounted) return <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1]" />;
+  if (!mounted) return <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1] bg-sand-100" />;
+
+  let overlayClass = 'bg-white/60';
+  if (resolvedTheme === 'dark') overlayClass = 'bg-black/70';
+  else if (resolvedTheme === 'sepia') overlayClass = 'bg-[#f4e4c1]/60';
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1] bg-sand-100">
@@ -35,7 +30,7 @@ export function MorPankhBackground() {
       />
       
       {/* Dynamic Overlay to ensure text readability globally */}
-      <div className={`absolute inset-0 transition-colors duration-1000 ease-in-out ${isDark ? 'bg-black/60' : 'bg-white/60'}`} />
+      <div className={`absolute inset-0 transition-colors duration-700 ease-in-out ${overlayClass}`} />
     </div>
   );
 }

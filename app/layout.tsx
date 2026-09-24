@@ -32,6 +32,7 @@ export const metadata: Metadata = {
 };
 
 import { MorPankhBackground } from '@/components/ui/MorPankhBackground';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export default function RootLayout({
   children,
@@ -39,16 +40,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="gu" className={`scroll-smooth ${anekGujarati.variable} ${playfair.variable}`}>
+    <html lang="gu" className={`scroll-smooth ${anekGujarati.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="antialiased flex flex-col min-h-screen text-ink-900 selection:bg-teal-200 selection:text-ink-900 divine-bg relative">
-        <MorPankhBackground />
-        <Navbar />
-        <main className="flex-grow pb-20 lg:pb-0">{children}</main>
-        <Footer />
+        <ThemeProvider attribute="class" defaultTheme="light" themes={['light', 'dark', 'sepia']} enableSystem={false}>
+          <MorPankhBackground />
+          <Navbar />
+          <main className="flex-grow pb-20 lg:pb-0">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

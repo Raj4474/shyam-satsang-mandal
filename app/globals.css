@@ -145,3 +145,36 @@ h1, h2, h3, h4 {
 .dark .text-maroon-800\/60 {
   color: rgb(var(--ink-800) / 0.6);
 }
+
+/* Sepia Mode (Warm Reading Background) */
+.sepia {
+  /* Sand (Light backgrounds & components) - Warm sepia tones */
+  --sand-50: 252 245 229;  /* #fcf5e5 */
+  --sand-100: 248 239 216; /* #f8efd8 */
+  --sand-200: 232 223 199; /* #e8dfc7 */
+  --sand-300: 212 199 168; 
+  --sand-400: 189 174 140; 
+  --sand-500: 161 144 105; 
+
+  /* Ink (Text and dark elements) - Dark brown tones */
+  --ink-900: 67 40 24;     /* #432818 */
+  --ink-800: 84 51 31;
+  --ink-700: 101 62 38;
+  --ink-600: 133 87 56;
+  --ink-500: 156 109 76;
+  --ink-400: 181 133 99;
+  --ink-300: 204 163 129;
+  --ink-200: 224 195 163;
+  --ink-100: 240 223 199;
+}
+
+.sepia body {
+  background-color: transparent;
+  color: rgb(var(--ink-900));
+}
+
+.sepia .glass-panel {
+  background: rgba(248, 239, 216, 0.65);
+  border: 1px solid rgba(232, 223, 199, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(67, 40, 24, 0.08);
+}

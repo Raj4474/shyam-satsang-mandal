@@ -6,10 +6,9 @@ import Link from 'next/link';
 import { Sparkles } from 'lucide-react';
 import { formatHtmlContent } from '@/lib/renderFormattedText';
 import { toGujlish } from '@/lib/transliterate';
-import { ReaderToolbar, ThemeMode, ScriptMode } from '@/components/ui/ReaderToolbar';
+import { ReaderToolbar, ScriptMode } from '@/components/ui/ReaderToolbar';
 export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
   const [fontSize, setFontSize] = useState(24); // default text size in px
-  const [theme, setTheme] = useState<ThemeMode>('light');
   const [script, setScript] = useState<ScriptMode>('gujarati');
   const [copied, setCopied] = useState(false);
 
@@ -18,21 +17,6 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
   const displayLyrics = script === 'gujlish' ? toGujlish(bhajan.lyrics) : bhajan.lyrics;
   const authorName = bhajan.author?.gujaratiName || 'શ્યામ સત્સંગ મંડળ';
   const displayAuthor = script === 'gujlish' ? toGujlish(authorName) : authorName;
-
-
-
-  // Theme styling definitions
-  const getThemeClasses = () => {
-    switch (theme) {
-      case 'dark':
-        return 'bg-ink-900 text-white border-ink-800 shadow-soft';
-      case 'sepia':
-        return 'bg-[#fcf5e5] text-[#432818] border-[#e8dfc7] shadow-soft';
-      case 'light':
-      default:
-        return 'bg-white/60 backdrop-blur-xl text-ink-900 border-white/60 shadow-soft';
-    }
-  };
 
 
 
@@ -106,7 +90,7 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
         }
       `}</style>
 
-      <div className={`print-sheet rounded-3xl border transition-colors duration-300 overflow-hidden font-gujarati ${getThemeClasses()}`}>
+      <div className="print-sheet rounded-[2.5rem] border bg-sand-50/60 backdrop-blur-xl border-white/60 shadow-sm transition-colors duration-300 overflow-hidden font-gujarati">
         {/* Printable Header (Visible ONLY during print/PDF generation) */}
         <div className="hidden print:block print-header-banner">
           <p className="print-org-name">॥ શ્યામ સત્સંગ મંડળ સંતવાણી પદ સંગ્રહ ॥</p>
@@ -121,8 +105,6 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
           editHref="/admin/bhajans"
           fontSize={fontSize}
           setFontSize={setFontSize}
-          theme={theme}
-          setTheme={setTheme}
           script={script}
           setScript={setScript}
         />

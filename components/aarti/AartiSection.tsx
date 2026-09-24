@@ -5,7 +5,7 @@ import { Flame, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { formatHtmlContent } from '@/lib/renderFormattedText';
 import { toGujlish } from '@/lib/transliterate';
-import { ReaderToolbar, ThemeMode, ScriptMode } from '@/components/ui/ReaderToolbar';
+import { ReaderToolbar, ScriptMode } from '@/components/ui/ReaderToolbar';
 
 interface AartiItem {
   id: string;
@@ -23,20 +23,7 @@ interface AartiSectionProps {
 export function AartiSection({ aartis = [] }: AartiSectionProps) {
   const [activeTab, setActiveTab] = useState<string>(aartis[0]?.id || '');
   const [fontSize, setFontSize] = useState(24);
-  const [theme, setTheme] = useState<ThemeMode>('light');
   const [script, setScript] = useState<ScriptMode>('gujarati');
-
-  const getThemeClasses = () => {
-    switch (theme) {
-      case 'dark':
-        return 'bg-ink-900 text-white border-ink-800 shadow-soft';
-      case 'sepia':
-        return 'bg-[#fcf5e5] text-[#432818] border-[#e8dfc7] shadow-soft';
-      case 'light':
-      default:
-        return 'bg-sand-50/60 backdrop-blur-xl text-ink-900 border-white/60 shadow-sm';
-    }
-  };
 
   if (!aartis || aartis.length === 0) {
     return null; // Don't render section if no aartis exist
@@ -138,7 +125,7 @@ export function AartiSection({ aartis = [] }: AartiSectionProps) {
       )}
 
       {/* Main Aarti Card Display */}
-      <div className={`print-sheet relative overflow-hidden rounded-[2.5rem] border transition-colors duration-300 ${getThemeClasses()}`}>
+      <div className="print-sheet relative overflow-hidden bg-sand-50/60 backdrop-blur-xl rounded-[2.5rem] border border-white/60 shadow-sm transition-colors duration-300">
         {/* Corner Decorative Ornaments (Minimal) */}
         <div className="no-print absolute top-0 right-0 w-32 h-32 bg-sand-200/50 rounded-bl-full pointer-events-none blur-2xl" />
         <div className="no-print absolute bottom-0 left-0 w-32 h-32 bg-sand-200/50 rounded-tr-full pointer-events-none blur-2xl" />
@@ -155,8 +142,6 @@ export function AartiSection({ aartis = [] }: AartiSectionProps) {
             editHref="/admin/aartis"
             fontSize={fontSize}
             setFontSize={setFontSize}
-            theme={theme}
-            setTheme={setTheme}
             script={script}
             setScript={setScript}
           />
