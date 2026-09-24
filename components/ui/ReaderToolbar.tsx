@@ -33,8 +33,14 @@ export function ReaderToolbar({
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useReactState(false);
 
+  const [isAdmin, setIsAdmin] = useReactState(false);
+
   useEffect(() => {
     setMounted(true);
+    fetch('/api/auth/check')
+      .then(res => res.json())
+      .then(data => setIsAdmin(!!data.authenticated))
+      .catch(() => setIsAdmin(false));
   }, []);
 
   const handleCopy = () => {
@@ -99,7 +105,7 @@ export function ReaderToolbar({
           <span>{script === 'gujarati' ? 'Gujlish (English Script)' : 'ગુજરાતી લખાણ'}</span>
         </button>
 
-        {editHref && (
+        {isAdmin && editHref && (
           <Link
             href={editHref}
             className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-maroon-900 hover:bg-maroon-950 text-gold-300 text-xs font-bold border border-gold-500/30 transition"

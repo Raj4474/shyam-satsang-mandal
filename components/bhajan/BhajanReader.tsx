@@ -102,7 +102,7 @@ export function BhajanReader({ bhajan }: { bhajan: Bhajan }) {
           title={displayTitle}
           author={displayAuthor}
           textToCopy={`${displayTitle}\n\n${displayLyrics}\n\n― ${displayAuthor}`}
-          editHref="/admin/bhajans"
+          editHref={`/admin/bhajans?edit=${bhajan.id}`}
           fontSize={fontSize}
           setFontSize={setFontSize}
           script={script}

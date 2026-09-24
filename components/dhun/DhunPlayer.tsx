@@ -76,7 +76,7 @@ export function DhunPlayer({ dhun }: { dhun: Dhun }) {
         <ReaderToolbar
           title={displayTitle}
           textToCopy={`${displayTitle}\n\n${displayLyrics}`}
-          editHref="/admin/dhuns"
+          editHref={`/admin/dhuns?edit=${dhun.id}`}
           fontSize={fontSize}
           setFontSize={setFontSize}
           script={script}

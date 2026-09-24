@@ -139,7 +139,7 @@ export function AartiSection({ aartis = [] }: AartiSectionProps) {
           <ReaderToolbar
             title={displayTitle}
             textToCopy={`${displayTitle}\n\n${displayLyrics}`}
-            editHref="/admin/aartis"
+            editHref={`/admin/aartis?edit=${currentAarti.id}`}
             fontSize={fontSize}
             setFontSize={setFontSize}
             script={script}

@@ -90,6 +90,20 @@ export default function ManageDhunsPage() {
     setModalOpen(true);
   };
 
+  useEffect(() => {
+    if (dhuns.length > 0 && !modalOpen && !editingId) {
+      const params = new URLSearchParams(window.location.search);
+      const editId = params.get('edit');
+      if (editId) {
+        const target = dhuns.find((d) => d.id === editId);
+        if (target) {
+          handleEdit(target);
+          window.history.replaceState({}, '', '/admin/dhuns');
+        }
+      }
+    }
+  }, [dhuns, modalOpen, editingId]);
+
   const handleDelete = async (id: string) => {
     if (!confirm('શું તમે આ ધૂન કાઢી નાખવા માંગો છો?')) return;
     try {

@@ -57,6 +57,8 @@ export default function ManageBhajansPage() {
     loadData(searchQuery);
   }, [searchQuery]);
 
+
+
   const handleOpenAdd = () => {
     setEditingId(null);
     setForm({
@@ -96,6 +98,20 @@ export default function ManageBhajansPage() {
     });
     setModalOpen(true);
   };
+
+  useEffect(() => {
+    if (bhajans.length > 0 && !modalOpen && !editingId) {
+      const params = new URLSearchParams(window.location.search);
+      const editId = params.get('edit');
+      if (editId) {
+        const target = bhajans.find((b) => b.id === editId);
+        if (target) {
+          handleEdit(target);
+          window.history.replaceState({}, '', '/admin/bhajans');
+        }
+      }
+    }
+  }, [bhajans, modalOpen, editingId]);
 
   const handleDelete = async (id: string) => {
     if (!confirm('શું તમે આ ભજન કાઢી નાખવા માંગો છો? (Delete Bhajan?)')) return;

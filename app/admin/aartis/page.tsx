@@ -90,6 +90,20 @@ export default function ManageAartisPage() {
     setModalOpen(true);
   };
 
+  useEffect(() => {
+    if (aartis.length > 0 && !modalOpen && !editingId) {
+      const params = new URLSearchParams(window.location.search);
+      const editId = params.get('edit');
+      if (editId) {
+        const target = aartis.find((a) => a.id === editId);
+        if (target) {
+          handleEdit(target);
+          window.history.replaceState({}, '', '/admin/aartis');
+        }
+      }
+    }
+  }, [aartis, modalOpen, editingId]);
+
   const handleDelete = async (id: string) => {
     if (!window.confirm('શું તમે ખરેખર આ આરતી ડીલીટ કરવા માંગો છો?')) return;
     
