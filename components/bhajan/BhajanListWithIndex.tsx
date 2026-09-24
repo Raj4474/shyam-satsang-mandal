@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bhajan, Author } from '@/types';
-import { Search, Sparkles, ArrowRight, Filter, BookOpen, Users } from 'lucide-react';
+import { Search, Sparkles, ArrowRight, Filter, BookOpen, Users, ChevronDown } from 'lucide-react';
 import { isEnglishOrMixed, getSearchQueries } from '@/lib/transliterate';
 
 const GUJARATI_ALPHABET = [
@@ -109,50 +109,33 @@ export function BhajanListWithIndex({ bhajans, authors }: BhajanListWithIndexPro
 
       {/* 2. Alphabetical Index Bar (ક-ખ-ગ Indexing) */}
       <div className="glass-panel rounded-[2.5rem] p-6 sm:p-8 space-y-5">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-ink-900 font-bold text-sm">
             <BookOpen className="w-4 h-4 text-saffron-600" />
             <span>સંપૂર્ણ ક-ખ-ગ અનુક્રમણિકા</span>
           </div>
-          {selectedLetter !== 'બધા' && (
-            <button
-              onClick={() => setSelectedLetter('બધા')}
-              className="text-xs font-semibold text-ink-500 hover:text-ink-900 transition-colors"
+          
+          <div className="relative w-full sm:w-auto min-w-[200px]">
+            <select
+              value={selectedLetter}
+              onChange={(e) => setSelectedLetter(e.target.value)}
+              className="w-full appearance-none bg-sand-100 border border-sand-200 text-ink-900 text-sm font-bold rounded-full px-5 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-saffron-500 cursor-pointer shadow-sm transition-all hover:bg-sand-200"
             >
-              તમામ પત્રો જુઓ
-            </button>
-          )}
-        </div>
-
-        <div className="flex flex-wrap gap-2 sm:gap-2.5 justify-start items-center">
-          {GUJARATI_ALPHABET.map((letter) => {
-            const count = letterCounts[letter] || 0;
-            const isSelected = selectedLetter === letter;
-            const hasBhajans = letter === 'બધા' || count > 0;
-
-            return (
-              <button
-                key={letter}
-                onClick={() => setSelectedLetter(letter)}
-                disabled={!hasBhajans && letter !== 'બધા'}
-                className={`px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-1.5 ${
-                  isSelected
-                    ? 'bg-saffron-600 text-white shadow-soft scale-105'
-                    : hasBhajans
-                    ? 'bg-sand-100 hover:bg-sand-200 text-ink-800'
-                    : 'bg-sand-50 text-ink-300 border border-sand-200 cursor-not-allowed opacity-50'
-                }`}
-                title={hasBhajans ? `${letter} થી શરૂ થતા ${count} ભજન` : `${letter} થી કોઈ ભજન નથી`}
-              >
-                <span>{letter}</span>
-                {letter !== 'બધા' && count > 0 && (
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${isSelected ? 'bg-sand-50/20 text-white' : 'bg-ink-200/50 text-ink-700'}`}>
-                    {count}
-                  </span>
-                )}
-              </button>
-            );
-          })}
+              {GUJARATI_ALPHABET.map((letter) => {
+                const count = letterCounts[letter] || 0;
+                const hasBhajans = letter === 'બધા' || count > 0;
+                
+                return (
+                  <option key={letter} value={letter} disabled={!hasBhajans && letter !== 'બધા'}>
+                    {letter} {letter !== 'બધા' && count > 0 ? `(${count})` : ''}
+                  </option>
+                );
+              })}
+            </select>
+            <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-ink-500">
+              <ChevronDown className="w-4 h-4" />
+            </div>
+          </div>
         </div>
       </div>
 
